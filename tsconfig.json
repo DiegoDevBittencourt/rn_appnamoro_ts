@@ -1,10 +1,46 @@
 // prettier-ignore
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
+  "extends": "@tsconfig/react-native/tsconfig.json", /* Recommended React Native TSConfig base */
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+    "strict": true, //due dotenv
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "baseUrl": "src",
+    "paths": {
+      "~/*": [
+        "*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@config/*": [
+        "./config/*"
+      ],
+      "@constants/*": [
+        "./constants/*"
+      ],
+      "@modals/*": [
+        "./modals/*"
+      ],
+      "@routes/*": [
+        "./routes/*"
+      ],
+      "@screens/*": [
+        "./screens/*"
+      ],
+      "@store/*": [
+        "./store/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ]
+    }
+  },
+  "typeRoots": [
+    "./types"
+  ] // <------ you need to add this
 }

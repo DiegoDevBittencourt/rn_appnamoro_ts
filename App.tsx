@@ -1,117 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React from 'react';
+import firebase from "firebase/compat/app";
+import { createStore, applyMiddleware } from 'redux';
+import { Provider, useSelector } from 'react-redux';
+import reduxThunk from 'redux-thunk'
+import { ThemeProvider } from 'styled-components';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  REACT_APP_FIREBASE_API_KEY,
+  REACT_APP_FIREBASE_AUTHDOMAIN,
+  REACT_APP_FIREBASE_DATABASEURL,
+  REACT_APP_FIREBASE_PROJECTID,
+  REACT_APP_FIREBASE_STORAGEBUCKET,
+  REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  REACT_APP_FIREBASE_APPID,
+  REACT_APP_FIREBASE_MEASUREMENTID
+} from '@env';
+import { Loader } from '@components/index';
+import { theme } from '@constants/StyledComponentsTheme';
+import reducers from '@store/reducers';
+// import Application from './src';
 
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+const firebaseConfig = {
+  apiKey: REACT_APP_FIREBASE_API_KEY,
+  authDomain: REACT_APP_FIREBASE_AUTHDOMAIN,
+  databaseURL: REACT_APP_FIREBASE_DATABASEURL,
+  projectId: REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: REACT_APP_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: REACT_APP_FIREBASE_MESSAGINGSENDERID,
+  appId: REACT_APP_FIREBASE_APPID,
+  measurementId: REACT_APP_FIREBASE_MEASUREMENTID
 };
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore().settings({ experimentalForceLongPolling: true });
+}
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+EStyleSheet.build(theme);
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+export default function App() {
+
+  // const TheLoader = () => {
+  //   const { showLoader } = useSelector(state => state.utils);
+  //   return showLoader && <Loader />
+  // }
+
+  return <ThemeProvider theme={theme}>
+    <Provider store={createStore(reducers, {}, applyMiddleware(reduxThunk))}>
+
+      {/* <TheLoader /> */}
+
+      {/* <Application /> */}
+
+    </Provider>
+  </ThemeProvider>
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
