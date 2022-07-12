@@ -7,6 +7,8 @@ module.exports = {
         moduleName: "@env",
         path: ".env",
       },
+    ],
+    [
       'babel-plugin-root-import',
       {
         paths: [

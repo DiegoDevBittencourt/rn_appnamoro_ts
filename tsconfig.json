@@ -4,7 +4,7 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     /* Completeness */
-    "strict": true, //due dotenv
+    "strict": true, //dotenv
     "skipLibCheck": true, /* Skip type checking all .d.ts files. */
     "baseUrl": "src",
     "paths": {
@@ -40,7 +40,7 @@
       ]
     }
   },
-  "typeRoots": [
+  "typeRoots": [ //dotenv
     "./types"
   ] // <------ you need to add this
 }

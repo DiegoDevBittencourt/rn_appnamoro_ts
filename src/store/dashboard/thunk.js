@@ -1,4 +1,3 @@
-import * as dashboardActions from './actions';
 import * as utilsActions from '@store/utils/actions';
 import * as authThunk from '@store/auth/thunk';
 import * as errorThunk from '@store/error/thunk';
@@ -6,6 +5,7 @@ import * as userThunk from '@store/user/thunk';
 import api from '@utils/api';
 import { decodeJwtToken } from '~/utils/functions';
 import { successNotification } from '~/utils/notifications';
+import { updateUploadingImagesPreview } from './reducer';
 
 export function uploadImageToServer(imageData, selectedFile) {
     return async (dispatch, getState) => {
@@ -17,16 +17,16 @@ export function uploadImageToServer(imageData, selectedFile) {
                 onUploadProgress: e => {
 
                     const progress = parseInt(Math.round((e.loaded * 100) / e.total));
-                    dispatch(dashboardActions.updateUploadingImagesPreview({ ...selectedFile, progress }));
+                    dispatch(updateImagesPreview({ ...selectedFile, progress }));
                 }
             });
 
-            dispatch(dashboardActions.updateUploadingImagesPreview(null, selectedFile.id));
+            dispatch(removeFromImagesPreviewById(selectedFile.id));
             dispatch(userThunk.getUserData(true));
 
         } catch (err) {
 
-            dispatch(dashboardActions.updateUploadingImagesPreview(null, selectedFile.id));
+            dispatch(removeFromImagesPreviewById(selectedFile.id));
             dispatch(errorThunk.handleThunkError(err));
         }
     }
@@ -124,5 +124,37 @@ export function deleteAccount() {
         } catch (err) {
             dispatch(errorThunk.handleThunkError(err));
         }
+    }
+}
+
+export function updateImagesPreview(payload) {
+    return async (dispatch, getState) => {
+
+        const { uploadingImagesPreview } = getState().dashboard;
+
+        if (uploadingImagesPreview.some(item => item.id === payload.id)) {
+            const newArr = uploadingImagesPreview?.map(item => {
+                if (item?.id === payload?.id)
+                    return { ...item, progress: payload?.progress };
+
+                return item;
+            });
+
+            dispatch(updateUploadingImagesPreview(newArr));
+        }
+        else {
+            const newArr = [...uploadingImagesPreview, payload];
+            dispatch(updateUploadingImagesPreview(newArr));
+        }
+    }
+}
+
+export function removeFromImagesPreviewById(id) {
+    return async (dispatch, getState) => {
+
+        const { uploadingImagesPreview } = getState().dashboard;
+
+        const newArr = uploadingImagesPreview.filter(item => item.id !== id);
+        dispatch(updateUploadingImagesPreview(newArr));
     }
 }
