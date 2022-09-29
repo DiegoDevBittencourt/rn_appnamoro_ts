@@ -3,9 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { modalOptions } from '@constants/ModalOptions';
 import { View } from 'react-native';
-// import Login from '@screens/Login';
+import Login from '@screens/Login';
 // import Dashboard from '@screens/Dashboard';
-import ForgotPasswordModal from '@modals/ForgotPassword';
+// import ForgotPasswordModal from '@modals/ForgotPassword';
 // import SignUpModal from '@modals/SignUp';
 // import TurnOnLocationModal from '@modals/TurnOnLocation';
 // import GenericYesNoModal from '@modals/GenericYesNoModal';
@@ -16,7 +16,7 @@ import ForgotPasswordModal from '@modals/ForgotPassword';
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
 
-const Login = () => <View style={{ backgroundColor: 'orange', flex: 1 }} />
+// const Login = () => <View style={{ backgroundColor: 'orange', flex: 1 }} />
 
 const MainStackNavigator = () => {
     return <MainStack.Navigator screenOptions={{ headerShown: false, headerMode: 'screen' }} initialRouteName='Dashboard' >
@@ -29,7 +29,7 @@ const MainStackNavigator = () => {
 const RootStackNavigator = () => {
     return <RootStack.Navigator screenOptions={{ headerShown: false, headerMode: 'float' }} >
         <RootStack.Screen name="MainStack" component={MainStackNavigator} />
-        <RootStack.Screen options={modalOptions} name="ForgotPasswordModal" component={ForgotPasswordModal} />
+        {/* <RootStack.Screen options={modalOptions} name="ForgotPasswordModal" component={ForgotPasswordModal} /> */}
         {/*   <RootStack.Screen options={modalOptions} name="SignUpModal" component={SignUpModal} />
             <RootStack.Screen options={modalOptions} name="CompleteYourProfileModal" component={CompleteYourProfileModal} />
             <RootStack.Screen options={modalOptions} name="TurnOnLocationModal" component={TurnOnLocationModal} />

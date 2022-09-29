@@ -7,31 +7,6 @@ import { decodeJwtToken } from '~/utils/functions';
 import { successNotification } from '~/utils/notifications';
 import { updateUploadingImagesPreview } from './reducer';
 
-export function uploadImageToServer(imageData, selectedFile) {
-    return async (dispatch, getState) => {
-
-        const { id: userId } = getState().user.userData;
-
-        try {
-            await api.post(`users/user_images/${userId}`, imageData, {
-                onUploadProgress: e => {
-
-                    const progress = parseInt(Math.round((e.loaded * 100) / e.total));
-                    dispatch(updateImagesPreview({ ...selectedFile, progress }));
-                }
-            });
-
-            dispatch(removeFromImagesPreviewById(selectedFile.id));
-            dispatch(userThunk.getUserData(true));
-
-        } catch (err) {
-
-            dispatch(removeFromImagesPreviewById(selectedFile.id));
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
-
 export function sendNewUserContact(name, email, subject, message) {
     return async (dispatch) => {
 
@@ -122,6 +97,31 @@ export function deleteAccount() {
                 .then(() => dispatch(authThunk.signOut()));
 
         } catch (err) {
+            dispatch(errorThunk.handleThunkError(err));
+        }
+    }
+}
+
+export function uploadImageToServer(imageData, selectedFile) {
+    return async (dispatch, getState) => {
+
+        const { id: userId } = getState().user.userData;
+
+        try {
+            await api.post(`users/user_images/${userId}`, imageData, {
+                onUploadProgress: e => {
+
+                    const progress = parseInt(Math.round((e.loaded * 100) / e.total));
+                    dispatch(updateImagesPreview({ ...selectedFile, progress }));
+                }
+            });
+
+            dispatch(removeFromImagesPreviewById(selectedFile.id));
+            dispatch(userThunk.getUserData(true));
+
+        } catch (err) {
+
+            dispatch(removeFromImagesPreviewById(selectedFile.id));
             dispatch(errorThunk.handleThunkError(err));
         }
     }

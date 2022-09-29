@@ -40,6 +40,10 @@
       ]
     }
   },
+  "types": [
+    "jest",
+    "styled-components-react-native"
+  ],
   "typeRoots": [ //dotenv
     "./types"
   ] // <------ you need to add this
