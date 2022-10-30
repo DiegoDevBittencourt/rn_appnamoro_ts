@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { modalOptions } from '@constants/ModalOptions';
-import { View } from 'react-native';
 import Login from '@screens/Login';
 // import Dashboard from '@screens/Dashboard';
 // import ForgotPasswordModal from '@modals/ForgotPassword';
@@ -15,8 +14,6 @@ import Login from '@screens/Login';
 
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
-
-// const Login = () => <View style={{ backgroundColor: 'orange', flex: 1 }} />
 
 const MainStackNavigator = () => {
     return <MainStack.Navigator screenOptions={{ headerShown: false, headerMode: 'screen' }} initialRouteName='Dashboard' >

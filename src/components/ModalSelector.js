@@ -6,11 +6,11 @@ import GenericRowView from './GenericRowView';
 import P from './P';
 
 const MainContainer = styled(GenericRowView)`
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
     width: 100%;
     margin-top: 10px;
-    background-color: ${props => props.theme.$lightGray};
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    background-color: ${({ theme }) => theme.$lightGray};
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
     padding: 1px 4px;
     align-items: center;
     justify-content: center;

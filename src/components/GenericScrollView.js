@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ScrollViewCustom = styled.ScrollView`
     width: 100%;
     height: 100%;
-    background-color: ${props => props.theme.$darkerBackgroundColor};
+    background-color: ${({ theme }) => theme.$darkerBackgroundColor};
 `;
 
 export default GenericScrollView = (props) => {

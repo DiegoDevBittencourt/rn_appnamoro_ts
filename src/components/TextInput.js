@@ -8,10 +8,10 @@ const Input = styled.TextInput`
     height: 100%;
     background-color: white;
     border-width: 1px;
-    border-color: ${props => props.theme.$lightGray};
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    border-color: ${({ theme }) => theme.$lightGray};
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
     padding-left: 10px;
-    color: ${props => props.theme.$textColor};
+    color: ${({ theme }) => theme.$textColor};
 `;
 
 export default TextInput = (props) => {

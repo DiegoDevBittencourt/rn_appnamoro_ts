@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import GenericRowView from './GenericRowView';
 import AwesomeIcon from './AwesomeIcon';
@@ -9,10 +9,10 @@ const ButtonContainer = styled(GenericRowView)`
 `;
 
 const Button = styled.TouchableHighlight`
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
     width: 100%;
     justify-content: center;
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
     margin-top: 10px;
 `;
 
@@ -25,11 +25,11 @@ const IconContainer = styled.View`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: ${props => props.theme.$heightOfGenericComponent + 10}px;
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    width: ${({ theme }) => theme.$heightOfGenericComponent + 10}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
 `;
 
-export default SocialButton = (props) => {
+const SocialButton = (props: any) => {
     return <Button style={props.customButtonStyle} underlayColor={props.underlayColor} onPress={() => props.onPress()}>
         <ButtonContainer>
 
@@ -45,3 +45,16 @@ export default SocialButton = (props) => {
         </ButtonContainer>
     </Button>
 }
+
+export default SocialButton
+// const Text = styled.Text`
+//     font-weight: 100;
+//     font-size: 25px;
+//     color: ${({ theme }) => theme.$textColor};
+// `;
+
+// const H2 = (props: any) => {
+//     return <Text {...props}>{props.children}</Text>
+// }
+
+// export default H2;

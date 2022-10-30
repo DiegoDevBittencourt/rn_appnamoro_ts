@@ -16,8 +16,8 @@ const IconContainer = styled.View`
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: ${props => props.theme.$heightOfGenericComponent}px;
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    width: ${({ theme }) => theme.$heightOfGenericComponent}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
 `;
 
 export default AwesomeIcon = ({ customIconContainer, evilIcon, iconName, customIconStyle, solidIcon }) => {

@@ -1,4 +1,3 @@
-// export { default as SocialButton } from './SocialButton';
 // export { default as LineTextLine } from './LineTextLine';
 export { default as Loader } from './Loader';
 export { default as AppLogo } from './AppLogo';
@@ -20,9 +19,10 @@ export { default as ImageBackgroundContainer } from './ImageBackgroundContainer'
 // export { default as RoundCloseButton } from './RoundCloseButton';
 // export { default as RoundImage } from './RoundImage';
 // export { default as GenericDataList } from './GenericDataList';
-// export { default as H2 } from './H2';
+export { default as H2 } from './H2';
 // export { default as H3 } from './H3';
 // export { default as P } from './P';
+export { default as SocialButton } from './SocialButton';
 // export { default as GenericRowView } from './GenericRowView';
 // export { default as GenericColumnView } from './GenericColumnView';
 // export { default as GenericContainer } from './GenericContainer';

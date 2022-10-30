@@ -17,8 +17,8 @@ const IconContainer = styled.View`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: ${props => props.theme.$heightOfGenericComponent + 10}px;
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    width: ${({ theme }) => theme.$heightOfGenericComponent + 10}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
 `;
 
 export default RoundIconButton = (props) => {

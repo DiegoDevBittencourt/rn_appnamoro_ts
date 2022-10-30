@@ -11,7 +11,7 @@ const ForgotPasswordContainer = styled(GenericRowView)`
 
 const Text = styled(P)`
     font-size: 14px;
-    color: ${props => props.theme.$green};
+    color: ${({ theme }) => theme.$green};
 `;
 
 export default function ForgotPassword(props) {

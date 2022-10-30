@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import styled from 'styled-components';
 
-import * as authThunk from '@store/auth/thunk';
+// import * as authThunk from '@store/auth/thunk';
 import SocialButtons from './SocialButtons';
-import ForgotPassword from './ForgotPassword';
-import SignUpNow from './SignUpNow';
+// import ForgotPassword from './ForgotPassword';
+// import SignUpNow from './SignUpNow';
 import { theme } from '@constants/StyledComponentsTheme';
 import { dangerNotification } from '~/utils/notifications'
 import { H2, LineTextLine, TextInputRightIconButton, GenericAppButton } from '@components/index';
@@ -36,7 +36,7 @@ const Styles = EStyleSheet.create({
 
 export const LoginCardContainer = styled.View`
     padding: 30px 15px 15px;
-    border-radius: ${props => props.theme.$mediumBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$mediumBorderRadius}px;
     text-align: center;
     background-color: white;
     flex-direction: column;
@@ -59,7 +59,7 @@ export default function LoginCard(props) {
 
         if (email && password) {
             const userData = { email, password };
-            dispatch(authThunk.signInLocal(userData));
+            // dispatch(authThunk.signInLocal(userData));
         }
         else
             dangerNotification("Preencha os campos Email e Senha");
@@ -70,7 +70,7 @@ export default function LoginCard(props) {
         <H2>Entrar</H2>
 
         <SocialButtons />
-
+        {/*
         <LineTextLine text={'ou'} />
 
         <TextInputRightIconButton
@@ -95,11 +95,11 @@ export default function LoginCard(props) {
             onButtonPress={() => setPasswordSecureTextEntry(!passwordSecureTextEntry)}
         />
 
-        <GenericAppButton customButtonStyle={{ marginTop: 20 }} textButton={'ENTRAR'} onPress={localLogin} />
+        <GenericAppButton customButtonStyle={{ marginTop: 20 }} textButton={'ENTRAR'} onPress={localLogin} /> */}
 
-        <ForgotPassword {...props} />
+        {/* <ForgotPassword {...props} />
 
-        <SignUpNow {...props} />
+        <SignUpNow {...props} /> */}
 
     </LoginCardContainer>
 }

@@ -6,11 +6,11 @@ import AwesomeIcon from './AwesomeIcon';
 import TextInput from './TextInput';
 
 const MainContainer = styled(GenericRowView)`
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
     width: 100%;
     margin-top: 10px;
-    background-color: ${props => props.theme.$lightGray};
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    background-color: ${({ theme }) => theme.$lightGray};
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
     padding: 0.5px;
     align-items: center;
     align-self: center;
@@ -18,11 +18,11 @@ const MainContainer = styled(GenericRowView)`
 
 const Button = styled.TouchableHighlight`
     height: 100%;
-    width: ${props => props.theme.$heightOfGenericComponent}px;
+    width: ${({ theme }) => theme.$heightOfGenericComponent}px;
     justify-content: center;
-    background-color: ${props => props.theme.$lightGray};
-    border-top-right-radius: ${props => props.theme.$smallBorderRadius}px;
-    border-bottom-right-radius: ${props => props.theme.$smallBorderRadius}px;
+    background-color: ${({ theme }) => theme.$lightGray};
+    border-top-right-radius: ${({ theme }) => theme.$smallBorderRadius}px;
+    border-bottom-right-radius: ${({ theme }) => theme.$smallBorderRadius}px;
 `;
 
 export default TextInputRightIconButton = (props) => {

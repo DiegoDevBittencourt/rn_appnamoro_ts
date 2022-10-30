@@ -12,7 +12,7 @@ const Container = styled(GenericColumnView)`
 
 const Title = styled(P)`
     margin: 0 0 3px 10px;
-    color: ${props => props.theme.$lightTextColor};
+    color: ${({ theme }) => theme.$lightTextColor};
 `;
 
 export default SectionTitle = ({ titleText, customTitleStyle }) => {

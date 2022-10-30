@@ -13,7 +13,7 @@ const Text1 = styled(P)`
 `;
 
 const Text2 = styled(P)`
-    color: ${props => props.theme.$green};
+    color: ${({ theme }) => theme.$green};
     font-size: 14px;
 `;
 

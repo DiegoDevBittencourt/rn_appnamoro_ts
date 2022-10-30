@@ -15,12 +15,12 @@ const UserImageContainer = styled.View`
     background-color: white;
     border-width: 0.5px;
     border-style: dotted;
-    border-color: ${props => props.theme.$lightGray};
+    border-color: ${({ theme }) => theme.$lightGray};
 `;
 
 const Button = styled.TouchableHighlight`
     flex: 1;
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
 `;
 
 const ButtonContainer = styled.View`
@@ -32,7 +32,7 @@ const ButtonContainer = styled.View`
 const UserImage = styled.Image`
     height: 100%;
     width: 100%;
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
 `;
 
 const ProgressBarContainer = styled.View`

@@ -17,7 +17,7 @@ const MessageContainer = styled.View`
     min-width: 60px;
     max-width: 80%;
     justify-content: center;
-    border-radius: ${props => props.theme.$bigBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
     padding: 15px;
 `;
 

@@ -11,7 +11,7 @@ const MainContainer = styled(GenericRowView)`
     height: 60px;
     background-color: white;
     border-top-width: 0.4px;
-    border-color: ${props => props.theme.$lightGray};
+    border-color: ${({ theme }) => theme.$lightGray};
     justify-content: center;
     align-items: center;
 `;

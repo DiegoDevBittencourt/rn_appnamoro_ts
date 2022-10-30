@@ -23,7 +23,7 @@ const MatchItemButton = styled.TouchableHighlight`
     background-color: white;
     padding: 2px;
     border-width: 2px;
-    border-color: ${props => props.theme.$primaryColor};
+    border-color: ${({ theme }) => theme.$primaryColor};
 `;
 
 export default function MatchItem({ matchedProfile }) {

@@ -12,7 +12,7 @@ const TipContainer = styled.View`
 const TipText = styled.Text`
     font-size: 16px;
     margin-bottom: 6px;
-    color: ${props => props.theme.$textColor};
+    color: ${({ theme }) => theme.$textColor};
     padding: 30px;
 `;
 

@@ -8,12 +8,12 @@ import GenericRowView from './GenericRowView';
 import P from './P';
 
 const Button = styled.TouchableHighlight`
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
     width: 100%;
     margin-bottom: -1px;
     background-color: white;
     border-width: 1px;
-    border-color: ${props => props.theme.$lightGray};
+    border-color: ${({ theme }) => theme.$lightGray};
 `;
 
 const ButtonContainer = styled(GenericRowView)`
@@ -25,7 +25,7 @@ const ButtonContainer = styled(GenericRowView)`
 const LeftText = styled(P)`
     flex: 1;
     margin-left: 10px;
-    color: ${props => props.theme.$lightTextColor};
+    color: ${({ theme }) => theme.$lightTextColor};
     font-size: 14px;
     text-align: left;
 `;
@@ -33,7 +33,7 @@ const LeftText = styled(P)`
 const RightText = styled(P)`
     flex: 1;
     margin-right: 10px;
-    color: ${props => props.theme.$lightTextColor};
+    color: ${({ theme }) => theme.$lightTextColor};
     font-size: 13px;
     text-align: right;
 `;
@@ -41,7 +41,7 @@ const RightText = styled(P)`
 const Awesome5Icon = styled(FontAwesome)`
     font-size: 14px;
     margin-right: 5px;
-    color: ${props => props.theme.$gray};
+    color: ${({ theme }) => theme.$gray};
 `;
 
 export default ConfigItem = ({ leftText,

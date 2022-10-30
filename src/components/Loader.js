@@ -11,7 +11,7 @@ const LoaderContainer = styled(GenericRowView)`
     justify-content: center;
     align-items: center;
     elevation: 99999;/*this is because elevation are working like z-index*/
-    background-color: ${props => props.theme.$opaqueBlackBackgroundColor};
+    background-color: ${({ theme }) => theme.$opaqueBlackBackgroundColor};
 `;
 
 export default Loader = () => {

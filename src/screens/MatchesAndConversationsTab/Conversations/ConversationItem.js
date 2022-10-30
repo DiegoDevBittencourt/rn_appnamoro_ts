@@ -11,7 +11,7 @@ const Button = styled.TouchableHighlight`
     height: 80px;
     width: 100%;
     border-top-width: 0.7px;
-    border-top-color: ${props => props.theme.$lightGray};
+    border-top-color: ${({ theme }) => theme.$lightGray};
 `;
 
 const MainContainer = styled(GenericRowView)`

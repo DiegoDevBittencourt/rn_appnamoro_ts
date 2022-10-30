@@ -10,7 +10,7 @@ import SearchingByEditor from './SearchingByEditor';
 import ConfigToolbar from '@screens/ProfileTab/Configuration/ConfigToolbar';
 
 const MainContainer = styled(GenericContainer)`
-    background-color: ${props => props.theme.$darkerBackgroundColor};
+    background-color: ${({ theme }) => theme.$darkerBackgroundColor};
 `;
 
 export default function ConfigurationEditor(props) {

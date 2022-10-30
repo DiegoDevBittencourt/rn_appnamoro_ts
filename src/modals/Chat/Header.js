@@ -10,7 +10,7 @@ const HeaderContainer = styled(GenericRowView)`
     height: 80px;
     border-bottom-width: 0.9px;
     align-items: center;
-    border-color: ${props => props.theme.$lightGray};
+    border-color: ${({ theme }) => theme.$lightGray};
 `;
 
 const PCustom = styled(P)`
@@ -20,7 +20,7 @@ const PCustom = styled(P)`
 `;
 
 const RightButtonsContainer = styled(GenericColumnView)`
-    width: ${props => props.theme.$heightOfGenericComponent}px;
+    width: ${({ theme }) => theme.$heightOfGenericComponent}px;
     height: 100%;
     align-items: center;
 `;

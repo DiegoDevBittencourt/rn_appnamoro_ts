@@ -1,12 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 const Text = styled.Text`
     font-weight: 100;
     font-size: 25px;
-    color: ${props => props.theme.$textColor};
+    color: ${({ theme }) => theme.$textColor};
 `;
 
-export default H2 = (props) => {
+const H2 = (props: any) => {
     return <Text {...props}>{props.children}</Text>
 }
+
+export default H2;

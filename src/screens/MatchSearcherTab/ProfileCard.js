@@ -15,7 +15,7 @@ const ProfileCardInfo = styled(GenericColumnView)`
     align-items: center;
     background-color: white;
     elevation: 5;
-    border-radius: ${props => props.theme.$bigBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
 `;
 
 const NameAge = styled(H2)`
@@ -35,7 +35,7 @@ const Distance = styled(H3)`
 const UserImage = styled.Image`
     flex: 1;
     height: 100%;
-    border-radius: ${props => props.theme.$bigBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
     resize-mode: cover;
 `;
 

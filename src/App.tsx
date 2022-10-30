@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from "firebase";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Provider, useSelector } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 
 if (__DEV__) { import('@config/ReactotronConfig').then(() => console.warn('Reactotron Configured')) };
@@ -12,7 +12,7 @@ import Routes from '@routes/index';
 import { Loader } from '@components/index';
 import { theme } from '@constants/StyledComponentsTheme';
 import { useUtils } from '~/store/utils/reducer';
-import { getCurrentRoutName, navigationRef } from '@routes/RootNavigationRef';
+import { navigationRef } from '@routes/RootNavigationRef';
 import {
   REACT_APP_FIREBASE_API_KEY,
   REACT_APP_FIREBASE_AUTHDOMAIN,
@@ -48,7 +48,6 @@ EStyleSheet.build(theme);
 export default function App() {
 
   const TheLoader = () => {
-    console.log('getCurrentRoutName', getCurrentRoutName());
     const { showLoader } = useSelector(useUtils);
     return showLoader ? <Loader /> : null
   }

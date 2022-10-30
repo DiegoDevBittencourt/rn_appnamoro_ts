@@ -9,7 +9,7 @@ import ProfileSelector from './ProfileSelector';
 import ControlButtons from './ControlButtons';
 
 const MainContainer = styled(GenericContainer)`
-    background-color: ${props => props.theme.$darkerBackgroundColor};
+    background-color: ${({ theme }) => theme.$darkerBackgroundColor};
 `;
 
 export default function MatchSearcherTab() {

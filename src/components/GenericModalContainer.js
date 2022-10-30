@@ -16,7 +16,7 @@ const ModalContainer = styled(GenericColumnView)`
     max-height: 100%;
     width: auto;
     background-color: white;
-    border-radius: ${props => props.theme.$mediumBorderRadius}px;
+    border-radius: ${({ theme }) => theme.$mediumBorderRadius}px;
 `;
 
 const HeaderContainer = styled.View`

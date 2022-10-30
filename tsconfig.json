@@ -40,6 +40,9 @@
       ]
     }
   },
+  "include": [
+    "src/**/*"
+  ],
   "types": [
     "jest",
     "styled-components-react-native"

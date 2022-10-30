@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Text = styled.Text`
     font-weight: 100;
     font-size: 21px;
-    color: ${props => props.theme.$lightTextColor};
+    color: ${({ theme }) => theme.$lightTextColor};
 `;
 
 export default H3 = (props) => {

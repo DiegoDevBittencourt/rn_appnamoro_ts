@@ -16,7 +16,7 @@ const UserImage = styled.Image`
     resize-mode: cover;
     border-radius: 300px;
     border-width: 3px;
-    border-color: ${props => props.theme.$lightGray};
+    border-color: ${({ theme }) => theme.$lightGray};
 `;
 
 const P1 = styled(P)`
@@ -30,7 +30,7 @@ const P1 = styled(P)`
 const P2 = styled(P)`
     margin-top: 2px;
     font-size: 13px;
-    color: ${props => props.theme.$gray};
+    color: ${({ theme }) => theme.$gray};
     text-align: center;
 `;
 

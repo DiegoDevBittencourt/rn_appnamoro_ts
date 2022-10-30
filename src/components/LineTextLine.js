@@ -14,7 +14,7 @@ const Line = styled.View`
     width: 40%;
     margin-top: 4px;
     border-bottom-width: 1px;
-    border-color: ${props => props.theme.$lightTextColor};
+    border-color: ${({ theme }) => theme.$lightTextColor};
 `;
 
 export default LineTextLine = ({ text }) => {

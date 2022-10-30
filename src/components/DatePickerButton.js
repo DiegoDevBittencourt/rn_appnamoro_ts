@@ -9,11 +9,11 @@ import { maxBirthdayDate } from '@constants/GenericConstants';
 import { theme } from '@constants/StyledComponentsTheme';
 
 const MainContainer = styled(GenericRowView)`
-    height: ${props => props.theme.$heightOfGenericComponent}px;
+    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
     width: 100%;
     margin-top: 10px;
-    background-color: ${props => props.theme.$lightGray};
-    border-radius: ${props => props.theme.$smallBorderRadius}px;
+    background-color: ${({ theme }) => theme.$lightGray};
+    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
     padding: 1px 4px;
     align-items: center;
     justify-content: center;
@@ -25,8 +25,8 @@ const Button = styled.TouchableHighlight`
     align-items: flex-start;
     justify-content: center;
     background-color: white;
-    border-top-right-radius: ${props => props.theme.$smallBorderRadius}px;
-    border-bottom-right-radius: ${props => props.theme.$smallBorderRadius}px;
+    border-top-right-radius: ${({ theme }) => theme.$smallBorderRadius}px;
+    border-bottom-right-radius: ${({ theme }) => theme.$smallBorderRadius}px;
     padding-left: 9px;
 `;
 
