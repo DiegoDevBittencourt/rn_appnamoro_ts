@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 const AppLogoImage = styled.Image`
     max-width: 450px;
@@ -13,6 +13,8 @@ const AppLogoImage = styled.Image`
     align-items: center;    
 `;
 
-export default AppLogo = ({ source }) => {
+const AppLogo = (source: string) => {
     return <AppLogoImage source={source} />
 }
+
+export default AppLogo;

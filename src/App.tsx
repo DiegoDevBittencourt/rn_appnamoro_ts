@@ -57,7 +57,7 @@ export default function App() {
       <TheLoader />
 
       <NavigationContainer ref={navigationRef}>
-        <Routes />
+        {/* <Routes /> */}
       </NavigationContainer>
 
     </Provider>

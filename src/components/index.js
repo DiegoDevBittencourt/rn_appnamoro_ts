@@ -1,7 +1,7 @@
 // export { default as LineTextLine } from './LineTextLine';
 export { default as Loader } from './Loader';
 export { default as AppLogo } from './AppLogo';
-// export { default as AwesomeIcon } from './AwesomeIcon';
+export { default as AwesomeIcon } from './AwesomeIcon';
 // export { default as TextInputRightIconButton } from './TextInputRightIconButton';
 // export { default as GenericAppButton } from './GenericAppButton';
 // export { default as GenericModalContainer } from './GenericModalContainer';
