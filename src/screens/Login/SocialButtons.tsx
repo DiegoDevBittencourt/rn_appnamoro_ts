@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { useDispatch } from 'react-redux';
 // import { AccessToken, LoginManager } from 'react-native-fbsdk';
 // import { REACT_APP_GOOGLE_CLIENT_ID } from '@env';
@@ -84,7 +84,7 @@ export default function SocialButtons() {
             text={'Facebook'}
             iconName={'facebook'} />
 
-        <SocialButton onPress={() => null}//googleLogin}
+        <SocialButton onPress={googleLogin}
             customButtonStyle={{ backgroundColor: '#d9534f' }}
             underlayColor={'#ca2c27'}
             text={'Google'}

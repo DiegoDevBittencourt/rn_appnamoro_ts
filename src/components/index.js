@@ -1,8 +1,7 @@
-// export { default as LineTextLine } from './LineTextLine';
+export { default as LineTextLine } from './LineTextLine';
 export { default as Loader } from './Loader';
 export { default as AppLogo } from './AppLogo';
 export { default as AwesomeIcon } from './AwesomeIcon';
-// export { default as TextInputRightIconButton } from './TextInputRightIconButton';
 // export { default as GenericAppButton } from './GenericAppButton';
 // export { default as GenericModalContainer } from './GenericModalContainer';
 export { default as GenericScrollView } from './GenericScrollView';
@@ -26,4 +25,5 @@ export { default as SocialButton } from './SocialButton';
 // export { default as GenericRowView } from './GenericRowView';
 // export { default as GenericColumnView } from './GenericColumnView';
 // export { default as GenericContainer } from './GenericContainer';
-// export { default as TextInput } from './TextInput';
+export { default as TextInputRightIconButton } from './TextInputRightIconButton';
+export { default as TextInput } from './TextInput';

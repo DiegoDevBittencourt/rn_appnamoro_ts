@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 // import * as authThunk from '@store/auth/thunk';
 import SocialButtons from './SocialButtons';
@@ -9,7 +9,7 @@ import SocialButtons from './SocialButtons';
 // import SignUpNow from './SignUpNow';
 import { theme } from '@constants/StyledComponentsTheme';
 import { dangerNotification } from '~/utils/notifications'
-import { H2, LineTextLine, TextInputRightIconButton, GenericAppButton } from '@components/index';
+import { H2, LineTextLine, TextInputRightIconButton/*, GenericAppButton*/ } from '@components/index';
 
 const Styles = EStyleSheet.create({
     '@media (min-width: 0)': {
@@ -46,14 +46,14 @@ export const LoginCardContainer = styled.View`
     margin: 10px 0 30px;
 `;
 
-export default function LoginCard(props) {
+export default function LoginCard() {
 
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState('diego6d@hotmail.com');
     const [password, setPassword] = useState('123456789a');
     const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
-    const tiPassword = useRef();
+    const tiPassword = useRef<any>();
 
     const localLogin = () => {
 
@@ -70,36 +70,35 @@ export default function LoginCard(props) {
         <H2>Entrar</H2>
 
         <SocialButtons />
-        {/*
+
         <LineTextLine text={'ou'} />
 
         <TextInputRightIconButton
             placeholder={'Email'}
             value={email}
             returnKeyType={'next'}
-            onChangeText={(value) => setEmail(value)}
-            onSubmitEditing={() => tiPassword.current.focus()}
+            onChangeText={setEmail}
+            onSubmitEditing={() => tiPassword?.current.focus()}
         />
-
-        <TextInputRightIconButton
+        {/* <TextInputRightIconButton
             reference={tiPassword}
             placeholder={'Senha'}
             showRightButton
             solidIcon
             value={password}
-            onChangeText={(value) => setPassword(value)}
+            onChangeText={setPassword}
             customIconStyle={{ color: theme.$gray }}
             iconName={passwordSecureTextEntry ? 'eye-slash' : 'eye'}
             secureTextEntry={passwordSecureTextEntry}
             underlayColor={theme.$lightGray}
             onButtonPress={() => setPasswordSecureTextEntry(!passwordSecureTextEntry)}
-        />
+        /> */}
 
-        <GenericAppButton customButtonStyle={{ marginTop: 20 }} textButton={'ENTRAR'} onPress={localLogin} /> */}
+        {/* <GenericAppButton customButtonStyle={{ marginTop: 20 }} textButton={'ENTRAR'} onPress={localLogin} /> */}
 
-        {/* <ForgotPassword {...props} />
+        {/* <ForgotPassword />
 
-        <SignUpNow {...props} /> */}
+        <SignUpNow /> */}
 
     </LoginCardContainer>
 }

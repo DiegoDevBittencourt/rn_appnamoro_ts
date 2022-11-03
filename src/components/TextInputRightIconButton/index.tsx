@@ -1,31 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import GenericRowView from './GenericRowView';
-import AwesomeIcon from './AwesomeIcon';
-import TextInput from './TextInput';
+import AwesomeIcon from '../AwesomeIcon';
+import TextInput from '../TextInput';
+import { ViewStyle } from 'react-native';
+import { Button, MainContainer } from './style';
+import { TextInputRightIconButtonType } from './interface';
 
-const MainContainer = styled(GenericRowView)`
-    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
-    width: 100%;
-    margin-top: 10px;
-    background-color: ${({ theme }) => theme.$lightGray};
-    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
-    padding: 0.5px;
-    align-items: center;
-    align-self: center;
-`;
-
-const Button = styled.TouchableHighlight`
-    height: 100%;
-    width: ${({ theme }) => theme.$heightOfGenericComponent}px;
-    justify-content: center;
-    background-color: ${({ theme }) => theme.$lightGray};
-    border-top-right-radius: ${({ theme }) => theme.$smallBorderRadius}px;
-    border-bottom-right-radius: ${({ theme }) => theme.$smallBorderRadius}px;
-`;
-
-export default TextInputRightIconButton = (props) => {
+const TextInputRightIconButton = (props: TextInputRightIconButtonType) => {
 
     const {
         placeholder,
@@ -72,3 +53,5 @@ export default TextInputRightIconButton = (props) => {
         }
     </MainContainer >
 }
+
+export default TextInputRightIconButton;
