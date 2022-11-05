@@ -1,6 +1,6 @@
 import React from 'react';
 import { AwesomeIconType } from './interface';
-import { Awesome5Icon, EvilIcon, IconContainer } from './style';
+import { Awesome5Icon, EvilIcon, IconContainer } from './styles';
 
 const AwesomeIcon = ({ customIconContainer, evilIcon, iconName, customIconStyle, solidIcon }: AwesomeIconType) => {
     return <IconContainer style={customIconContainer}>

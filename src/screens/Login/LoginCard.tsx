@@ -80,7 +80,7 @@ export default function LoginCard() {
             onChangeText={setEmail}
             onSubmitEditing={() => tiPassword?.current.focus()}
         />
-        {/* <TextInputRightIconButton
+        <TextInputRightIconButton
             reference={tiPassword}
             placeholder={'Senha'}
             showRightButton
@@ -92,7 +92,7 @@ export default function LoginCard() {
             secureTextEntry={passwordSecureTextEntry}
             underlayColor={theme.$lightGray}
             onButtonPress={() => setPasswordSecureTextEntry(!passwordSecureTextEntry)}
-        /> */}
+        />
 
         {/* <GenericAppButton customButtonStyle={{ marginTop: 20 }} textButton={'ENTRAR'} onPress={localLogin} /> */}
 

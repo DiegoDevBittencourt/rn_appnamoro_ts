@@ -1,7 +1,7 @@
 import React from 'react';
 
 import P from '../P';
-import { Line, LineTextLineContainer } from './style';
+import { Line, LineTextLineContainer } from './styles';
 
 const LineTextLine = ({ text }: { text: string }) => {
     return <LineTextLineContainer>

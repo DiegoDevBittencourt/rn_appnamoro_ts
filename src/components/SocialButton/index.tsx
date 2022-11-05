@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import AwesomeIcon from '../AwesomeIcon';
-import { Button, ButtonContainer, ButtonText, IconContainer } from './style';
+import { Button, ButtonContainer, ButtonText, IconContainer } from './styles';
 
 const SocialButton = (props: any) => {
     return <Button style={props.customButtonStyle} underlayColor={props.underlayColor} onPress={() => props.onPress()}>
