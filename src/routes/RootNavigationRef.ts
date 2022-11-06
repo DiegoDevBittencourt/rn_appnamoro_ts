@@ -13,7 +13,7 @@ export function getCurrentRoutName() {
     return navigationRef.current?.getCurrentRoute();
 }
 
-export function push(screen: string, params: any) {
+export function push(screen: string, params?: any) {
     return null
     //navigationRef.navigate({ name: screen });
 }

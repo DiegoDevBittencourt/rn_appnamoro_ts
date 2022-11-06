@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { modalOptions } from '@constants/ModalOptions';
 import Login from '@screens/Login';
+import { FORGOT_PASSWORD_MODAL } from '~/constants/screenNames';
 // import Dashboard from '@screens/Dashboard';
 // import ForgotPasswordModal from '@modals/ForgotPassword';
 // import SignUpModal from '@modals/SignUp';
@@ -26,7 +27,7 @@ const MainStackNavigator = () => {
 const RootStackNavigator = () => {
     return <RootStack.Navigator screenOptions={{ headerShown: false, headerMode: 'float' }} >
         <RootStack.Screen name="MainStack" component={MainStackNavigator} />
-        {/* <RootStack.Screen options={modalOptions} name="ForgotPasswordModal" component={ForgotPasswordModal} /> */}
+        {/* <RootStack.Screen options={modalOptions} name={FORGOT_PASSWORD_MODAL} component={ForgotPasswordModal} /> */}
         {/*   <RootStack.Screen options={modalOptions} name="SignUpModal" component={SignUpModal} />
             <RootStack.Screen options={modalOptions} name="CompleteYourProfileModal" component={CompleteYourProfileModal} />
             <RootStack.Screen options={modalOptions} name="TurnOnLocationModal" component={TurnOnLocationModal} />

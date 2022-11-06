@@ -5,11 +5,12 @@ import styled from 'styled-components/native';
 
 // import * as authThunk from '@store/auth/thunk';
 import SocialButtons from './SocialButtons';
-// import ForgotPassword from './ForgotPassword';
-// import SignUpNow from './SignUpNow';
+import ForgotPassword from './ForgotPassword';
+import SignUpNow from './SignUpNow';
 import { theme } from '@constants/StyledComponentsTheme';
 import { dangerNotification } from '~/utils/notifications'
-import { H2, LineTextLine, TextInputRightIconButton/*, GenericAppButton*/ } from '@components/index';
+import { H2, LineTextLine, TextInputRightIconButton, GenericAppButton } from '@components/index';
+import { LoginCardContainer } from './styles';
 
 const Styles = EStyleSheet.create({
     '@media (min-width: 0)': {
@@ -33,18 +34,6 @@ const Styles = EStyleSheet.create({
         },
     }
 });
-
-export const LoginCardContainer = styled.View`
-    padding: 30px 15px 15px;
-    border-radius: ${({ theme }) => theme.$mediumBorderRadius}px;
-    text-align: center;
-    background-color: white;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    elevation: 10;
-    margin: 10px 0 30px;
-`;
 
 export default function LoginCard() {
 
@@ -78,8 +67,9 @@ export default function LoginCard() {
             value={email}
             returnKeyType={'next'}
             onChangeText={setEmail}
-            onSubmitEditing={() => tiPassword?.current.focus()}
+            onSubmitEditing={() => tiPassword?.current?.focus()}
         />
+
         <TextInputRightIconButton
             reference={tiPassword}
             placeholder={'Senha'}
@@ -94,11 +84,15 @@ export default function LoginCard() {
             onButtonPress={() => setPasswordSecureTextEntry(!passwordSecureTextEntry)}
         />
 
-        {/* <GenericAppButton customButtonStyle={{ marginTop: 20 }} textButton={'ENTRAR'} onPress={localLogin} /> */}
+        <GenericAppButton
+            customButtonStyle={{ marginTop: 20 }}
+            textButton={'ENTRAR'}
+            onPress={localLogin}
+        />
 
-        {/* <ForgotPassword />
+        <ForgotPassword />
 
-        <SignUpNow /> */}
+        <SignUpNow />
 
     </LoginCardContainer>
 }
