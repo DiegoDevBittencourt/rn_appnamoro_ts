@@ -12,6 +12,7 @@ import * as matchThunk from '@store/match/thunk';
 import * as errorThunk from '@store/error/thunk';
 import * as userThunk from '@store/user/thunk';
 import { decodeJwtToken } from '~/utils/functions';
+import { LOGIN_SCREEN } from '~/constants/screenNames';
 
 const unsubscribeFirebaseListeners = [];
 
@@ -68,9 +69,9 @@ export function signOut() {
             dispatch(utilsActions.showLoader(false));
 
             //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
-            //this will make RootNavigationRef.reset('Login') be read more than once, wich will create a non desirable effect
+            //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
             //on Login screen "recreating" it many times
-            RootNavigationRef.getCurrentRoutName() != 'Login' && RootNavigationRef.reset('Login');
+            RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
 
         } catch (err) {
             dispatch(errorThunk.handleThunkError(err));

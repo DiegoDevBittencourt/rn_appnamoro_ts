@@ -3,17 +3,14 @@ import { Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import * as dashboardThunk from '@store/dashboard/thunk';
+// import * as dashboardThunk from '@store/dashboard/thunk';
 import { dangerNotification } from '~/utils/notifications';
 import { emailValidator } from '~/utils/functions';
-import { GenericModalContainer, TextInputRightIconButton, GenericAppButton, P } from '@components/index';
+import { GenericModalContainer, TextInputRightIconButton, GenericAppButton } from '@components/index';
+import { goBack } from "~/routes/RootNavigationRef";
+import { PCustom } from "./styles";
 
-export const PCustom = styled(P)`
-    margin-top: 10px;
-    text-align: center;
-`;
-
-export default function ForgotPassword(props) {
+const ForgotPassword = () => {
 
     const dispatch = useDispatch();
 
@@ -24,13 +21,13 @@ export default function ForgotPassword(props) {
 
             Keyboard.dismiss();
 
-            dispatch(dashboardThunk.sendRecoverPasswordEmail(email)).then(() => props.navigation.goBack());
+            // dispatch(dashboardThunk.sendRecoverPasswordEmail(email)).then(() => goBack());
 
         }
         else dangerNotification('Digite um email válido!');
     }
 
-    return <GenericModalContainer closeButtonPress={() => props.navigation.goBack()} title={'Digite seu email abaixo'}>
+    return <GenericModalContainer closeButtonPress={goBack} title={'Digite seu email abaixo'}>
 
         <TextInputRightIconButton
             placeholder={'Email'}
@@ -40,12 +37,14 @@ export default function ForgotPassword(props) {
         />
 
         <GenericAppButton
-            customButtonStyle={{ margin: 30, width: 'auto' }}
+            customButtonStyle={{ margin: 30, marginBottom: 0, width: 'auto' }}
             textButton={'ENVIAR'}
-            onPress={() => sendRecoverPasswordEmail()}
+            onPress={sendRecoverPasswordEmail}
         />
 
         <PCustom>Enviaremos um e-mail contendo os passos para resetar sua senha!</PCustom>
 
     </GenericModalContainer>
 }
+
+export default ForgotPassword;

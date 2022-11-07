@@ -27,7 +27,7 @@ export default function SignUpFields() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [birthday, setBirthday] = useState(null);
+    const [birthday, setBirthday] = useState('');
     const [gender, setGender] = useState();
     const [searchingBy, setSearchingBy] = useState();
     const [ageRange, setAgeRange] = useState([22, 35]);
@@ -53,8 +53,8 @@ export default function SignUpFields() {
                     email,
                     phone,
                     birthday: convertDateStringFromDDMMYYYYtoMMDDYYYY(birthday),
-                    gender: gender.key,
-                    searchingBy: searchingBy.key,
+                    gender: gender?.key,
+                    searchingBy: searchingBy?.key,
                     ageRange: ageRange[0] + ',' + ageRange[1],
                     maxDistance: maxDistance[0],
                     password,
@@ -85,7 +85,7 @@ export default function SignUpFields() {
             value={firstName}
             returnKeyType={'next'}
             onChangeText={(value) => setFirstName(value)}
-            onSubmitEditing={() => tiLastName.current.focus()}
+            onSubmitEditing={() => tiLastName?.current?.focus()}
         />
 
         <TextInputRightIconButton
@@ -94,7 +94,7 @@ export default function SignUpFields() {
             value={lastName}
             returnKeyType={'next'}
             onChangeText={(value) => setLastName(value)}
-            onSubmitEditing={() => tiEmail.current.focus()}
+            onSubmitEditing={() => tiEmail?.current?.focus()}
         />
 
         <TextInputRightIconButton
@@ -104,7 +104,7 @@ export default function SignUpFields() {
             value={email}
             returnKeyType={'next'}
             onChangeText={(value) => setEmail(value)}
-            onSubmitEditing={() => tiPhone.current.focus()}
+            onSubmitEditing={() => tiPhone?.current?.focus()}
         />
 
         <TextInputRightIconButton
@@ -118,7 +118,7 @@ export default function SignUpFields() {
 
         <DatePickerButton
             selectedDate={birthday}
-            updateSelectedDate={(selectedDate) => setBirthday(selectedDate)}
+            updateSelectedDate={(selectedDate: string) => setBirthday(selectedDate)}
         />
 
         <ModalSelector
@@ -165,7 +165,7 @@ export default function SignUpFields() {
             secureTextEntry={passwordSecureTextEntry}
             underlayColor={$lightGray}
             onButtonPress={() => setPasswordSecureTextEntry(!passwordSecureTextEntry)}
-            onSubmitEditing={() => tiPasswordConfirmation.current.focus()}
+            onSubmitEditing={() => tiPasswordConfirmation?.current.focus()}
         />
 
         <TextInputRightIconButton
