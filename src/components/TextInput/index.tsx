@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from './styles';
 
 const TextInput = (props: any) => {
-    return <Input {...props} />
+    return <Input ref={props?.reference} {...props} />
 }
 
 export default TextInput;

@@ -5,7 +5,7 @@ export interface RNModalSelectorDataType {
 }
 
 export interface ModalSelectorType {
-    selectedItem: RNModalSelectorDataType,
+    selectedItem: RNModalSelectorDataType | undefined,
     title: string,
     data?: any,
     handleChange?: any

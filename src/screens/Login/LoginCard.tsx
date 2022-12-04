@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import styled from 'styled-components/native';
 
 // import * as authThunk from '@store/auth/thunk';
 import SocialButtons from './SocialButtons';

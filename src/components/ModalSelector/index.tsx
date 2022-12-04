@@ -13,7 +13,7 @@ const ModalSelector = ({ selectedItem, title, data, handleChange }: ModalSelecto
         <RNModalSelectorCustom
             data={titleSection.concat(data)}
             supportedOrientations={['portrait']}
-            onChange={handleChange} >
+            onChange={handleChange}>
 
             <TextContainer>
                 <PCustom>{selectedItem?.label || title}</PCustom>

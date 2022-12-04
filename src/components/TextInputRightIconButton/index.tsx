@@ -13,14 +13,10 @@ const TextInputRightIconButton = (props: TextInputRightIconButtonType) => {
         underlayColor,
         customContainerStyle,
         onButtonPress,
-        reference
     } = props;
 
     return <MainContainer style={customContainerStyle}>
-        <TextInput
-            {...props}
-            ref={reference}
-        />
+        <TextInput {...props} />
 
         {
             showRightButton &&

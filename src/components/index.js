@@ -17,7 +17,7 @@ export { default as ImageBackgroundContainer } from './ImageBackgroundContainer'
 export { default as Loader } from './Loader';
 export { default as LineTextLine } from './LineTextLine';
 export { default as ModalSelector } from './ModalSelector';
-// export { default as MultiSlider } from './MultiSlider';
+export { default as MultiSlider } from './MultiSlider';
 export { default as P } from './P';
 // export { default as RoundCloseButton } from './RoundCloseButton';
 // export { default as RoundIconButton } from './RoundIconButton';

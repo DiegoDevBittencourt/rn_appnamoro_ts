@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import * as authThunk from '@store/auth/thunk';
+// import * as authThunk from '@store/auth/thunk';
 import * as Options from '~/utils/options';
 import { theme } from '@constants/StyledComponentsTheme';
 import { convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
@@ -12,9 +12,10 @@ import {
     DatePickerButton,
     ModalSelector,
     MultiSlider,
-    GenericAppButton,
-    GenericColumnView
+    GenericAppButton
 } from '@components/index';
+import { MainContainer } from './styles';
+import { RNModalSelectorDataType } from '~/components/ModalSelector/interface';
 
 export default function SignUpFields() {
 
@@ -28,8 +29,8 @@ export default function SignUpFields() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [birthday, setBirthday] = useState('');
-    const [gender, setGender] = useState();
-    const [searchingBy, setSearchingBy] = useState();
+    const [gender, setGender] = useState<RNModalSelectorDataType>();
+    const [searchingBy, setSearchingBy] = useState<RNModalSelectorDataType>();
     const [ageRange, setAgeRange] = useState([22, 35]);
     const [maxDistance, setMaxDistance] = useState([80]);
     const [password, setPassword] = useState('');
@@ -37,11 +38,11 @@ export default function SignUpFields() {
     const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
     const [passwordConfirmationSecureTextEntry, setPasswordConfirmationSecureTextEntry] = useState(true);
 
-    const tiLastName = useRef();
-    const tiEmail = useRef();
-    const tiPhone = useRef();
-    const tiPassword = useRef();
-    const tiPasswordConfirmation = useRef();
+    const tiLastName = useRef<any>();
+    const tiEmail = useRef<any>();
+    const tiPhone = useRef<any>();
+    const tiPassword = useRef<any>();
+    const tiPasswordConfirmation = useRef<any>();
 
     const createNewAccount = async () => {
         if (password === passwordConfirmation) {
@@ -67,7 +68,7 @@ export default function SignUpFields() {
                     pushNotification: 1
                 });
 
-                dispatch(authThunk.signUp(userData, navigation));
+                // dispatch(authThunk.signUp(userData, navigation));
             }
             else {
                 dangerNotification('Preencha todos os campos antes de continuar.');
@@ -78,7 +79,7 @@ export default function SignUpFields() {
         }
     }
 
-    return <GenericColumnView>
+    return <MainContainer>
 
         <TextInputRightIconButton
             placeholder={'Nome'}
@@ -125,20 +126,20 @@ export default function SignUpFields() {
             title={'Meu gênero'}
             data={Options.genderOptions()}
             selectedItem={gender}
-            handleChange={(selectedItem) => setGender(selectedItem)}
+            handleChange={(selectedItem: any) => setGender(selectedItem)}
         />
 
         <ModalSelector
             title={'Procuro por'}
             data={Options.searchingByOptions()}
             selectedItem={searchingBy}
-            handleChange={(selectedItem) => setSearchingBy(selectedItem)}
+            handleChange={(selectedItem: any) => setSearchingBy(selectedItem)}
         />
 
         <MultiSlider
             title={'Faixa etária'}
             values={ageRange}
-            onValuesChange={(value) => setAgeRange([value[0], value[1]])}
+            onValuesChange={(value: number[]) => setAgeRange([value[0], value[1]])}
             min={18}
             max={55}
         />
@@ -147,7 +148,7 @@ export default function SignUpFields() {
             title={'Distância máxima'}
             values={maxDistance}
             rightText={'km'}
-            onValuesChange={(value) => setMaxDistance(value)}
+            onValuesChange={(value: number[]) => setMaxDistance(value)}
             min={2}
             max={500}
         />
@@ -165,7 +166,7 @@ export default function SignUpFields() {
             secureTextEntry={passwordSecureTextEntry}
             underlayColor={$lightGray}
             onButtonPress={() => setPasswordSecureTextEntry(!passwordSecureTextEntry)}
-            onSubmitEditing={() => tiPasswordConfirmation?.current.focus()}
+            onSubmitEditing={() => tiPasswordConfirmation?.current?.focus()}
         />
 
         <TextInputRightIconButton
@@ -188,5 +189,5 @@ export default function SignUpFields() {
             onPress={createNewAccount}
         />
 
-    </GenericColumnView>
+    </MainContainer>
 }
