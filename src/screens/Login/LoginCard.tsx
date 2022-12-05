@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-// import * as authThunk from '@store/auth/thunk';
+import * as authThunk from '@store/auth/thunk';
 import SocialButtons from './SocialButtons';
 import ForgotPassword from './ForgotPassword';
 import SignUpNow from './SignUpNow';
@@ -47,7 +47,7 @@ export default function LoginCard() {
 
         if (email && password) {
             const userData = { email, password };
-            // dispatch(authThunk.signInLocal(userData));
+            dispatch(authThunk.signInLocal(userData));
         }
         else
             dangerNotification("Preencha os campos Email e Senha");

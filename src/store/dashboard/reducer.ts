@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Dashboard {
-    uploadingImagesPreview: [File] | [],
-    selectedConfigMenu: string,
-    selectedConfigMenuTitle: string;
-}
 
 interface File {
     file: any,
@@ -19,7 +14,13 @@ interface Menu {
     selectedConfigMenuTitle: string,
 }
 
-const INITIAL_STATE: Dashboard = {
+interface DashboardStoreType {
+    uploadingImagesPreview: [File] | [],
+    selectedConfigMenu: string,
+    selectedConfigMenuTitle: string;
+}
+
+const INITIAL_STATE: DashboardStoreType = {
     uploadingImagesPreview: [],
     selectedConfigMenu: '',
     selectedConfigMenuTitle: '',
@@ -49,5 +50,5 @@ export const {
 } = sliceDashboard.actions;
 
 export const useDashboard = (state: any) => {
-    return state.dashboard as Dashboard;
+    return state.dashboard as DashboardStoreType;
 }

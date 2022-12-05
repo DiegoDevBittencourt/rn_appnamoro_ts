@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Auth {
+interface AuthStoreType {
     isAuthenticated: boolean,
     isCheckingIfTokenHasExpired: boolean,
     accessToken: string | null;
 }
 
-const INITIAL_STATE: Auth = {
+const INITIAL_STATE: AuthStoreType = {
     isAuthenticated: false,
     isCheckingIfTokenHasExpired: false,
     accessToken: null
@@ -44,5 +44,5 @@ export const {
 } = sliceAuth.actions;
 
 export const useAuth = (state: any) => {
-    return state.auth as Auth;
+    return state.auth as AuthStoreType;
 }

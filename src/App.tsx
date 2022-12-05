@@ -5,7 +5,7 @@ import { Provider, useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 
-if (!__DEV__) { import('@config/ReactotronConfig').then(() => console.warn('Reactotron Configured')) };
+if (__DEV__) { import('@config/ReactotronConfig').then(() => console.warn('Reactotron Configured')) };
 
 import store from '~/store';
 import Routes from '@routes/index';

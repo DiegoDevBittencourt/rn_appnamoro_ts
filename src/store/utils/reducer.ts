@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Utils {
+interface UtilsStoreType {
     showLoader: boolean;
     isGeolocationEnabled: boolean;
     isGettingLocation: boolean;
 }
 
-const INITIAL_STATE: Utils = {
+const INITIAL_STATE: UtilsStoreType = {
     showLoader: false,
     isGeolocationEnabled: false,
     isGettingLocation: false
@@ -36,5 +36,5 @@ export const {
 } = sliceUtils.actions;
 
 export const useUtils = (state: any) => {
-    return state.utils as Utils;
+    return state.utils as UtilsStoreType;
 }

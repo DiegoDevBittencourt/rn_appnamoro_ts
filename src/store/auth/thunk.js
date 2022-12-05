@@ -1,20 +1,48 @@
 import { Keyboard } from 'react-native';
-import firebase from "firebase/compat/app";
+// import firebase from "firebase/compat/app";
+// import firebase from "firebase";
 import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '@utils/api';
-import * as RootNavigationRef from '@routes/RootNavigationRef';
-import * as utilsActions from '@store/utils/actions';
-import * as matchActions from '@store/match/actions';
-import * as authActions from '@store/auth/actions';
-import * as userActions from '@store/user/actions';
-import * as matchThunk from '@store/match/thunk';
-import * as errorThunk from '@store/error/thunk';
-import * as userThunk from '@store/user/thunk';
+// import * as RootNavigationRef from '@routes/RootNavigationRef';
+import * as utilsActions from '@store/utils/reducer';
+import * as userActions from '@store/user/reducer';
+import * as authActions from '@store/auth/reducer';
+// import * as errorThunk from '@store/error/thunk';
+// import * as userThunk from '@store/user/thunk';
+// import * as matchActions from '@store/match/actions';
+// import * as matchThunk from '@store/match/thunk';
+// import { LOGIN_SCREEN } from '~/constants/screenNames';
 import { decodeJwtToken } from '~/utils/functions';
-import { LOGIN_SCREEN } from '~/constants/screenNames';
 
 const unsubscribeFirebaseListeners = [];
+
+export function signInLocal(userData) {
+    return async dispatch => {
+        try {
+
+            dispatch(utilsActions.showLoader(true));
+            console.log('aaa')
+            const res = await api.post('account/signin', userData);
+            console.log('bbb')
+            dispatch(setAccessTokenOnStorageAndRedux(res?.data?.token));
+            dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res?.data?.token)?.id }));
+
+            dispatch(utilsActions.showLoader(false));
+
+            Keyboard.dismiss();
+            console.log('hhhh')
+            dispatch(authActions.signInAction());
+
+            // dispatch(userThunk.getUserData(true, true, true, true));
+
+            // RootNavigationRef.reset('Dashboard');
+
+        } catch (err) {
+            // dispatch(errorThunk.handleThunkError(err));
+        }
+    }
+}
 
 export function setAccessTokenOnStorageAndRedux(accessToken) {
     return async dispatch => {
@@ -23,149 +51,122 @@ export function setAccessTokenOnStorageAndRedux(accessToken) {
     }
 }
 
-export function checkIfTokenHasExpired() {
-    return async (dispatch, getState) => {
-        try {
+// export function checkIfTokenHasExpired() {
+//     return async (dispatch, getState) => {
+//         try {
 
-            dispatch(authActions.isCheckingIfTokenHasExpiredStatus(true));
+//             dispatch(authActions.isCheckingIfTokenHasExpiredStatus(true));
 
-            const accessToken = getState().auth.accessToken;
+//             const accessToken = getState().auth.accessToken;
 
-            if (accessToken) {
+//             if (accessToken) {
 
-                await api.post('account/check_if_token_has_expired', {});
+//                 await api.post('account/check_if_token_has_expired', {});
 
-                dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
+//                 dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
 
-                dispatch(userThunk.getUserData(true, true, true, true));
+//                 dispatch(userThunk.getUserData(true, true, true, true));
 
-            } else {
-                dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
-                dispatch(signOut());
-            }
+//             } else {
+//                 dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
+//                 dispatch(signOut());
+//             }
 
-        } catch (err) {
-            dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
+//         } catch (err) {
+//             dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }
 
-export function signOut() {
-    return async (dispatch) => {
-        try {
-            unsubscribeFirebaseListeners.map(item => item());
+// export function signOut() {
+//     return async (dispatch) => {
+//         try {
+//             unsubscribeFirebaseListeners.map(item => item());
 
-            await AsyncStorage.setItem('accessToken', '');
+//             await AsyncStorage.setItem('accessToken', '');
 
-            firebase.auth().signOut();
+//             firebase.auth().signOut();
 
-            dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(false));
-            dispatch(matchActions.updateMatchedProfilesArray([]));
+//             dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(false));
+//             dispatch(matchActions.updateMatchedProfilesArray([]));
 
-            dispatch(setAccessTokenOnStorageAndRedux(''));
-            dispatch(authActions.signOutAction());
+//             dispatch(setAccessTokenOnStorageAndRedux(''));
+//             dispatch(authActions.signOutAction());
 
-            dispatch(utilsActions.showLoader(false));
+//             dispatch(utilsActions.showLoader(false));
 
-            //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
-            //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
-            //on Login screen "recreating" it many times
-            RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
+//             //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
+//             //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
+//             //on Login screen "recreating" it many times
+//             RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
 
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-            dispatch(setAccessTokenOnStorageAndRedux(''));
-        }
-    }
-}
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//             dispatch(setAccessTokenOnStorageAndRedux(''));
+//         }
+//     }
+// }
 
-export function signUp(userData, navigation) {
-    return async (dispatch) => {
+// export function signUp(userData, navigation) {
+//     return async (dispatch) => {
 
-        try {
+//         try {
 
-            dispatch(utilsActions.showLoader(true));
+//             dispatch(utilsActions.showLoader(true));
 
-            const res = await api.post('account/signup', userData);
+//             const res = await api.post('account/signup', userData);
 
-            navigation.goBack();
+//             navigation.goBack();
 
-            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
+//             dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
 
-            dispatch(authActions.signUpAction());
+//             dispatch(authActions.signUpAction());
 
-            dispatch(utilsActions.showLoader(false));
+//             dispatch(utilsActions.showLoader(false));
 
-            RootNavigationRef.reset('Dashboard');
+//             RootNavigationRef.reset('Dashboard');
 
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }
 
-export function signInLocal(userData) {
-    return async dispatch => {
-        try {
+// export function signInOauth(oauthAccessToken, type) {
+//     return async (dispatch) => {
 
-            dispatch(utilsActions.showLoader(true));
+//         try {
 
-            const res = await api.post('account/signin', userData);
+//             dispatch(utilsActions.showLoader(true));
 
-            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
-            dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res.data.token).id }));
+//             let res;
 
-            dispatch(utilsActions.showLoader(false));
+//             switch (type) {
+//                 case 'facebook':
+//                     res = await api.post('account/facebook', { access_token: oauthAccessToken });
+//                     break;
+//                 default:
+//                     res = await api.post('account/google', { access_token: oauthAccessToken });
+//                     break;
+//             }
 
-            Keyboard.dismiss();
+//             dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
 
-            dispatch(authActions.signInAction());
+//             dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res.data.token).id }));
 
-            dispatch(userThunk.getUserData(true, true, true, true));
+//             dispatch(utilsActions.showLoader(false));
 
-            RootNavigationRef.reset('Dashboard');
+//             Keyboard.dismiss();
 
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
+//             dispatch(authActions.signInAction());
 
-export function signInOauth(oauthAccessToken, type) {
-    return async (dispatch) => {
+//             dispatch(userThunk.getUserData(true, true, true, true));
 
-        try {
+//             RootNavigationRef.reset('Dashboard');
 
-            dispatch(utilsActions.showLoader(true));
-
-            let res;
-
-            switch (type) {
-                case 'facebook':
-                    res = await api.post('account/facebook', { access_token: oauthAccessToken });
-                    break;
-                default:
-                    res = await api.post('account/google', { access_token: oauthAccessToken });
-                    break;
-            }
-
-            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
-
-            dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res.data.token).id }));
-
-            dispatch(utilsActions.showLoader(false));
-
-            Keyboard.dismiss();
-
-            dispatch(authActions.signInAction());
-
-            dispatch(userThunk.getUserData(true, true, true, true));
-
-            RootNavigationRef.reset('Dashboard');
-
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }
