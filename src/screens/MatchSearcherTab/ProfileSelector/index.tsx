@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import SwipeCards from 'react-native-swipe-cards';
+// import SwipeCards from 'react-native-swipe-cards';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ProfileCard from '../ProfileCard';
@@ -24,7 +24,7 @@ export default function ProfileSelector() {
     }, []);
 
     return <MainContainer>
-        <SwipeCards
+        {/* <SwipeCards
             ref={swipeCardRef}
             keyExtractor={(item: any) => item.id.toString()}
             cards={matchSearcherProfiles}
@@ -47,6 +47,6 @@ export default function ProfileSelector() {
             maybeStyle={{ borderColor: $lightBlue }}
             maybeTextStyle={{ color: $lightBlue }}
             handleMaybe={(cardData: any) => isSuperLikeAvailable && handleLikeCurrentProfile(true, cardData)}
-        />
+        /> */}
     </MainContainer>
 }

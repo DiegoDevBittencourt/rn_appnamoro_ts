@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import { dangerNotification } from '~/utils/notifications';
 import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
 import * as Options from '~/utils/options';

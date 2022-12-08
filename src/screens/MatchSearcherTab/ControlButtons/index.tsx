@@ -7,7 +7,7 @@ import { checkIfSuperLikeIsAvailable } from '~/utils/functions';
 import { ignoreCurrentProfile, likeCurrentProfile } from '../MatchSearcherFunctions';
 import { updateIsSuperLikeAvailable, useMatch } from '~/store/match/reducer';
 import { MainContainer } from './styles';
-import { useUsers } from '~/store/user/reducer';
+import { useUsers } from '~/store/users/reducer';
 
 export default function ControlButtons({ currentProfile }: any) {
 

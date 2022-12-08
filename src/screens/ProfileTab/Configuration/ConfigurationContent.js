@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { theme } from '@constants/StyledComponentsTheme';
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import * as dashboardActions from '@store/dashboard/actions';
 import {
     SectionTitle,

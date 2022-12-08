@@ -7,7 +7,7 @@ import * as RootNavigationRef from '@routes/RootNavigationRef';
 import * as utilsActions from '@store/utils/actions';
 import * as userActions from '@store/user/actions';
 import * as errorThunk from '@store/error/thunk';
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import * as matchThunk from '@store/match/thunk';
 
 Geocoder.init(REACT_APP_GEOCODE_API_KEY, { language: 'pt-br' });

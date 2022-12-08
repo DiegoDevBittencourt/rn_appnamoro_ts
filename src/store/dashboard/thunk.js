@@ -1,7 +1,7 @@
 import * as utilsActions from '@store/utils/actions';
 import * as authThunk from '@store/auth/thunk';
 import * as errorThunk from '@store/error/thunk';
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import api from '@utils/api';
 import { decodeJwtToken } from '~/utils/functions';
 import { successNotification } from '~/utils/notifications';

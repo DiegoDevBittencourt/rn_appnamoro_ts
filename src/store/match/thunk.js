@@ -1,5 +1,5 @@
 // import * as RootNavigationRef from '@routes/RootNavigationRef';
-import { updateUserDataOnRedux } from '../user/reducer';
+import { updateUserDataOnRedux } from '../users/reducer';
 import { removeProfileFromMatchSearcher } from './reducer';
 // import * as utilsActions from '@store/utils/actions';
 // import * as errorThunk from '@store/error/thunk';

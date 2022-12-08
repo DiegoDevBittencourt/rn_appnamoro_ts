@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import { theme } from '@constants/StyledComponentsTheme';
 import { GenericContainer, Toolbar, GenericScrollView } from '@components/index';
 import PicturesEditor from './PicturesEditor';

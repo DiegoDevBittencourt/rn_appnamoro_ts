@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import { P, ConfigItem, GenericScrollView } from '@components/index';
 
 const PCustom = styled(P)`

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import api from '@utils/api';
 // import * as RootNavigationRef from '@routes/RootNavigationRef';
 import * as utilsActions from '@store/utils/reducer';
-import * as userActions from '@store/user/reducer';
+import * as userActions from '~/store/users/reducer';
 import * as authActions from '@store/auth/reducer';
 // import * as errorThunk from '@store/error/thunk';
 // import * as userThunk from '@store/user/thunk';
@@ -22,16 +22,16 @@ export function signInLocal(userData) {
         try {
 
             dispatch(utilsActions.showLoader(true));
-            console.log('aaa')
+
             const res = await api.post('account/signin', userData);
-            console.log('bbb')
+
             dispatch(setAccessTokenOnStorageAndRedux(res?.data?.token));
             dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res?.data?.token)?.id }));
 
             dispatch(utilsActions.showLoader(false));
 
             Keyboard.dismiss();
-            console.log('hhhh')
+
             dispatch(authActions.signInAction());
 
             // dispatch(userThunk.getUserData(true, true, true, true));

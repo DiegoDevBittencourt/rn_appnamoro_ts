@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import { GenericAppButton, TextInputRightIconButton, GenericContainer } from '@components/index';
 
 export default function PhoneEditor({ navigation }) {

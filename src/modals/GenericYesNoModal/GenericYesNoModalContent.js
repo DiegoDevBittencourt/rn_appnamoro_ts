@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import * as dashboardThunk from '@store/dashboard/thunk';
 import * as matchThunk from '@store/match/thunk';
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import { GenericRowView, GenericColumnView, P, GenericAppButton } from '@components/index';
 import { handleError } from '~/utils/functions';
 

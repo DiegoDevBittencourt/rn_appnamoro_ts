@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 
-import * as userThunk from '@store/user/thunk';
+import * as userThunk from '~/store/users/thunk';
 import * as Options from '~/utils/options';
 import {
     TextInputRightIconButton,
