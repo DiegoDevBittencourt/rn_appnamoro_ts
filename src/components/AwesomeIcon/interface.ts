@@ -1,7 +1,5 @@
-import { ViewStyle } from 'react-native';
-
 export interface AwesomeIconType {
-    customIconContainer?: ViewStyle,
+    customIconContainer?: any,
     evilIcon?: boolean,
     iconName?: string,
     customIconStyle?: any,

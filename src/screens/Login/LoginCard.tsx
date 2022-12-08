@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { useNavigation } from '@react-navigation/native';
 
-import * as authThunk from '@store/auth/thunk';
 import SocialButtons from './SocialButtons';
 import ForgotPassword from './ForgotPassword';
 import SignUpNow from './SignUpNow';
@@ -10,6 +10,8 @@ import { theme } from '@constants/StyledComponentsTheme';
 import { dangerNotification } from '~/utils/notifications'
 import { H2, LineTextLine, TextInputRightIconButton, GenericAppButton } from '@components/index';
 import { LoginCardContainer } from './styles';
+import { signInLocal } from '@store/auth/thunk';
+import { push } from "~/routes/RootNavigationRef";
 
 const Styles = EStyleSheet.create({
     '@media (min-width: 0)': {
@@ -37,6 +39,7 @@ const Styles = EStyleSheet.create({
 export default function LoginCard() {
 
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const [email, setEmail] = useState('diego6d@hotmail.com');
     const [password, setPassword] = useState('123456789a');
@@ -44,13 +47,13 @@ export default function LoginCard() {
     const tiPassword = useRef<any>();
 
     const localLogin = () => {
-
-        if (email && password) {
-            const userData = { email, password };
-            dispatch(authThunk.signInLocal(userData));
-        }
-        else
-            dangerNotification("Preencha os campos Email e Senha");
+        push('Dashboard');
+        // if (email && password) {
+        //     const userData = { email, password };
+        //     dispatch(signInLocal(userData));
+        // }
+        // else
+        //     dangerNotification("Preencha os campos Email e Senha");
     }
 
     return <LoginCardContainer style={Styles.loginCardContainer}>

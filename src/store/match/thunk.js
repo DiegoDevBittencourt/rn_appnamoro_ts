@@ -1,46 +1,25 @@
-import * as RootNavigationRef from '@routes/RootNavigationRef';
-import * as matchActions from './actions';
-import * as userActions from '@store/user/actions';
-import * as utilsActions from '@store/utils/actions';
-import * as errorThunk from '@store/error/thunk';
-import * as firebaseThunk from '@store/firebase/thunk';
-import * as userThunk from '@store/user/thunk';
-import api from '@utils/api';
-import { calculateDistanceFromLatLonInKm, calculateAge } from '~/utils/functions';
+// import * as RootNavigationRef from '@routes/RootNavigationRef';
+import { updateUserDataOnRedux } from '../user/reducer';
+import { removeProfileFromMatchSearcher } from './reducer';
+// import * as utilsActions from '@store/utils/actions';
+// import * as errorThunk from '@store/error/thunk';
+// import * as firebaseThunk from '@store/firebase/thunk';
+// import * as userThunk from '@store/user/thunk';
+// import api from '@utils/api';
+// import { calculateDistanceFromLatLonInKm, calculateAge } from '~/utils/functions';
 
-export function getMatchedProfiles() {
-    return async (dispatch, getState) => {
-        //get only profiles that was already matched with current user
-
-        const userState = getState().user;
-
-        try {
-            const res = await api.get(`users/get_match_profiles/${userState.userData.id}`, {});
-
-            res.data.map(item => {
-                item.age = calculateAge(new Date(item.birthday))
-                item.distance = parseInt(calculateDistanceFromLatLonInKm(
-                    userState.userData.currentLongitude,
-                    userState.userData.currentLatitude,
-                    item.lastLongitude,
-                    item.lastLatitude
-                ))
-            });
-
-            dispatch(matchActions.updateMatchedProfilesArray(res.data));
-
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
+export function ignoreCurrentProfile(profileId) {
+    return dispatch => {
+        dispatch(removeProfileFromMatchSearcher({ profileId }));
+        dispatch(getNextProfileForTheMatchSearcher());
     }
 }
 
-export function cleanMatchSearcherArrayAndGetNextProfile(shouldGetProfilesForMatchSearcher) {
+export function likeCurrentProfile(profile, superLike) {
     return dispatch => {
-        dispatch(matchActions.removeAllIdsFromProfileIdsAlreadyDownloaded());
-        dispatch(matchActions.removeProfileFromMatchSearcher(null, true));
-
-        shouldGetProfilesForMatchSearcher && dispatch(getNextProfileForTheMatchSearcher());
+        superLike && dispatch(updateUserDataOnRedux({ lastTimeSuperLikeWasUsed: new Date() }));
+        dispatch(removeProfileFromMatchSearcher({ profileId: profile.id }));
+        dispatch(getNextProfileForTheMatchSearcher());
     }
 }
 
@@ -54,7 +33,7 @@ export function getNextProfileForTheMatchSearcher() {
         try {
             if (!isGettingProfileForTheMatchSearcher && matchSearcherProfiles.length < 2 && isGeolocationEnabled) {
 
-                dispatch(matchActions.updateIsGettingProfileForTheMatchSearcher(true));
+                dispatch(updateIsGettingProfileForTheMatchSearcher(true));
 
                 const res = await api.post('users/get_profile_to_the_match_searcher', {
                     currentLongitude: userData.currentLongitude,
@@ -99,43 +78,64 @@ export function getNextProfileForTheMatchSearcher() {
     }
 }
 
-export function ignoreCurrentProfile(profileId) {
-    return dispatch => {
-        dispatch(matchActions.removeProfileFromMatchSearcher(profileId));
-        dispatch(getNextProfileForTheMatchSearcher());
-    }
-}
+// export function getMatchedProfiles() {
+//     return async (dispatch, getState) => {
+//         //get only profiles that was already matched with current user
 
-export function likeCurrentProfile(profile, superLike) {
-    return dispatch => {
-        superLike && dispatch(userActions.updateUserDataOnRedux({ lastTimeSuperLikeWasUsed: new Date() }));
-        dispatch(matchActions.removeProfileFromMatchSearcher(profile.id));
-        dispatch(getNextProfileForTheMatchSearcher());
-    }
-}
+//         const userState = getState().user;
 
-export function unmatch(profileId) {
-    return async (dispatch, getState) => {
+//         try {
+//             const res = await api.get(`users/get_match_profiles/${userState.userData.id}`, {});
 
-        const userState = getState().user;
+//             res.data.map(item => {
+//                 item.age = calculateAge(new Date(item.birthday))
+//                 item.distance = parseInt(calculateDistanceFromLatLonInKm(
+//                     userState.userData.currentLongitude,
+//                     userState.userData.currentLatitude,
+//                     item.lastLongitude,
+//                     item.lastLatitude
+//                 ))
+//             });
 
-        try {
+//             dispatch(matchActions.updateMatchedProfilesArray(res.data));
 
-            dispatch(utilsActions.showLoader(true));
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }
 
-            await api.post('users/unmatch', { userId: userState.userData.id, profileId });
+// export function cleanMatchSearcherArrayAndGetNextProfile(shouldGetProfilesForMatchSearcher) {
+//     return dispatch => {
+//         dispatch(matchActions.removeAllIdsFromProfileIdsAlreadyDownloaded());
+//         dispatch(matchActions.removeProfileFromMatchSearcher(null, true));
 
-            await dispatch(firebaseThunk.removeAllConversationsFromThisMatch(profileId));
+//         shouldGetProfilesForMatchSearcher && dispatch(getNextProfileForTheMatchSearcher());
+//     }
+// }
 
-            dispatch(utilsActions.showLoader(false));
+// export function unmatch(profileId) {
+//     return async (dispatch, getState) => {
 
-            dispatch(userThunk.getUserData(true, true, false, true));
+//         const userState = getState().user;
 
-            RootNavigationRef.goBack();//hides yesNo modal
-            RootNavigationRef.goBack();//hides chat screen modal
+//         try {
 
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
+//             dispatch(utilsActions.showLoader(true));
+
+//             await api.post('users/unmatch', { userId: userState.userData.id, profileId });
+
+//             await dispatch(firebaseThunk.removeAllConversationsFromThisMatch(profileId));
+
+//             dispatch(utilsActions.showLoader(false));
+
+//             dispatch(userThunk.getUserData(true, true, false, true));
+
+//             RootNavigationRef.goBack();//hides yesNo modal
+//             RootNavigationRef.goBack();//hides chat screen modal
+
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }

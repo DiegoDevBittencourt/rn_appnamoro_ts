@@ -1,45 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import Carousel from 'react-native-looped-carousel';
-import { Dimensions } from 'react-native';
 
 import noProfile from '@assets/noProfile.png';
 import { generateRandomKey } from '~/utils/functions';
-import { H2, H3, GenericColumnView, AwesomeIcon } from '@components/index';
+import { AwesomeIcon } from '@components/index';
 import { textShadow } from '@constants/InlineStyling';
+import { Distance, NameAge, ProfileCardInfo, UserImage } from './styles';
 
-const ProfileCardInfo = styled(GenericColumnView)`
-    flex: 1;
-    width: ${Dimensions.get('window').width - 20}px;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    elevation: 5;
-    border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
-`;
-
-const NameAge = styled(H2)`
-    position: absolute;
-    bottom: 30px;
-    left: 10px;
-    color: white;
-`;
-
-const Distance = styled(H3)`
-    position: absolute;
-    bottom: 5px;
-    left: 10px;
-    color: white;
-`;
-
-const UserImage = styled.Image`
-    flex: 1;
-    height: 100%;
-    border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
-    resize-mode: cover;
-`;
-
-export default function ProfileCard({ firstName, lastName, age, userImages, distance }) {
+const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) => {
 
     const arrowStyle = {
         color: 'white',
@@ -76,7 +44,7 @@ export default function ProfileCard({ firstName, lastName, age, userImages, dist
         >
             {
                 userImages?.length > 0 ?
-                    userImages.map(image => <UserImage key={generateRandomKey()} source={{ uri: image.imageUrl }} />)
+                    userImages.map((image: any) => <UserImage key={generateRandomKey()} source={{ uri: image?.imageUrl }} />)
                     :
                     <UserImage source={noProfile} />
             }
@@ -91,3 +59,5 @@ export default function ProfileCard({ firstName, lastName, age, userImages, dist
 
     </ProfileCardInfo>
 }
+
+export default ProfileCard;

@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from '@screens/Login';
-// import Dashboard from '@screens/Dashboard';
+import Dashboard from '@screens/Dashboard';
 import ForgotPasswordModal from '@modals/ForgotPassword';
 import SignUpModal from '@modals/SignUp';
 // import TurnOnLocationModal from '@modals/TurnOnLocation';
@@ -11,15 +11,15 @@ import SignUpModal from '@modals/SignUp';
 // import CompleteYourProfileModal from '@modals/CompleteYourProfile';
 // import ChatModal from '@modals/Chat';
 import { modalOptions } from '@constants/ModalOptions';
-import { FORGOT_PASSWORD_MODAL, LOGIN_SCREEN, SIGN_UP_MODAL } from '~/constants/screenNames';
+import { DASHBOARD_SCREEN, FORGOT_PASSWORD_MODAL, LOGIN_SCREEN, SIGN_UP_MODAL } from '~/constants/screenNames';
 
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
 
 const MainStackNavigator = () => {
-    return <MainStack.Navigator screenOptions={{ headerShown: false, headerMode: 'screen' }} initialRouteName='Dashboard' >
+    return <MainStack.Navigator screenOptions={{ headerShown: false, headerMode: 'screen' }} initialRouteName={DASHBOARD_SCREEN} >
         <MainStack.Screen name={LOGIN_SCREEN} component={Login} />
-        {/*  <MainStack.Screen name="Dashboard" component={Dashboard} /> */}
+        <MainStack.Screen name={DASHBOARD_SCREEN} component={Dashboard} />
     </MainStack.Navigator>
 }
 

@@ -1,19 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const defaultUserData = {
-    ageRange: [25, 35],
-    maxDistance: 80,
-    firstName: '',
-    lastName: '',
-    showMeOnApp: true
-};
-
 interface UserDataType {
     ageRange: number[],
     maxDistance: number,
     firstName: string,
     lastName: string,
-    showMeOnApp: boolean
+    showMeOnApp: boolean,
+    lastTimeSuperLikeWasUsed?: Date
 }
 
 interface UserStoreType {
@@ -21,7 +14,13 @@ interface UserStoreType {
 }
 
 const INITIAL_STATE: UserStoreType = {
-    userData: defaultUserData,
+    userData: {
+        ageRange: [25, 35],
+        maxDistance: 80,
+        firstName: '',
+        lastName: '',
+        showMeOnApp: true
+    },
 }
 
 const sliceUsers = createSlice({

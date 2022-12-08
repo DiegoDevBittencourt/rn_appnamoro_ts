@@ -1,38 +1,29 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 
-import * as matchActions from '@store/match/actions';
 import { theme } from '@constants/StyledComponentsTheme';
-import { RoundIconButton, GenericRowView } from '@components/index';
+import { RoundIconButton } from '@components/index';
 import { checkIfSuperLikeIsAvailable } from '~/utils/functions';
-import { ignoreCurrentProfile, likeCurrentProfile } from './MatchSearcherFunctions';
+import { ignoreCurrentProfile, likeCurrentProfile } from '../MatchSearcherFunctions';
+import { updateIsSuperLikeAvailable, useMatch } from '~/store/match/reducer';
+import { MainContainer } from './styles';
+import { useUsers } from '~/store/user/reducer';
 
-const MainContainer = styled(GenericRowView)`
-    height: 90px;
-    justify-content: space-evenly;
-    align-items: center;
-    padding-left: 40px;
-    padding-right: 40px;
-`;
-
-export default function ControlButtons({ currentProfile }) {
+export default function ControlButtons({ currentProfile }: any) {
 
     const dispatch = useDispatch();
 
-    const lastTimeSuperLikeWasUsed = useSelector(state => {
-        const { lastTimeSuperLikeWasUsed } = state.user.userData;
-        return lastTimeSuperLikeWasUsed;
-    });
-    const { isSuperLikeAvailable, swipeCardRef } = useSelector(state => state.match);
+    const { userData } = useSelector(useUsers);
+    const { isSuperLikeAvailable, swipeCardRef } = useSelector(useMatch);
+    const { lastTimeSuperLikeWasUsed } = userData;
 
     const { $lightGray, $gray, $red, $lightGreen, $lightBlue } = theme;
 
     useEffect(() => {
-        dispatch(matchActions.updateIsSuperLikeAvailable(checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed)));
+        dispatch(updateIsSuperLikeAvailable(checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed)));
     }, [lastTimeSuperLikeWasUsed]);
 
-    const handleLikeCurrentProfile = (superLike) => {
+    const handleLikeCurrentProfile = (superLike: boolean) => {
         superLike ? swipeCardRef._forceUpSwipe() : swipeCardRef._forceRightSwipe();
 
         setTimeout(() => {
