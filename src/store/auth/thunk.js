@@ -4,7 +4,7 @@ import { Keyboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '@utils/api';
-// import * as RootNavigationRef from '@routes/RootNavigationRef';
+import * as RootNavigationRef from '@routes/RootNavigationRef';
 import * as utilsActions from '@store/utils/reducer';
 import * as userActions from '~/store/users/reducer';
 import * as authActions from '@store/auth/reducer';
@@ -51,6 +51,35 @@ export function setAccessTokenOnStorageAndRedux(accessToken) {
     }
 }
 
+export function signOut() {
+    return async (dispatch) => {
+        try {
+            unsubscribeFirebaseListeners.map(item => item());
+
+            await AsyncStorage.setItem('accessToken', '');
+
+            firebase.auth().signOut();
+
+            // dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(false));
+            // dispatch(matchActions.updateMatchedProfilesArray([]));
+
+            // dispatch(setAccessTokenOnStorageAndRedux(''));
+            // dispatch(authActions.signOutAction());
+
+            // dispatch(utilsActions.showLoader(false));
+
+            // //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
+            // //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
+            // //on Login screen "recreating" it many times
+            // RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
+
+        } catch (err) {
+            dispatch(errorThunk.handleThunkError(err));
+            dispatch(setAccessTokenOnStorageAndRedux(''));
+        }
+    }
+}
+
 // export function checkIfTokenHasExpired() {
 //     return async (dispatch, getState) => {
 //         try {
@@ -75,35 +104,6 @@ export function setAccessTokenOnStorageAndRedux(accessToken) {
 //         } catch (err) {
 //             dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
 //             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
-
-// export function signOut() {
-//     return async (dispatch) => {
-//         try {
-//             unsubscribeFirebaseListeners.map(item => item());
-
-//             await AsyncStorage.setItem('accessToken', '');
-
-//             firebase.auth().signOut();
-
-//             dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(false));
-//             dispatch(matchActions.updateMatchedProfilesArray([]));
-
-//             dispatch(setAccessTokenOnStorageAndRedux(''));
-//             dispatch(authActions.signOutAction());
-
-//             dispatch(utilsActions.showLoader(false));
-
-//             //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
-//             //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
-//             //on Login screen "recreating" it many times
-//             RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
-
-//         } catch (err) {
-//             dispatch(errorThunk.handleThunkError(err));
-//             dispatch(setAccessTokenOnStorageAndRedux(''));
 //         }
 //     }
 // }

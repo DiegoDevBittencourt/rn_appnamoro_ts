@@ -17,6 +17,8 @@ const TheNavigator = () => {
     </ProfileNavigator.Navigator>
 }
 
-export default function ProfileStackNavigator() {
+const ProfileStackNavigator = () => {
     return <TheNavigator />
 };
+
+export default ProfileStackNavigator;

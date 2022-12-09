@@ -7,7 +7,11 @@ interface UserDataType {
     firstName: string,
     lastName: string,
     showMeOnApp: boolean,
-    lastTimeSuperLikeWasUsed?: Date
+    lastTimeSuperLikeWasUsed?: Date,
+    userImages?: any[],
+    age?: string,
+    position?: string,
+    schooling?: any,
 }
 
 interface UserStoreType {

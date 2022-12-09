@@ -1,15 +1,13 @@
 export { default as AppLogo } from './AppLogo';
-// export { default as AppVersion } from './AppVersion';
+export { default as AppVersion } from './AppVersion';
 export { default as AwesomeIcon } from './AwesomeIcon';
 // export { default as ConfigItem } from './ConfigItem';
 export { default as DatePickerButton } from './DatePickerButton';
 export { default as DevelopedBy } from './DevelopedBy';
 export { default as GenericAppButton } from './GenericAppButton';
-// export { default as GenericColumnView } from './GenericColumnView';
 export { default as GenericContainer } from './GenericContainer';
 export { default as GenericDataList } from './GenericDataList';
 export { default as GenericModalContainer } from './GenericModalContainer';
-// export { default as GenericRowView } from './GenericRowView';
 export { default as GenericScrollView } from './GenericScrollView';
 export { default as H2 } from './H2';
 export { default as H3 } from './H3';

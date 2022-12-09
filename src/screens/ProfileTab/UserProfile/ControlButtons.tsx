@@ -1,21 +1,19 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import * as authThunk from '@store/auth/thunk';
-import ControlButton from './ControlButton';
-import { GenericColumnView } from '@components/index';
+// import * as authThunk from '@store/auth/thunk';
+import Button from './Button';
 import { theme } from '@constants/StyledComponentsTheme';
+import { ControlButtonsContainer } from './styles';
 
-export default function ControlButtonsContainer() {
+export default function ControlButtons() {
 
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     const handleSignOut = () => {
-        dispatch(authThunk.signOut());
+        // dispatch(authThunk.signOut());
     }
 
     const handleConfigButtonClick = () => {
@@ -26,18 +24,9 @@ export default function ControlButtonsContainer() {
         navigation.push('EditInfo');
     }
 
-    const ControlButtonsContainer = styled(GenericColumnView)`
-        height: auto;
-        width: ${Dimensions.get('window').width}px;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: flex-start;
-        margin-bottom: 30px;
-    `;
-
     return <ControlButtonsContainer>
 
-        <ControlButton
+        <Button
             customButtonStyle={{ backgroundColor: 'white' }}
             iconName={'cog'}
             customIconStyle={{ color: theme.$gray }}
@@ -46,7 +35,7 @@ export default function ControlButtonsContainer() {
             onPress={handleConfigButtonClick}
         />
 
-        <ControlButton
+        <Button
             customButtonStyle={{ backgroundColor: theme.$primaryColor, marginTop: 50 }}
             iconName={'sign-out-alt'}
             customIconStyle={{ color: 'white' }}
@@ -55,7 +44,7 @@ export default function ControlButtonsContainer() {
             onPress={handleSignOut}
         />
 
-        <ControlButton
+        <Button
             customButtonStyle={{ backgroundColor: 'white' }}
             iconName={'pencil-alt'}
             customIconStyle={{ color: theme.$gray }}
