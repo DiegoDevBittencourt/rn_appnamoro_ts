@@ -6,7 +6,7 @@ import { AwesomeIcon } from '@components/index';
 import { IconContainer } from './styles';
 import MatchSearcherTab from '@screens/MatchSearcherTab';
 import MatchesAndConversationsTab from '@screens/MatchesAndConversationsTab';
-// import ProfileStackNavigator from '@screens/ProfileTab/ProfileStackNavigator';
+import ProfileStackNavigator from '@screens/ProfileTab/ProfileStackNavigator';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -40,7 +40,7 @@ const TabNavigator = () => {
 
         <Tab.Screen name="MatchSearcher" options={screenOptions('heart')} component={MatchSearcherTab} />
         <Tab.Screen name="MatchesAndConversations" options={screenOptions('comments')} component={MatchesAndConversationsTab} />
-        {/* <Tab.Screen name="MobileUserProfile" options={screenOptions('user-alt')} component={ProfileStackNavigator} /> */}
+        <Tab.Screen name="MobileUserProfile" options={screenOptions('user-alt')} component={ProfileStackNavigator} />
     </Tab.Navigator>
 }
 

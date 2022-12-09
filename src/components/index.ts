@@ -3,7 +3,7 @@ export { default as AppLogo } from './AppLogo';
 export { default as AwesomeIcon } from './AwesomeIcon';
 // export { default as ConfigItem } from './ConfigItem';
 export { default as DatePickerButton } from './DatePickerButton';
-// export { default as DevelopedBy } from './DevelopedBy';
+export { default as DevelopedBy } from './DevelopedBy';
 export { default as GenericAppButton } from './GenericAppButton';
 // export { default as GenericColumnView } from './GenericColumnView';
 export { default as GenericContainer } from './GenericContainer';
