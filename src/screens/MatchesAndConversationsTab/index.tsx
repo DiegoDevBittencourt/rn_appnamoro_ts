@@ -1,22 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { theme } from '@constants/StyledComponentsTheme';
-import { GenericColumnView, GenericContainer, SectionTitle } from '@components/index';
 import Matches from './Matches';
 import Conversations from './Conversations';
-
-const MatchesContainer = styled(GenericColumnView)`
-    height: 160px;
-`;
-
-const ConversationsContainer = styled(GenericColumnView)`
-    flex: 1;
-`;
+import { theme } from '@constants/StyledComponentsTheme';
+import { GenericContainer, SectionTitle } from '@components/index';
+import { ConversationsContainer, MatchesContainer } from './styles';
 
 export default function MatchesAndConversationsTab() {
 
-    const CustomTitle = ({ title }) => <SectionTitle
+    const CustomTitle = ({ title }: { title: string }) => <SectionTitle
         titleText={title}
         customTitleStyle={{
             color: theme.$primaryColor,

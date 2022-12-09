@@ -1,11 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const MessagesList = styled.FlatList`
-    flex: 1;
-`;
+import { GenericDataListType } from './interface';
+import { MessagesList } from './styles';
 
-export default GenericDataList = ({ data, renderItem, inverted, horizontal, customContentContainerStyle }) => {
+const GenericDataList = ({ data, renderItem, inverted, horizontal, customContentContainerStyle }: GenericDataListType) => {
     //this component uses a performatically configured flatList
     return <MessagesList
         contentContainerStyle={customContentContainerStyle}
@@ -16,7 +14,9 @@ export default GenericDataList = ({ data, renderItem, inverted, horizontal, cust
         maxToRenderPerBatch={15}//items per batch
         updateCellsBatchingPeriod={100}//Increase time between renders
         windowSize={15}//maximum number of items rendered outside of the visible area
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item: any) => item?.id?.toString()}
         renderItem={renderItem}
     />
 }
+
+export default GenericDataList;

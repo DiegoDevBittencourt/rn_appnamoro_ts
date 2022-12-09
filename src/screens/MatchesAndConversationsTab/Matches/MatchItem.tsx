@@ -1,34 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 
-import { theme } from '@constants/StyledComponentsTheme';
 import noProfile from '@assets/noProfile.png';
-import { RoundImage, GenericColumnView, P } from '@components/index';
+import { theme } from '@constants/StyledComponentsTheme';
+import { RoundImage, P } from '@components/index';
 import { setLimitCharactereSizeToString } from '~/utils/functions';
+import { MatchItemButton, MatchItemContainer } from './styles';
 
-const MatchItemBorderRadius = 80;
+export default function MatchItem({ matchedProfile }: any) {
 
-const MatchItemContainer = styled(GenericColumnView)`
-    height: 100%;
-    width: 80px;
-    align-items: center;
-    margin: 5px;
-`;
-
-const MatchItemButton = styled.TouchableHighlight`
-    height: 80px;
-    width: 80px;
-    border-radius: ${MatchItemBorderRadius}px;
-    background-color: white;
-    padding: 2px;
-    border-width: 2px;
-    border-color: ${({ theme }) => theme.$primaryColor};
-`;
-
-export default function MatchItem({ matchedProfile }) {
-
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     const { userImages, firstName } = matchedProfile;
 
