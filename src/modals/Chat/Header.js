@@ -1,16 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
-import { GenericRowView, GenericColumnView, P, RoundCloseButton, RoundImage, RoundIconButton } from '@components/index';
+import { P, RoundCloseButton, RoundImage, RoundIconButton } from '@components/index';
 import { convertDateFormatToDDMMYYYY } from '~/utils/functions';
 import { theme } from '@constants/StyledComponentsTheme';
 
-const HeaderContainer = styled(GenericRowView)`
+const HeaderContainer = styled.View`
     height: 80px;
     border-bottom-width: 0.9px;
     align-items: center;
     border-color: ${({ theme }) => theme.$lightGray};
+    flex-direction: row;
+    width: 100%;
 `;
 
 const PCustom = styled(P)`
@@ -19,10 +21,12 @@ const PCustom = styled(P)`
     font-size: 16px;
 `;
 
-const RightButtonsContainer = styled(GenericColumnView)`
+const RightButtonsContainer = styled.View`
     width: ${({ theme }) => theme.$heightOfGenericComponent}px;
     height: 100%;
     align-items: center;
+    flex-direction: column;
+    width: 100%;
 `;
 
 export default function Header({ matchedProfile, profileImage }) {

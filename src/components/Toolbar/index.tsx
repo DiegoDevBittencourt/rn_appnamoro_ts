@@ -1,35 +1,25 @@
-import React, { useState } from 'react';
-import { Toolbar as ToolbarComponent } from 'react-native-material-ui'
+import React from 'react';
+import { Appbar } from 'react-native-paper';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { ToolbarType } from './interface';
 
-const Toolbar = (props: any) => {
+const Toolbar = (props: ToolbarType) => {
 
-    const [titleAlignSelf, setTitleAlignSelf] = useState('center');
+    const {
+        onLeftElementPress,
+        rightElementIconName,
+        onRightElementPress,
+        title,
+        customContainerStyle,
+        customTitleStyle,
+        iconsColor
+    } = props;
 
-    return <></>
-    return <ToolbarComponent
-        leftElement={props.leftElement}
-        onLeftElementPress={() => props.onLeftElementPress()}
-        rightElement={props.rightElement}
-        onRightElementPress={() => props.onRightElementPress()}
-        centerElement={props.title}
-        searchable={props.showSearchIcon ? {
-            autoFocus: true,
-            placeholder: props.searchPlaceholder,
-            onChangeText: (text: string) => props.onChangeText(text),
-            onSearchPressed: () => (setTitleAlignSelf('flex-start'), props.onSearchPressed && props.onSearchPressed()),
-            onSearchCloseRequested: () => (setTitleAlignSelf('center'), props.onSearchCloseRequested && props.onSearchCloseRequested()),
-            onSubmitEditing: () => props.onSubmitEditing()
-        } : null}
-        style={{
-            container: { height: 48, ...props.customContainerStyle },
-            titleText: { color: theme.$textColor, alignSelf: titleAlignSelf, ...props.customTitleText },
-            rightElement: { color: theme.$textColor, ...props.customRightElement },
-            leftElement: { color: theme.$textColor, ...props.customLeftElement },
-            rightElementContainer: {}
-        }}
-    />
+    return <Appbar.Header style={{ height: 48, ...customContainerStyle }}>
+        <Appbar.BackAction iconColor={iconsColor || 'white'} onPress={onLeftElementPress} />
+        <Appbar.Content titleStyle={{ color: 'white', ...customTitleStyle }} title={title} />
+        <Appbar.Action iconColor={iconsColor || 'white'} icon={rightElementIconName} onPress={onRightElementPress} />
+    </Appbar.Header>
 }
 
 export default Toolbar;

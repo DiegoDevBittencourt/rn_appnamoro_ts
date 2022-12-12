@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as dashboardThunk from '@store/dashboard/thunk';
 import { emailValidator } from '~/utils/functions';
 import { dangerNotification } from '~/utils/notifications';
-import { TextInputRightIconButton, GenericAppButton, GenericColumnView } from '@components/index';
+import { TextInputRightIconButton, GenericAppButton } from '@components/index';
 
 export default function SignUpFields() {
 
@@ -27,7 +27,7 @@ export default function SignUpFields() {
 
             name && email && subject && message ?
                 dispatch(dashboardThunk.sendNewUserContact(name, email, subject, message))
-                .then(() => navigation.goBack())
+                    .then(() => navigation.goBack())
                 :
                 dangerNotification('Preencha todos os campos antes de continuar.');
 
@@ -35,7 +35,7 @@ export default function SignUpFields() {
         else dangerNotification('Digite um email válido!');
     }
 
-    return <GenericColumnView>
+    return <MainContainer>
 
         <TextInputRightIconButton
             placeholder={'Nome'}
@@ -81,5 +81,5 @@ export default function SignUpFields() {
             onPress={sendNewUserContact}
         />
 
-    </GenericColumnView>
+    </MainContainer>
 }

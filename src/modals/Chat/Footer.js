@@ -1,19 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import * as firebaseThunk from '@store/firebase/thunk';
-import { GenericRowView, TextInput, GenericAppButton, RoundIconButton } from '@components/index';
+import { TextInput, GenericAppButton, RoundIconButton } from '@components/index';
 import { theme } from '@constants/StyledComponentsTheme';
 import { successNotification } from '~/utils/notifications';
 
-const MainContainer = styled(GenericRowView)`
+const MainContainer = styled.View`
     height: 60px;
     background-color: white;
     border-top-width: 0.4px;
     border-color: ${({ theme }) => theme.$lightGray};
     justify-content: center;
     align-items: center;
+    flex-direction: row;
+    width: 100%;
 `;
 
 export default function Footer({ matchedProfile }) {
