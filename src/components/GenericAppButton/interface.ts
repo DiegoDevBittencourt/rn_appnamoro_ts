@@ -1,7 +1,7 @@
 import { TouchableHighlightProps, ViewStyle } from 'react-native';
 
 export interface GenericAppButtonType extends TouchableHighlightProps {
-    customButtonStyle?: ViewStyle,
+    customButtonStyle?: any,
     textButton?: string,
     enable?: boolean
 }

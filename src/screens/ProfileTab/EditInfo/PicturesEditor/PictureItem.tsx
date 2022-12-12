@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Progress from 'react-native-progress';
 
@@ -8,49 +7,16 @@ import { pickFile } from './uploadMedia';
 import { theme } from '@constants/StyledComponentsTheme';
 import { RoundCloseButton } from '@components/index';
 import noProfile from '@assets/noProfile.png';
+import { Button, ButtonContainer, ProgressBarContainer, UserImage, UserImageContainer } from './styles';
+import { useUsers } from '~/store/users/reducer';
 
-const UserImageContainer = styled.View`
-    flex: 1;
-    padding: 15px;
-    background-color: white;
-    border-width: 0.5px;
-    border-style: dotted;
-    border-color: ${({ theme }) => theme.$lightGray};
-`;
-
-const Button = styled.TouchableHighlight`
-    flex: 1;
-    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
-`;
-
-const ButtonContainer = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-`;
-
-const UserImage = styled.Image`
-    height: 100%;
-    width: 100%;
-    border-radius: ${({ theme }) => theme.$smallBorderRadius}px;
-`;
-
-const ProgressBarContainer = styled.View`
-    position: absolute;
-    height: auto;
-    width: auto;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    border-radius: 50px;
-`;
-
-export default function PictureItem({ PictureItem }) {
+export default function PictureItem({ PictureItem }: any) {
 
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
-    const { userImages } = useSelector(state => state.user.userData);
+    const { userData } = useSelector(useUsers);
+    const { userImages } = userData;
 
     const imageSource = PictureItem.imageUrl ? { uri: PictureItem.imageUrl } : noProfile;
 
@@ -97,11 +63,11 @@ export default function PictureItem({ PictureItem }) {
             </ProgressBarContainer> : null
     }
 
-    const pickImages = () => pickFile(userImages.length, dispatch);
+    const pickImages = () => pickFile(userImages?.length || 0, dispatch);
 
     return <UserImageContainer>
 
-        <Button underlayColor={theme.$darkGray} onPress={pickImages}>
+        <Button underlayColor={theme.$gray} onPress={pickImages}>
             <ButtonContainer>
 
                 <UserImage source={imageSource} />

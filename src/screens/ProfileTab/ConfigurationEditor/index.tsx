@@ -8,21 +8,22 @@ import PhoneEditor from './PhoneEditor';
 import LocationEditor from './LocationEditor';
 import SearchingByEditor from './SearchingByEditor';
 import ConfigToolbar from '@screens/ProfileTab/Configuration/ConfigToolbar';
+import { useDashboard } from '~/store/dashboard/reducer';
 
 const MainContainer = styled(GenericContainer)`
     background-color: ${({ theme }) => theme.$darkerBackgroundColor};
 `;
 
-export default function ConfigurationEditor(props) {
+const ConfigurationEditor = () => {
 
-    const { selectedConfigMenu, selectedConfigMenuTitle } = useSelector(state => state.dashboard);
+    const { selectedConfigMenu, selectedConfigMenuTitle } = useSelector(useDashboard);
 
     const RenderBody = () => {
         switch (selectedConfigMenu) {
             case 'emailEditor':
                 return <EmailEditor />
             case 'phoneEditor':
-                return <PhoneEditor navigation={props.navigation} />
+                return <PhoneEditor />
             case 'locationEditor':
                 return <LocationEditor />
             case 'searchingByEditor':
@@ -34,7 +35,7 @@ export default function ConfigurationEditor(props) {
 
     return <MainContainer>
 
-        <ConfigToolbar {...props} />
+        <ConfigToolbar />
 
         <SectionTitle titleText={selectedConfigMenuTitle} />
 
@@ -42,3 +43,5 @@ export default function ConfigurationEditor(props) {
 
     </MainContainer>
 }
+
+export default ConfigurationEditor;

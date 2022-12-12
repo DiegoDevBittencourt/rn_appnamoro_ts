@@ -12,13 +12,17 @@ interface UserDataType {
     age?: string,
     position?: string,
     schooling?: any,
-
     email?: string,
     phone?: string,
     address?: string,
     searchingBy?: any,
     emailNotification?: boolean,
     pushNotification?: boolean,
+    verifiedEmail?: number,
+    about?: string,
+    birthday?: Date,
+    gender?: any,
+    company?: string,
 }
 
 interface UserStoreType {

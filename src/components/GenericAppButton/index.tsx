@@ -23,7 +23,7 @@ const GenericAppButton = (props: GenericAppButtonType) => {
                     <ButtonText>{textButton}</ButtonText>
                 </Gradient>
         }
-    </Button >
+    </Button>
 }
 
 export default GenericAppButton;

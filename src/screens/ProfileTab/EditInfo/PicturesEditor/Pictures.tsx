@@ -1,13 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useDashboard } from '~/store/dashboard/reducer';
+import { useUsers } from '~/store/users/reducer';
 
-import { GenericRowView } from '@components/index';
 import PictureItem from './PictureItem';
+import { LineImagesContainer } from './styles';
 
-export default function Pictures() {
+const Pictures = () => {
 
-    const { userImages } = useSelector(state => state.user.userData);
-    const { uploadingImagesPreview } = useSelector(state => state.dashboard);
+    const { userData } = useSelector(useUsers);
+    const { userImages } = userData;
+    const { uploadingImagesPreview } = useSelector(useDashboard);
 
     const PictureItems = () => {
 
@@ -35,14 +38,16 @@ export default function Pictures() {
 
         for (i = 0; i <= 2; i++) {
             finalArray.push(
-                <GenericRowView style={{ flex: 1, backgroundColor: 'blue' }} key={i}>
+                <LineImagesContainer style={{ flex: 1, backgroundColor: 'blue' }} key={i}>
                     {lineArrays[i]}
-                </GenericRowView>
+                </LineImagesContainer>
             )
         }
 
-        return finalArray
+        return <>{finalArray}</>
     }
 
     return <PictureItems />
 }
+
+export default Pictures;

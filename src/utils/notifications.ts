@@ -1,6 +1,6 @@
 import { showMessage } from "react-native-flash-message";
 
-export function successNotification(message) {
+export function successNotification(message: string) {
   showMessage({
     message: message,
     type: 'success',
@@ -8,7 +8,7 @@ export function successNotification(message) {
   });
 }
 
-export function dangerNotification(message) {
+export function dangerNotification(message: string) {
   showMessage({
     message: message,
     type: 'danger',

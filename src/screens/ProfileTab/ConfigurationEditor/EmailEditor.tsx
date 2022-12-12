@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import * as dashboardThunk from '@store/dashboard/thunk';
+// import * as dashboardThunk from '@store/dashboard/thunk';
 import { theme } from '@constants/StyledComponentsTheme';
 import { P, GenericAppButton, TextInputRightIconButton, GenericScrollView } from '@components/index';
-import { dangerNotification } from '~/utils/notifications';
-import { emailValidator } from '~/utils/functions';
+import { useUsers } from '~/store/users/reducer';
+// import { dangerNotification } from '~/utils/notifications';
+// import { emailValidator } from '~/utils/functions';
 
 const PCustom = styled(P)`
     margin-top: 15px;
 `;
 
-export default function EmailEditor() {
+const EmailEditor = () => {
 
     const dispatch = useDispatch();
 
-    const { verifiedEmail, email } = useSelector(state => state.user.userData);
+    const { userData } = useSelector(useUsers);
+    const { verifiedEmail, email } = userData;
 
     const [emailLocal, setEmailLocal] = useState(email);
     const [verifiedEmailLocal, setVerifiedEmailLocal] = useState(verifiedEmail == 1);
@@ -26,15 +28,14 @@ export default function EmailEditor() {
     }, [verifiedEmailLocal]);
 
     const sendEmailVerification = async () => {
+        // if (!verifiedEmailLocal)
 
-        if (!verifiedEmailLocal)
-
-            if (emailValidator(emailLocal))
-                dispatch(dashboardThunk.sendEmailVerification(emailLocal));
-            else dangerNotification('Digite um email válido!');
+        //     if (emailValidator(emailLocal))
+        //         dispatch(dashboardThunk.sendEmailVerification(emailLocal));
+        //     else dangerNotification('Digite um email válido!');
     }
 
-    const changeEmailText = (value) => {
+    const changeEmailText = (value: string) => {
         setEmailLocal(value);
         setVerifiedEmailLocal(value == email);
     }
@@ -74,3 +75,5 @@ export default function EmailEditor() {
 
     </GenericScrollView>
 }
+
+export default EmailEditor;

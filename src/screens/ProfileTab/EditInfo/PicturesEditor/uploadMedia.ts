@@ -2,9 +2,9 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 import { dangerNotification } from '~/utils/notifications';
 import { handleError, generateRandomKey } from '~/utils/functions';
-import * as dashboardThunk from '@store/dashboard/thunk';
+// import * as dashboardThunk from '@store/dashboard/thunk';
 
-export function pickFile(userImagesLength, dispatch) {
+export function pickFile(userImagesLength: number, dispatch: any) {
     try {
         ImagePicker.openPicker({
             multiple: true,
@@ -27,7 +27,7 @@ export function pickFile(userImagesLength, dispatch) {
     }
 }
 
-export const uploadMedia = (files, userImagesLength, dispatch) => {
+export const uploadMedia = (files: any[], userImagesLength: number, dispatch: any) => {
 
     if (files.length + userImagesLength <= 9) {
 
@@ -49,7 +49,7 @@ export const uploadMedia = (files, userImagesLength, dispatch) => {
         dangerNotification('Impossível adicionar mais que nove imagens!');
 }
 
-const uploadImages = (selectedFiles, dispatch) => {
+const uploadImages = (selectedFiles: any[], dispatch: any) => {
 
     selectedFiles.map(selectedFile => {
 
@@ -57,6 +57,6 @@ const uploadImages = (selectedFiles, dispatch) => {
 
         imageFormData.append('file', selectedFile.file);
 
-        dispatch(dashboardThunk.uploadImageToServer(imageFormData, selectedFile));
+        // dispatch(dashboardThunk.uploadImageToServer(imageFormData, selectedFile));
     });
 }

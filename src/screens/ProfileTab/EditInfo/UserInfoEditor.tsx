@@ -1,44 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 
-import * as userThunk from '~/store/users/thunk';
+// import * as userThunk from '~/store/users/thunk';
 import * as Options from '~/utils/options';
+import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
+import { useUsers } from '~/store/users/reducer';
 import {
     TextInputRightIconButton,
     DatePickerButton,
     ModalSelector,
     GenericAppButton,
     SectionTitle,
-    GenericContainer
 } from '@components/index';
-import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
-
-const UserInfoEditorContainer = styled(GenericContainer)`
-    height: auto;
-    padding-right: 10px;
-    padding-left: 10px;
-    align-items: center;
-`;
+import { UserInfoEditorContainer } from './styles';
 
 export default function UserInfoEditor() {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const { firstName, lastName } = useSelector(state => state.user.userData);
-    const { userData } = useSelector(state => state.user);
+    const { userData } = useSelector(useUsers);
+    const { firstName, lastName } = userData;
 
-    const [aboutLocal, setAboutLocal] = useState();
-    const [birthdayLocal, setBirthdayLocal] = useState();
-    const [genderLocal, setGenderLocal] = useState();
+    const [aboutLocal, setAboutLocal] = useState<string>();
+    const [birthdayLocal, setBirthdayLocal] = useState<any>();
+    const [genderLocal, setGenderLocal] = useState<any>();
     const [schoolingLocal, setSchoolingLocal] = useState();
-    const [companyLocal, setCompanyLocal] = useState();
-    const [positionLocal, setPositionLocal] = useState();
+    const [companyLocal, setCompanyLocal] = useState<any>();
+    const [positionLocal, setPositionLocal] = useState<any>();
 
-    const tiCompany = useRef();
-    const tiPosition = useRef();
+    const tiCompany = useRef<any>();
+    const tiPosition = useRef<any>();
 
     useEffect(() => {
 
@@ -63,7 +56,7 @@ export default function UserInfoEditor() {
             position: positionLocal
         });
 
-        dispatch(userThunk.updateUser(user, true)).then(() => navigation.goBack());
+        // dispatch(userThunk.updateUser(user, true)).then(() => navigation.goBack());
     }
 
     return <UserInfoEditorContainer>
@@ -82,21 +75,21 @@ export default function UserInfoEditor() {
         <SectionTitle titleText='DATA DE NASCIMENTO' />
         <DatePickerButton
             selectedDate={birthdayLocal}
-            updateSelectedDate={(selectedDate) => setBirthdayLocal(selectedDate)}
+            updateSelectedDate={(selectedDate: any) => setBirthdayLocal(selectedDate)}
         />
 
         <ModalSelector
             title={'Meu gênero'}
             data={Options.genderOptions()}
             selectedItem={genderLocal}
-            handleChange={(selectedItem) => setGenderLocal(selectedItem)}
+            handleChange={(selectedItem: any) => setGenderLocal(selectedItem)}
         />
 
         <ModalSelector
             title={'Escolaridade'}
             data={Options.schoolingOptions()}
             selectedItem={schoolingLocal}
-            handleChange={(selectedItem) => setSchoolingLocal(selectedItem)}
+            handleChange={(selectedItem: any) => setSchoolingLocal(selectedItem)}
         />
 
         <SectionTitle titleText='EMPRESA ONDE TRABALHA' />

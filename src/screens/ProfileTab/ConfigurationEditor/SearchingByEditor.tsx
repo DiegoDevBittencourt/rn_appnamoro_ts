@@ -2,21 +2,25 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import * as userThunk from '~/store/users/thunk';
+// import * as userThunk from '~/store/users/thunk';
 import { P, ConfigItem, GenericScrollView } from '@components/index';
+import { useUsers } from '~/store/users/reducer';
 
 const PCustom = styled(P)`
     margin-top: 15px;
     margin-left: 10px;
 `;
 
-export default function SearchingByEditor() {
+const SearchingByEditor = () => {
 
     const dispatch = useDispatch();
 
-    const { key: searchingBy } = useSelector(state => state.user.userData.searchingBy)
+    const { userData } = useSelector(useUsers);
+    const { key: searchingBy } = userData?.searchingBy;
 
-    const updateSearchingBy = (value) => dispatch(userThunk.updateUser({ searchingBy: value }, true, true));
+    const updateSearchingBy = (value: number) => {
+        // dispatch(userThunk.updateUser({ searchingBy: value }, true, true));
+    }
 
     const InfoText = () => {
         switch (searchingBy) {
@@ -53,3 +57,5 @@ export default function SearchingByEditor() {
 
     </GenericScrollView>
 }
+
+export default SearchingByEditor;

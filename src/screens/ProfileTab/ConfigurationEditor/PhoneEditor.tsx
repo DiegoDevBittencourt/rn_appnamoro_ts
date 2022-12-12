@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import * as userThunk from '~/store/users/thunk';
+// import * as userThunk from '~/store/users/thunk';
 import { GenericAppButton, TextInputRightIconButton, GenericContainer } from '@components/index';
+import { useNavigation } from '@react-navigation/native';
+import { useUsers } from '~/store/users/reducer';
 
-export default function PhoneEditor({ navigation }) {
+const PhoneEditor = () => {
 
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
-    const { phone } = useSelector(state => state.user.userData);
+    const { userData } = useSelector(useUsers);
+    const { phone } = userData;
 
     const [phoneLocal, setPhoneLocal] = useState(phone);
     const [isUpdateButtonEnable, setIsUpdateButtonEnable] = useState(false);
@@ -23,8 +27,7 @@ export default function PhoneEditor({ navigation }) {
     }
 
     const updateUserPhone = () => {
-        isUpdateButtonEnable && dispatch(userThunk.updateUser({ phone: phoneLocal }, true))
-            .then(() => navigation.goBack());
+        // isUpdateButtonEnable && dispatch(userThunk.updateUser({ phone: phoneLocal }, true)).then(() => navigation.goBack());
     }
 
     return <GenericContainer customStyle={{ paddingLeft: 10, paddingRight: 10 }}>
@@ -45,3 +48,5 @@ export default function PhoneEditor({ navigation }) {
 
     </GenericContainer>
 }
+
+export default PhoneEditor;
