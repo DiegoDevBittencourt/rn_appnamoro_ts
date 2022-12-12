@@ -2,12 +2,13 @@ import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import * as dashboardThunk from '@store/dashboard/thunk';
+// import * as dashboardThunk from '@store/dashboard/thunk';
 import { emailValidator } from '~/utils/functions';
 import { dangerNotification } from '~/utils/notifications';
 import { TextInputRightIconButton, GenericAppButton } from '@components/index';
+import { MainContainer } from './styles';
 
-export default function SignUpFields() {
+export default function ContactContent() {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -17,20 +18,18 @@ export default function SignUpFields() {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
 
-    const tiEmail = useRef();
-    const tiSubject = useRef();
-    const tiMessage = useRef();
+    const tiEmail = useRef<any>();
+    const tiSubject = useRef<any>();
+    const tiMessage = useRef<any>();
 
     const sendNewUserContact = async () => {
 
         if (emailValidator(email)) {
-
-            name && email && subject && message ?
-                dispatch(dashboardThunk.sendNewUserContact(name, email, subject, message))
-                    .then(() => navigation.goBack())
-                :
-                dangerNotification('Preencha todos os campos antes de continuar.');
-
+            // name && email && subject && message ?
+            //     dispatch(dashboardThunk.sendNewUserContact(name, email, subject, message))
+            //         .then(() => navigation.goBack())
+            //     :
+            //     dangerNotification('Preencha todos os campos antes de continuar.');
         }
         else dangerNotification('Digite um email válido!');
     }

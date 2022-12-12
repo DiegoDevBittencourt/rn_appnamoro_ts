@@ -10,7 +10,6 @@ export const MainContainer = styled.View`
     align-items: center;
     align-self: center;
     flex-direction: row;
-    width: 100%;
 `;
 
 export const Button = styled.TouchableHighlight`

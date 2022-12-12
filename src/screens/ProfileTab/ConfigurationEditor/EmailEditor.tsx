@@ -50,7 +50,7 @@ const EmailEditor = () => {
         marginTop: 20,
     }
 
-    return <GenericScrollView customStyle={{ paddingLeft: 10, paddingRight: 10 }}>
+    return <GenericScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
 
         <TextInputRightIconButton
             placeholder={'Digite seu email aqui'}

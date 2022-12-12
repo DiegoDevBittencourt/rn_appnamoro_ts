@@ -1,6 +1,10 @@
 import styled from 'styled-components/native';
 
-import { P } from '@components/index';
+import { GenericContainer, P } from '@components/index';
+
+export const MainContainer = styled(GenericContainer)`
+    background-color: ${({ theme }) => theme.$darkerBackgroundColor};
+`;
 
 export const PTitle = styled(P)`
     color: ${({ theme }) => theme.$textColor};

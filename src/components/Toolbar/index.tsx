@@ -1,6 +1,7 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
 
+import { theme } from '~/constants/StyledComponentsTheme';
 import { ToolbarType } from './interface';
 
 const Toolbar = (props: ToolbarType) => {
@@ -15,7 +16,7 @@ const Toolbar = (props: ToolbarType) => {
         iconsColor
     } = props;
 
-    return <Appbar.Header style={{ height: 48, ...customContainerStyle }}>
+    return <Appbar.Header style={{ height: 48, backgroundColor: theme.$primaryColor, ...customContainerStyle }}>
         <Appbar.BackAction iconColor={iconsColor || 'white'} onPress={onLeftElementPress} />
         <Appbar.Content titleStyle={{ color: 'white', ...customTitleStyle }} title={title} />
         <Appbar.Action iconColor={iconsColor || 'white'} icon={rightElementIconName} onPress={onRightElementPress} />

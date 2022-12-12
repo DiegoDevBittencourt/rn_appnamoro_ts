@@ -30,7 +30,7 @@ const PhoneEditor = () => {
         // isUpdateButtonEnable && dispatch(userThunk.updateUser({ phone: phoneLocal }, true)).then(() => navigation.goBack());
     }
 
-    return <GenericContainer customStyle={{ paddingLeft: 10, paddingRight: 10 }}>
+    return <GenericContainer style={{ paddingLeft: 10, paddingRight: 10 }}>
 
         <TextInputRightIconButton
             placeholder={'Digite seu telefone aqui'}

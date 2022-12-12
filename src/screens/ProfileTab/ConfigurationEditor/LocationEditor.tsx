@@ -24,7 +24,7 @@ const LocationEditor = () => {
         </AddressInfo>
     }
 
-    return <GenericScrollView customStyle={{ marginTop: 10 }}>
+    return <GenericScrollView style={{ marginTop: 10 }}>
 
         <AddressComponent />
 

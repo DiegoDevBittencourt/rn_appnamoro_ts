@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { P, RoundCloseButton, RoundImage, RoundIconButton } from '@components/index';
 import { convertDateFormatToDDMMYYYY } from '~/utils/functions';
 import { theme } from '@constants/StyledComponentsTheme';
+import { GENERIC_YES_NO_MODAL } from '~/constants/screenNames';
 
 const HeaderContainer = styled.View`
     height: 80px;
@@ -36,7 +37,7 @@ export default function Header({ matchedProfile, profileImage }) {
     const closeChat = () => navigation.goBack();
 
     const unmatch = () => {
-        navigation.push('GenericYesNoModal', {
+        navigation.push(GENERIC_YES_NO_MODAL, {
             matchedProfile,
             title: 'Desfazer match?',
             subtitle: 'Deseja mesmo desfazer essa match? Você pode não encontrar essa pessoa novamente na busca!',

@@ -15,6 +15,8 @@ import {
     GenericScrollView
 } from '@components/index';
 import { useUsers } from '~/store/users/reducer';
+import { setSelectedConfigMenu } from '~/store/dashboard/reducer';
+import { CONTACT_MODAL } from '~/constants/screenNames';
 
 export default function ConfigurationContent() {
 
@@ -67,8 +69,7 @@ export default function ConfigurationContent() {
     }
 
     const setSelectedConfigMenuAndChangeScreen = (selectedConfigMenu: string, selectedConfigMenuTitle: string) => {
-        // dispatch(dashboardActions.setSelectedConfigMenu({ selectedConfigMenu, selectedConfigMenuTitle }));
-
+        dispatch(setSelectedConfigMenu({ selectedConfigMenu, selectedConfigMenuTitle }));
         changeScreen('ConfigurationEditor');
     }
 
@@ -162,7 +163,7 @@ export default function ConfigurationContent() {
 
         <SectionTitle titleText='CONTATO' />
 
-        <ConfigItem onPress={() => changeScreen('ContactModal')} leftText='Ajuda e Suporte' />
+        <ConfigItem onPress={() => changeScreen(CONTACT_MODAL)} leftText='Ajuda e Suporte' />
 
         <SectionTitle titleText='JURÍDICO' />
 

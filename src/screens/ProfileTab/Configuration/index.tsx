@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 // import * as userThunk from '~/store/users/thunk';
-import { GenericContainer } from '@components/index';
-import ConfigToolbar from './ConfigToolbar';
 import ConfigurationContent from './ConfigurationContent';
+import { GenericContainer, Toolbar } from '@components/index';
+import { theme } from '~/constants/StyledComponentsTheme';
 
 export default function Configuration() {
 
+    const navigation = useNavigation();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -16,7 +18,11 @@ export default function Configuration() {
 
     return <GenericContainer>
 
-        <ConfigToolbar />
+        <Toolbar
+            onLeftElementPress={() => navigation?.goBack()}
+            title={'Configurações'}
+            customContainerStyle={{ backgroundColor: theme.$primaryColor }}
+        />
 
         <ConfigurationContent />
 

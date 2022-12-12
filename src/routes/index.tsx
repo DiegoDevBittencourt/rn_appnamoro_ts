@@ -5,13 +5,20 @@ import Login from '@screens/Login';
 import Dashboard from '@screens/Dashboard';
 import ForgotPasswordModal from '@modals/ForgotPassword';
 import SignUpModal from '@modals/SignUp';
+import GenericYesNoModal from '@modals/GenericYesNoModal';
+import ContactModal from '@modals/Contact';
 // import TurnOnLocationModal from '@modals/TurnOnLocation';
-// import GenericYesNoModal from '@modals/GenericYesNoModal';
-// import ContactModal from '@modals/Contact';
 // import CompleteYourProfileModal from '@modals/CompleteYourProfile';
 // import ChatModal from '@modals/Chat';
 import { modalOptions } from '@constants/ModalOptions';
-import { DASHBOARD_SCREEN, FORGOT_PASSWORD_MODAL, LOGIN_SCREEN, SIGN_UP_MODAL } from '~/constants/screenNames';
+import {
+    CONTACT_MODAL,
+    DASHBOARD_SCREEN,
+    FORGOT_PASSWORD_MODAL,
+    GENERIC_YES_NO_MODAL,
+    LOGIN_SCREEN,
+    SIGN_UP_MODAL
+} from '~/constants/screenNames';
 
 const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
@@ -28,10 +35,10 @@ const RootStackNavigator = () => {
         <RootStack.Screen name="MainStack" component={MainStackNavigator} />
         <RootStack.Screen options={modalOptions} name={FORGOT_PASSWORD_MODAL} component={ForgotPasswordModal} />
         <RootStack.Screen options={modalOptions} name={SIGN_UP_MODAL} component={SignUpModal} />
+        <RootStack.Screen options={modalOptions} name={GENERIC_YES_NO_MODAL} component={GenericYesNoModal} />
+        <RootStack.Screen options={modalOptions} name={CONTACT_MODAL} component={ContactModal} />
         {/*  <RootStack.Screen options={modalOptions} name="CompleteYourProfileModal" component={CompleteYourProfileModal} />
             <RootStack.Screen options={modalOptions} name="TurnOnLocationModal" component={TurnOnLocationModal} />
-            <RootStack.Screen options={modalOptions} name="GenericYesNoModal" component={GenericYesNoModal} />
-            <RootStack.Screen options={modalOptions} name="ContactModal" component={ContactModal} />
             <RootStack.Screen options={modalOptions} name="ChatModal" component={ChatModal} /> */}
     </RootStack.Navigator>
 }

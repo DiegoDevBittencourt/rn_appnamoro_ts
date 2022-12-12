@@ -1,21 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-import { GenericContainer, SectionTitle } from '@components/index';
+import { SectionTitle, Toolbar } from '@components/index';
 import EmailEditor from './EmailEditor';
 import PhoneEditor from './PhoneEditor';
 import LocationEditor from './LocationEditor';
 import SearchingByEditor from './SearchingByEditor';
-import ConfigToolbar from '@screens/ProfileTab/Configuration/ConfigToolbar';
 import { useDashboard } from '~/store/dashboard/reducer';
-
-const MainContainer = styled(GenericContainer)`
-    background-color: ${({ theme }) => theme.$darkerBackgroundColor};
-`;
+import { MainContainer } from './styles';
+import { theme } from '~/constants/StyledComponentsTheme';
 
 const ConfigurationEditor = () => {
 
+    const navigation = useNavigation();
     const { selectedConfigMenu, selectedConfigMenuTitle } = useSelector(useDashboard);
 
     const RenderBody = () => {
@@ -35,7 +33,11 @@ const ConfigurationEditor = () => {
 
     return <MainContainer>
 
-        <ConfigToolbar />
+        <Toolbar
+            onLeftElementPress={() => navigation?.goBack()}
+            title={'Configurações'}
+            customContainerStyle={{ backgroundColor: theme.$primaryColor }}
+        />
 
         <SectionTitle titleText={selectedConfigMenuTitle} />
 

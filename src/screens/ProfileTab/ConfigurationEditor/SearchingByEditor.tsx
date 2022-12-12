@@ -16,7 +16,7 @@ const SearchingByEditor = () => {
     const dispatch = useDispatch();
 
     const { userData } = useSelector(useUsers);
-    const { key: searchingBy } = userData?.searchingBy;
+    const { key: searchingBy } = userData?.searchingBy || { key: 0 };
 
     const updateSearchingBy = (value: number) => {
         // dispatch(userThunk.updateUser({ searchingBy: value }, true, true));
@@ -33,7 +33,7 @@ const SearchingByEditor = () => {
         }
     }
 
-    return <GenericScrollView customStyle={{ marginTop: 10 }}>
+    return <GenericScrollView style={{ marginTop: 10 }}>
 
         <ConfigItem
             leftText={'HOMENS'}
