@@ -14,7 +14,7 @@ const DevelopedBy = () => {
             <AwesomeIcon
                 customIconContainer={{ height: 12, width: 30 }}
                 iconName={'vr-cardboard'}
-                customIconStyle={{ color: theme.$primaryColor, marginLeft: 3 }}
+                customIconStyle={{ color: theme.$primaryColor, marginLeft: 3, fontSize: 14 }}
             />
         </P1>
 

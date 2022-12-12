@@ -12,6 +12,13 @@ interface UserDataType {
     age?: string,
     position?: string,
     schooling?: any,
+
+    email?: string,
+    phone?: string,
+    address?: string,
+    searchingBy?: any,
+    emailNotification?: boolean,
+    pushNotification?: boolean,
 }
 
 interface UserStoreType {

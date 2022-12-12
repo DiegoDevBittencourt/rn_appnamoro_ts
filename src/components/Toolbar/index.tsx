@@ -3,10 +3,11 @@ import { Toolbar as ToolbarComponent } from 'react-native-material-ui'
 
 import { theme } from '@constants/StyledComponentsTheme';
 
-export default Toolbar = (props) => {
+const Toolbar = (props: any) => {
 
     const [titleAlignSelf, setTitleAlignSelf] = useState('center');
 
+    return <></>
     return <ToolbarComponent
         leftElement={props.leftElement}
         onLeftElementPress={() => props.onLeftElementPress()}
@@ -16,7 +17,7 @@ export default Toolbar = (props) => {
         searchable={props.showSearchIcon ? {
             autoFocus: true,
             placeholder: props.searchPlaceholder,
-            onChangeText: (text) => props.onChangeText(text),
+            onChangeText: (text: string) => props.onChangeText(text),
             onSearchPressed: () => (setTitleAlignSelf('flex-start'), props.onSearchPressed && props.onSearchPressed()),
             onSearchCloseRequested: () => (setTitleAlignSelf('center'), props.onSearchCloseRequested && props.onSearchCloseRequested()),
             onSubmitEditing: () => props.onSubmitEditing()
@@ -30,3 +31,5 @@ export default Toolbar = (props) => {
         }}
     />
 }
+
+export default Toolbar;

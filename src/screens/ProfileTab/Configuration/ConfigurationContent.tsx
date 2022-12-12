@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { theme } from '@constants/StyledComponentsTheme';
-import * as userThunk from '~/store/users/thunk';
-import * as dashboardActions from '@store/dashboard/actions';
+// import * as userThunk from '~/store/users/thunk';
+// import * as dashboardActions from '@store/dashboard/actions';
 import {
     SectionTitle,
     ConfigItem,
@@ -14,12 +14,14 @@ import {
     AppVersion,
     GenericScrollView
 } from '@components/index';
+import { useUsers } from '~/store/users/reducer';
 
 export default function ConfigurationContent() {
 
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
+    const { userData } = useSelector(useUsers);
     const {
         email,
         phone,
@@ -30,9 +32,7 @@ export default function ConfigurationContent() {
         showMeOnApp,
         emailNotification,
         pushNotification
-    } = useSelector(state => state.user?.userData);
-
-    const { userData } = useSelector(state => state.user);
+    } = userData;
 
     const [maxDistanceLocal, setMaxDistanceLocal] = useState([maxDistance]);
     const [ageRangeLocal, setAgeRangeLocal] = useState([ageRange[0], ageRange[1]]);
@@ -66,17 +66,19 @@ export default function ConfigurationContent() {
         });
     }
 
-    const setSelectedConfigMenuAndChangeScreen = (selectedConfigMenu, selectedConfigMenuTitle) => {
-        dispatch(dashboardActions.setSelectedConfigMenu({ selectedConfigMenu, selectedConfigMenuTitle }));
+    const setSelectedConfigMenuAndChangeScreen = (selectedConfigMenu: string, selectedConfigMenuTitle: string) => {
+        // dispatch(dashboardActions.setSelectedConfigMenu({ selectedConfigMenu, selectedConfigMenuTitle }));
 
         changeScreen('ConfigurationEditor');
     }
 
-    const changeScreen = (screenName) => navigation.push(screenName);
+    const changeScreen = (screenName: string) => navigation.push(screenName);
 
-    const updateUserData = (newUserData, CleanMatchSearcherArrayAndGetNextProfile) => dispatch(
-        userThunk.updateUser(newUserData, false, CleanMatchSearcherArrayAndGetNextProfile)
-    );
+    const updateUserData = (newUserData?: any, CleanMatchSearcherArrayAndGetNextProfile?: boolean) => {
+        // dispatch(
+        // userThunk.updateUser(newUserData, false, CleanMatchSearcherArrayAndGetNextProfile)
+        // );
+    }
 
     const handleTermsPress = () => Linking.openURL('https://www.appnamoro.com/terms');
 
@@ -108,7 +110,7 @@ export default function ConfigurationContent() {
             title={'Faixa etária'}
             customContainerStyle={multiSliderCustomStyle}
             values={ageRangeLocal}
-            onValuesChange={(value) => setAgeRangeLocal([value[0], value[1]])}
+            onValuesChange={(value: any) => setAgeRangeLocal([value[0], value[1]])}
             onValuesChangeFinish={() => updateUserData({ ageRange: `${ageRangeLocal[0]},${ageRangeLocal[1]}` }, true)}
             min={18}
             max={55}
@@ -119,20 +121,20 @@ export default function ConfigurationContent() {
             values={maxDistanceLocal}
             customContainerStyle={multiSliderCustomStyle}
             rightText={'km'}
-            onValuesChange={(value) => setMaxDistanceLocal(value)}
-            onValuesChangeFinish={(value) => updateUserData({ maxDistance: value[0] }, true)}
+            onValuesChange={(value: any) => setMaxDistanceLocal(value)}
+            onValuesChangeFinish={(value: any) => updateUserData({ maxDistance: value[0] }, true)}
             min={2}
             max={500}
         />
 
         <ConfigItem
             leftText='Procurando por'
-            rightText={searchingBy.label}
+            rightText={searchingBy?.label}
             onPress={() => setSelectedConfigMenuAndChangeScreen('searchingByEditor', 'PROCURO POR')}
         />
 
         <ConfigItem
-            handleSwitchChange={(value) => { setShowMeOnAppLocal(value), updateUserData({ showMeOnApp: value }) }}
+            handleSwitchChange={(value: any) => { setShowMeOnAppLocal(value), updateUserData({ showMeOnApp: value }) }}
             leftText='Mostrar-me no App'
             isThisSwitch
             isSwitchOn={showMeOnAppLocal}
@@ -141,7 +143,7 @@ export default function ConfigurationContent() {
         <SectionTitle titleText='NOTIFICAÇÕES' />
 
         <ConfigItem
-            handleSwitchChange={(value) => {
+            handleSwitchChange={(value: any) => {
                 setEmailNotificationLocal(value), updateUserData({ emailNotification: value })
             }}
             leftText='Email'
@@ -150,7 +152,7 @@ export default function ConfigurationContent() {
         />
 
         <ConfigItem
-            handleSwitchChange={(value) => {
+            handleSwitchChange={(value: any) => {
                 setPushNotificationLocal(value), updateUserData({ pushNotification: value })
             }}
             leftText='Notificações por Push'

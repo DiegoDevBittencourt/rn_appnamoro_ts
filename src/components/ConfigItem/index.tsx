@@ -1,50 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { Switch } from 'react-native';
 
 import { theme } from '@constants/StyledComponentsTheme';
-import GenericRowView from './GenericRowView';
-import P from './P';
+import { Awesome5Icon, Button, ButtonContainer, LeftText, RightText } from './styles';
+import { ConfigItemType } from './interface';
 
-const Button = styled.TouchableHighlight`
-    height: ${({ theme }) => theme.$heightOfGenericComponent}px;
-    width: 100%;
-    margin-bottom: -1px;
-    background-color: white;
-    border-width: 1px;
-    border-color: ${({ theme }) => theme.$lightGray};
-`;
-
-const ButtonContainer = styled(GenericRowView)`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-`;
-
-const LeftText = styled(P)`
-    flex: 1;
-    margin-left: 10px;
-    color: ${({ theme }) => theme.$lightTextColor};
-    font-size: 14px;
-    text-align: left;
-`;
-
-const RightText = styled(P)`
-    flex: 1;
-    margin-right: 10px;
-    color: ${({ theme }) => theme.$lightTextColor};
-    font-size: 13px;
-    text-align: right;
-`;
-
-const Awesome5Icon = styled(FontAwesome)`
-    font-size: 14px;
-    margin-right: 5px;
-    color: ${({ theme }) => theme.$gray};
-`;
-
-export default ConfigItem = ({ leftText,
+const ConfigItem = ({
+    leftText,
     rightText,
     onPress,
     isThisSwitch,
@@ -52,7 +14,7 @@ export default ConfigItem = ({ leftText,
     handleSwitchChange,
     customButtonStyle,
     rightIconName
-}) => {
+}: ConfigItemType) => {
 
     const { $primaryColor, $lightGray, $gray } = theme;
 
@@ -84,3 +46,5 @@ export default ConfigItem = ({ leftText,
         </ButtonContainer>
     </Button>
 }
+
+export default ConfigItem;

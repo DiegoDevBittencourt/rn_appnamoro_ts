@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import Button from './Button';
 import { theme } from '@constants/StyledComponentsTheme';
 import { ControlButtonsContainer } from './styles';
+import { CONFIGURATION_SCREEN, EDIT_INFO_SCREEN } from '~/constants/screenNames';
 
 export default function ControlButtons() {
 
@@ -14,14 +15,15 @@ export default function ControlButtons() {
 
     const handleSignOut = () => {
         // dispatch(authThunk.signOut());
+        navigation.push('Login');//remove later
     }
 
     const handleConfigButtonClick = () => {
-        navigation.push('Configuration');
+        navigation.push(CONFIGURATION_SCREEN);
     }
 
     const handleEditInfoButtonClick = () => {
-        navigation.push('EditInfo');
+        navigation.push(EDIT_INFO_SCREEN);
     }
 
     return <ControlButtonsContainer>
