@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { Button, ButtonText, Gradient } from './styles';
 import { GenericAppButtonType } from './interface';
 

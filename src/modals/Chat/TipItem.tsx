@@ -1,20 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 
 import { RoundImage } from '@components/index';
-
-const TipContainer = styled.View`
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-`;
-
-const TipText = styled.Text`
-    font-size: 16px;
-    margin-bottom: 6px;
-    color: ${({ theme }) => theme.$textColor};
-    padding: 30px;
-`;
+import { TipContainer, TipText } from './styles';
 
 const tips = [
     'Quebre barreiras!',
@@ -25,13 +12,17 @@ const tips = [
     'Não tenha medo de ser vulnerável!'
 ];
 
-export default function TipItem({ profileImage }) {
+const TipItem = ({ profileImage }: any) => {
 
-    const [tipIndex, setTipIndex] = useState([Math.floor(Math.random() * tips.length)]);
+    const generateRandomNumber = () => {
+        return Math.floor(Math.random() * tips.length);
+    }
+
+    const [tipIndex, setTipIndex] = useState(generateRandomNumber());
 
     useEffect(() => {
         //sets a random number to show a random tip message to the user:
-        setTipIndex([Math.floor(Math.random() * tips.length)]);
+        setTipIndex(generateRandomNumber());
     }, []);
 
     return <TipContainer>
@@ -42,3 +33,5 @@ export default function TipItem({ profileImage }) {
 
     </TipContainer>
 }
+
+export default TipItem;

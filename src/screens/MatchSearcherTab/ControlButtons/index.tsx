@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { RoundIconButton } from '@components/index';
 import { checkIfSuperLikeIsAvailable } from '~/utils/functions';
 import { ignoreCurrentProfile, likeCurrentProfile } from '../MatchSearcherFunctions';

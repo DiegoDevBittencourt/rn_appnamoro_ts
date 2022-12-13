@@ -2,13 +2,14 @@ import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 
-import { REACT_APP_GEOCODE_API_KEY } from 'react-native-expand-dotenv';
 import * as RootNavigationRef from '@routes/RootNavigationRef';
 import * as utilsActions from '@store/utils/actions';
 import * as userActions from '@store/user/actions';
 import * as errorThunk from '@store/error/thunk';
 import * as userThunk from '~/store/users/thunk';
 import * as matchThunk from '@store/match/thunk';
+import { TURN_ON_LOCATION_MODAL } from '~/constants/screenNames';
+import { REACT_APP_GEOCODE_API_KEY } from 'react-native-expand-dotenv';
 
 Geocoder.init(REACT_APP_GEOCODE_API_KEY, { language: 'pt-br' });
 
@@ -21,7 +22,7 @@ export function getAddress() {
 
             dispatch(utilsActions.setIsGeoLocationEnable(false));
 
-            RootNavigationRef.push('TurnOnLocationModal');
+            RootNavigationRef.push(TURN_ON_LOCATION_MODAL);
 
             dispatch(errorThunk.handleThunkError(error));
         }

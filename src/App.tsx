@@ -10,7 +10,7 @@ if (__DEV__) { import('@config/ReactotronConfig').then(() => console.warn('React
 import store from '~/store';
 import Routes from '@routes/index';
 import { Loader } from '@components/index';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { useUtils } from '~/store/utils/reducer';
 import { navigationRef } from '@routes/RootNavigationRef';
 import {

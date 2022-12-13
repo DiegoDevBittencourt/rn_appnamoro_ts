@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-native';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { Awesome5Icon, Button, ButtonContainer, LeftText, RightText } from './styles';
 import { ConfigItemType } from './interface';
 

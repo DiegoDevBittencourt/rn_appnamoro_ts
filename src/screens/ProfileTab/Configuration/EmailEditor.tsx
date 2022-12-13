@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { useDashboard } from '~/store/dashboard/reducer';
-import { theme } from '~/constants/StyledComponentsTheme';
+import { theme } from '~/constants/styledComponentsTheme';
 import { useUsers } from '~/store/users/reducer';
 import { MainContainer, PCustom } from './styles';
 import {

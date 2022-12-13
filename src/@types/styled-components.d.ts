@@ -1,5 +1,5 @@
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 
 type ThemeInterface = typeof theme;
 

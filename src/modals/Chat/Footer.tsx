@@ -4,21 +4,11 @@ import styled from 'styled-components/native';
 
 import * as firebaseThunk from '@store/firebase/thunk';
 import { TextInput, GenericAppButton, RoundIconButton } from '@components/index';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { successNotification } from '~/utils/notifications';
+import { MainContainer } from './styles';
 
-const MainContainer = styled.View`
-    height: 60px;
-    background-color: white;
-    border-top-width: 0.4px;
-    border-color: ${({ theme }) => theme.$lightGray};
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-`;
-
-export default function Footer({ matchedProfile }) {
+const Footer = ({ matchedProfile }: any) => {
 
     const tiMessage = useRef();
     const dispatch = useDispatch();
@@ -38,11 +28,11 @@ export default function Footer({ matchedProfile }) {
         if (message != '' && !isSendingMessage) {
             setIsSendingMessage(true);
 
-            dispatch(firebaseThunk.sendMessageToFirebase(message, matchedProfile.id))
-                .then(() => {
-                    setIsSendingMessage(false);
-                    setMessage('');
-                });
+            // dispatch(firebaseThunk.sendMessageToFirebase(message, matchedProfile.id))
+            //     .then(() => {
+            //         setIsSendingMessage(false);
+            //         setMessage('');
+            //     });
         }
     }
 
@@ -67,7 +57,7 @@ export default function Footer({ matchedProfile }) {
             solidIcon
             returnKeyType={'done'}
             value={message}
-            onChangeText={value => setMessage(value)}
+            onChangeText={(value: string) => setMessage(value)}
         />
 
         <RoundIconButton
@@ -86,3 +76,5 @@ export default function Footer({ matchedProfile }) {
         />
     </MainContainer>
 }
+
+export default Footer;

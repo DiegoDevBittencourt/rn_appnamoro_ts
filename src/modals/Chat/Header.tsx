@@ -1,38 +1,15 @@
 import React from 'react';
-import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
-import { P, RoundCloseButton, RoundImage, RoundIconButton } from '@components/index';
 import { convertDateFormatToDDMMYYYY } from '~/utils/functions';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { GENERIC_YES_NO_MODAL } from '~/constants/screenNames';
+import { HeaderContainer, PCustom, RightButtonsContainer } from './styles';
+import { RoundCloseButton, RoundIconButton, RoundImage } from '~/components';
 
-const HeaderContainer = styled.View`
-    height: 80px;
-    border-bottom-width: 0.9px;
-    align-items: center;
-    border-color: ${({ theme }) => theme.$lightGray};
-    flex-direction: row;
-    width: 100%;
-`;
+const Header = ({ matchedProfile, profileImage }: any) => {
 
-const PCustom = styled(P)`
-    flex: 1;
-    margin-left: 10px;
-    font-size: 16px;
-`;
-
-const RightButtonsContainer = styled.View`
-    width: ${({ theme }) => theme.$heightOfGenericComponent}px;
-    height: 100%;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-`;
-
-export default function Header({ matchedProfile, profileImage }) {
-
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     const closeChat = () => navigation.goBack();
 
@@ -89,3 +66,5 @@ export default function Header({ matchedProfile, profileImage }) {
         </HeaderContainer>
     )
 }
+
+export default Header;

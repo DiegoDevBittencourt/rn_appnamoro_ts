@@ -2,7 +2,7 @@ import React from 'react';
 
 import Matches from './Matches';
 import Conversations from './Conversations';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { GenericContainer, SectionTitle } from '@components/index';
 import { ConversationsContainer, MatchesContainer } from './styles';
 

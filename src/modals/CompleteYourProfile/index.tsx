@@ -14,9 +14,10 @@ import {
     DatePickerButton,
     ModalSelector,
     GenericAppButton,
+    GenericModalContainer,
 } from '@components/index';
 
-export default function CompleteYourProfileContent() {
+const CompleteYourProfileContent = () => {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -31,8 +32,8 @@ export default function CompleteYourProfileContent() {
     const [company, setCompany] = useState('');
     const [position, setPosition] = useState('');
 
-    const tiCompany = useRef();
-    const tiPosition = useRef();
+    const tiCompany = useRef<any>();
+    const tiPosition = useRef<any>();
 
     useEffect(() => {
         const { birthday, gender, searchingBy, phone } = userData;
@@ -45,11 +46,11 @@ export default function CompleteYourProfileContent() {
     }, [userData]);
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', handleCloseButtonPress);
+        // BackHandler.addEventListener('hardwareBackPress', handleCloseButtonPress);
 
-        return () => {
-            BackHandler.removeEventListener('hardwareBackPress', handleCloseButtonPress);
-        }
+        // return () => {
+        //     BackHandler.removeEventListener('hardwareBackPress', handleCloseButtonPress);
+        // }
     }, []);
 
     const updateUserInfo = async () => {
@@ -67,13 +68,13 @@ export default function CompleteYourProfileContent() {
                 showMeOnApp: 1
             });
 
-            dispatch(userThunk.updateUser(userData, true)).then(() => navigation.goBack());
+            // dispatch(userThunk.updateUser(userData, true)).then(() => navigation.goBack());
         }
         else dangerNotification('"Dt. de nascimento", "Gênero", "Procuro por", "Escolaridade" e "Cargo" são campos obrigatórios.');
     }
 
     const handleCloseButtonPress = () => {
-        dispatch(authThunk.signOut());
+        // dispatch(authThunk.signOut());
     }
 
     return <GenericModalContainer closeButtonPress={() => handleCloseButtonPress()} title={'Vamos completar seu perfil!'}>
@@ -81,28 +82,28 @@ export default function CompleteYourProfileContent() {
 
             <DatePickerButton
                 selectedDate={birthdayLocal}
-                updateSelectedDate={(selectedDate) => setBirthdayLocal(selectedDate)}
+                updateSelectedDate={(selectedDate: Date) => setBirthdayLocal(selectedDate)}
             />
 
             <ModalSelector
                 title={'Meu gênero'}
                 data={Options.genderOptions()}
                 selectedItem={genderLocal}
-                handleChange={(selectedItem) => setGenderLocal(selectedItem)}
+                handleChange={(selectedItem: any) => setGenderLocal(selectedItem)}
             />
 
             <ModalSelector
                 title={'Procuro por'}
                 data={Options.searchingByOptions()}
                 selectedItem={searchingByLocal}
-                handleChange={(selectedItem) => setSearchingByLocal(selectedItem)}
+                handleChange={(selectedItem: any) => setSearchingByLocal(selectedItem)}
             />
 
             <ModalSelector
                 title={'Escolaridade'}
                 data={Options.schoolingOptions()}
                 selectedItem={schoolingLocal}
-                handleChange={(selectedItem) => setSchoolingLocal(selectedItem)}
+                handleChange={(selectedItem: any) => setSchoolingLocal(selectedItem)}
             />
 
             <TextInputRightIconButton
@@ -139,3 +140,5 @@ export default function CompleteYourProfileContent() {
         </MainContainer>
     </GenericModalContainer>
 }
+
+export default CompleteYourProfileContent;

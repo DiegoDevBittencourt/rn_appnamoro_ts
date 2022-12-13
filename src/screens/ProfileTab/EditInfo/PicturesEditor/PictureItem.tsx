@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Progress from 'react-native-progress';
 
 import { pickFile } from './uploadMedia';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { RoundCloseButton } from '@components/index';
 import noProfile from '@assets/noProfile.png';
 import { Button, ButtonContainer, ProgressBarContainer, UserImage, UserImageContainer } from './styles';

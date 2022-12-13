@@ -1,18 +1,18 @@
 import * as RootNavigationRef from '@routes/RootNavigationRef';
-
-import {
-    calculateAge,
-    getSearchingByDesc,
-    getSchoolingDesc,
-    getGenderDesc
-} from '~/utils/functions';
-import api from '@utils/api';
 import * as userActions from './actions';
 import * as utilsActions from '@store/utils/actions';
 import * as errorThunk from '@store/error/thunk';
 import * as utilsThunk from '@store/utils/thunk';
 import * as matchThunk from '@store/match/thunk';
 import * as firebaseThunk from '@store/firebase/thunk';
+import api from '@utils/api';
+import { COMPLETE_YOUR_PROFILE_MODAL } from '~/constants/screenNames';
+import {
+    calculateAge,
+    getSearchingByDesc,
+    getSchoolingDesc,
+    getGenderDesc
+} from '~/utils/functions';
 
 export function updateUser(user, shouldShowLoader, shouldCleanMatchSearcherArrayAndGetNextProfile) {
     return async (dispatch, getState) => {
@@ -83,7 +83,7 @@ export function getUserData(
 
             dispatch(userActions.updateUserDataOnRedux(userData));
 
-            !userData.profileComplete && RootNavigationRef.push('CompleteYourProfileModal');
+            !userData.profileComplete && RootNavigationRef.push(COMPLETE_YOUR_PROFILE_MODAL);
 
             shouldGetAddress && dispatch(utilsThunk.getAddress());
 

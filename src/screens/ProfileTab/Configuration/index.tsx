@@ -3,7 +3,7 @@ import { Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 // import * as userThunk from '~/store/users/thunk';
 // import * as dashboardActions from '@store/dashboard/actions';
 import {

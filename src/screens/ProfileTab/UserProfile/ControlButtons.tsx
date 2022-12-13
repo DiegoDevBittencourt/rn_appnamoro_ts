@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // import * as authThunk from '@store/auth/thunk';
 import Button from './Button';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { ControlButtonsContainer } from './styles';
 import { CONFIGURATION_SCREEN, EDIT_INFO_SCREEN } from '~/constants/screenNames';
 

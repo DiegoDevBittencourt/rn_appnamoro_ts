@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ProfileCard from '../ProfileCard';
 import MatchSearcherPlaceholder from '../MatchSearcherPlaceholder';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { ignoreCurrentProfile, likeCurrentProfile } from '../MatchSearcherFunctions';
 import { MainContainer } from './styles';
 import { updateSwipeCardRef, useMatch } from '~/store/match/reducer';

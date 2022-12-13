@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { AwesomeIcon } from '@components/index';
 import { IconContainer } from './styles';
 import MatchSearcherTab from '@screens/MatchSearcherTab';

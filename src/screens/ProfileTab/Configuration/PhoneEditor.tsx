@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { GenericAppButton, GenericContainer, SectionTitle, TextInputRightIconButton, Toolbar } from '@components/index';
 import { useDashboard } from '~/store/dashboard/reducer';
 import { MainContainer } from './styles';
-import { theme } from '~/constants/StyledComponentsTheme';
+import { theme } from '~/constants/styledComponentsTheme';
 import { useUsers } from '~/store/users/reducer';
 
 const PhoneEditor = () => {

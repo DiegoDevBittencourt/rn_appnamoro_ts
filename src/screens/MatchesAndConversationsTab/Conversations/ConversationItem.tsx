@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import noProfile from '@assets/noProfile.png';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { RoundImage } from '@components/index';
 import { setLimitCharactereSizeToString } from '~/utils/functions';
 import { Button, MainContainer, PMessage, PTime, PTitle, TextContainer, TimeContainer } from './styles';

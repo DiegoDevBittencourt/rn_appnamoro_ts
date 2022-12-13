@@ -12,3 +12,6 @@ export const CONTACT_MODAL = 'ContactModal';
 export const GENERIC_YES_NO_MODAL = 'GenericYesNoModal';
 export const FORGOT_PASSWORD_MODAL = 'ForgotPasswordModal';
 export const SIGN_UP_MODAL = 'SignUpModal';
+export const CHAT_MODAL = 'ChatModal';
+export const TURN_ON_LOCATION_MODAL = 'TurnOnLocationModal';
+export const COMPLETE_YOUR_PROFILE_MODAL = 'CompleteYourProfileModal';

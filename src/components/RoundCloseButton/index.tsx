@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import AwesomeIcon from '../AwesomeIcon';
 import { Button } from './styles';
 import { RoundCloseButtonType } from './interface';

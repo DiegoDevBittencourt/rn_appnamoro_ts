@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AwesomeIcon from '../AwesomeIcon';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { DevelopedByContainer, P1, P2, P3 } from './styles';
 
 const DevelopedBy = () => {

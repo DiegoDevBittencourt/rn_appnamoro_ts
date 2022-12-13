@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { AwesomeIcon, GenericScrollView, SectionTitle, Toolbar } from '@components/index';
-import { theme } from '~/constants/StyledComponentsTheme';
+import { theme } from '~/constants/styledComponentsTheme';
 import { useUsers } from '~/store/users/reducer';
 import { AddressInfo, MainContainer, MyLocationContainer, PCustom, PTitle } from './styles';
 import { useDashboard } from '~/store/dashboard/reducer';

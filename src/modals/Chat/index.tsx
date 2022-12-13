@@ -10,15 +10,14 @@ export const ChatContainer = styled(GenericContainer)`
     background-color: white;
 `;
 
-export default function Chat(props) {
-
+export default function Chat(props: any) {
     return <ChatContainer>
 
-        <Header {...props.route.params} />
+        <Header {...props?.route?.params} />
 
-        <Body {...props.route.params} />
+        <Body {...props?.route?.params} />
 
-        <Footer {...props.route.params} />
+        <Footer {...props?.route?.params} />
 
     </ChatContainer>
 }

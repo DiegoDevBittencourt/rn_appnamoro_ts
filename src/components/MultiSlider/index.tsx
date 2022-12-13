@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import P from '../P';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { MainContainer, MultiSliderComponentCustom, PCustom, SubContainer } from './styles';
 import { MultiSliderType } from './interface';
 

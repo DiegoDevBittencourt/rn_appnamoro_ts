@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // import * as authThunk from '@store/auth/thunk';
 import * as Options from '~/utils/options';
-import { theme } from '@constants/StyledComponentsTheme';
+import { theme } from '@constants/styledComponentsTheme';
 import { convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
 import { dangerNotification } from '~/utils/notifications';
 import {

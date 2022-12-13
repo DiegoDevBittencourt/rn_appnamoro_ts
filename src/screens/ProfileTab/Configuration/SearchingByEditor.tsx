@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // import * as userThunk from '~/store/users/thunk';
 import { P, ConfigItem, GenericScrollView, SectionTitle, Toolbar } from '@components/index';
 import { useUsers } from '~/store/users/reducer';
-import { theme } from '~/constants/StyledComponentsTheme';
+import { theme } from '~/constants/styledComponentsTheme';
 import { MainContainer } from './styles';
 import { useDashboard } from '~/store/dashboard/reducer';
 

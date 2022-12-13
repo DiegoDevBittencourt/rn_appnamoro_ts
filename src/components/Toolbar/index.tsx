@@ -1,7 +1,7 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
 
-import { theme } from '~/constants/StyledComponentsTheme';
+import { theme } from '~/constants/styledComponentsTheme';
 import { ToolbarType } from './interface';
 
 const Toolbar = (props: ToolbarType) => {
