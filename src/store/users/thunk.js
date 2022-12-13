@@ -14,38 +14,6 @@ import {
     getGenderDesc
 } from '~/utils/functions';
 
-export function updateUser(user, shouldShowLoader, shouldCleanMatchSearcherArrayAndGetNextProfile) {
-    return async (dispatch, getState) => {
-
-        const userState = getState().user;
-
-        try {
-
-            shouldShowLoader && dispatch(utilsActions.showLoader(true));
-
-            user = { ...user, id: userState.userData.id };
-
-            await api.post('users/update_user', { user });
-
-            const userData = user.ageRange ? {
-                ageRange: [
-                    parseInt(user.ageRange.split(',')[0]),
-                    parseInt(user.ageRange.split(',')[1])
-                ]
-            } : user;
-
-            dispatch(userActions.updateUserDataOnRedux(userData));
-
-            shouldCleanMatchSearcherArrayAndGetNextProfile && dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(true));
-
-            dispatch(utilsActions.showLoader(false));
-
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
-
 export function getUserData(
     shouldGetAddress,
     shouldGetProfilesForMatchSearcher,
@@ -99,21 +67,53 @@ export function getUserData(
     }
 }
 
-export function deleteUserImage(imageId) {
-    return async (dispatch) => {
-        try {
+// export function updateUser(user, shouldShowLoader, shouldCleanMatchSearcherArrayAndGetNextProfile) {
+//     return async (dispatch, getState) => {
 
-            dispatch(utilsActions.showLoader(true));
+//         const userState = getState().user;
 
-            await api.delete(`users/user_images/${imageId}`);
+//         try {
 
-            dispatch(utilsActions.showLoader(false));
-            dispatch(getUserData(true));
+//             shouldShowLoader && dispatch(utilsActions.showLoader(true));
 
-            RootNavigationRef.goBack();
+//             user = { ...user, id: userState.userData.id };
 
-        } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
-        }
-    }
-}
+//             await api.post('users/update_user', { user });
+
+//             const userData = user.ageRange ? {
+//                 ageRange: [
+//                     parseInt(user.ageRange.split(',')[0]),
+//                     parseInt(user.ageRange.split(',')[1])
+//                 ]
+//             } : user;
+
+//             dispatch(userActions.updateUserDataOnRedux(userData));
+
+//             shouldCleanMatchSearcherArrayAndGetNextProfile && dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(true));
+
+//             dispatch(utilsActions.showLoader(false));
+
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }
+
+// export function deleteUserImage(imageId) {
+//     return async (dispatch) => {
+//         try {
+
+//             dispatch(utilsActions.showLoader(true));
+
+//             await api.delete(`users/user_images/${imageId}`);
+
+//             dispatch(utilsActions.showLoader(false));
+//             dispatch(getUserData(true));
+
+//             RootNavigationRef.goBack();
+
+//         } catch (err) {
+//             dispatch(errorThunk.handleThunkError(err));
+//         }
+//     }
+// }

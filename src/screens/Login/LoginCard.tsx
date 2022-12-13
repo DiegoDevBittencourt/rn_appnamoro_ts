@@ -38,7 +38,7 @@ const Styles = EStyleSheet.create({
 
 export default function LoginCard() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
 
     const [email, setEmail] = useState('diego6d@hotmail.com');
@@ -47,13 +47,12 @@ export default function LoginCard() {
     const tiPassword = useRef<any>();
 
     const localLogin = () => {
-        push('Dashboard');
-        // if (email && password) {
-        //     const userData = { email, password };
-        //     dispatch(signInLocal(userData));
-        // }
-        // else
-        //     dangerNotification("Preencha os campos Email e Senha");
+        if (email && password) {
+            const userData = { email, password };
+            dispatch(signInLocal(userData));
+        }
+        else
+            dangerNotification("Preencha os campos Email e Senha");
     }
 
     return <LoginCardContainer style={Styles.loginCardContainer}>

@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserDataType {
     id?: string,
-    ageRange: number[],
-    maxDistance: number,
-    firstName: string,
-    lastName: string,
-    showMeOnApp: boolean,
+    ageRange?: number[],
+    maxDistance?: number,
+    firstName?: string,
+    lastName?: string,
+    showMeOnApp?: boolean,
     lastTimeSuperLikeWasUsed?: Date,
     userImages?: any[],
     age?: string,

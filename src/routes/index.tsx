@@ -27,7 +27,7 @@ const MainStack = createStackNavigator();
 const RootStack = createStackNavigator();
 
 const MainStackNavigator = () => {
-    return <MainStack.Navigator screenOptions={{ headerShown: false, headerMode: 'screen' }} initialRouteName={DASHBOARD_SCREEN} >
+    return <MainStack.Navigator screenOptions={{ headerShown: false, headerMode: 'screen' }} initialRouteName={LOGIN_SCREEN} >
         <MainStack.Screen name={LOGIN_SCREEN} component={Login} />
         <MainStack.Screen name={DASHBOARD_SCREEN} component={Dashboard} />
     </MainStack.Navigator>

@@ -5,36 +5,41 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '@utils/api';
 import * as RootNavigationRef from '@routes/RootNavigationRef';
-import * as utilsActions from '@store/utils/reducer';
-import * as userActions from '~/store/users/reducer';
-import * as authActions from '@store/auth/reducer';
 // import * as errorThunk from '@store/error/thunk';
 // import * as userThunk from '@store/user/thunk';
 // import * as matchActions from '@store/match/actions';
 // import * as matchThunk from '@store/match/thunk';
 // import { LOGIN_SCREEN } from '~/constants/screenNames';
 import { decodeJwtToken } from '~/utils/functions';
+import { updateUserDataOnRedux } from '../users/reducer';
+import { signInAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
+import { showLoader } from '../utils/reducer';
+import { getUserData } from '../users/thunk';
 
-const unsubscribeFirebaseListeners = [];
+const unsubscribeFirebaseListeners: any[] = [];
 
-export function signInLocal(userData) {
-    return async dispatch => {
+export function signInLocal(userData: any) {
+    return async (dispatch: any) => {
         try {
 
-            dispatch(utilsActions.showLoader(true));
+            dispatch(showLoader(true));
 
             const res = await api.post('account/signin', userData);
 
             dispatch(setAccessTokenOnStorageAndRedux(res?.data?.token));
-            dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res?.data?.token)?.id }));
+            dispatch(updateUserDataOnRedux({ id: decodeJwtToken(res?.data?.token)?.id }));
 
-            dispatch(utilsActions.showLoader(false));
+            dispatch(showLoader(false));
 
             Keyboard.dismiss();
 
-            dispatch(authActions.signInAction());
-
-            // dispatch(userThunk.getUserData(true, true, true, true));
+            dispatch(signInAction());
+            dispatch(getUserData({
+                shouldGetAddress: true,
+                shouldGetProfilesForMatchSearcher: true,
+                shouldSignInOnFirebase: true,
+                shouldGetMatchedProfiles: true
+            }));
 
             // RootNavigationRef.reset('Dashboard');
 
@@ -44,21 +49,21 @@ export function signInLocal(userData) {
     }
 }
 
-export function setAccessTokenOnStorageAndRedux(accessToken) {
-    return async dispatch => {
+export function setAccessTokenOnStorageAndRedux(accessToken: string) {
+    return async (dispatch: any) => {
         AsyncStorage.setItem('accessToken', accessToken || '');
-        dispatch(authActions.updateAccessTokenOnRedux(accessToken));
+        dispatch(updateAccessTokenOnRedux(accessToken));
     }
 }
 
 export function signOut() {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         try {
             unsubscribeFirebaseListeners.map(item => item());
 
             await AsyncStorage.setItem('accessToken', '');
 
-            firebase.auth().signOut();
+            // firebase.auth().signOut();
 
             // dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(false));
             // dispatch(matchActions.updateMatchedProfilesArray([]));
@@ -74,7 +79,7 @@ export function signOut() {
             // RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
 
         } catch (err) {
-            dispatch(errorThunk.handleThunkError(err));
+            // dispatch(errorThunk.handleThunkError(err));
             dispatch(setAccessTokenOnStorageAndRedux(''));
         }
     }
@@ -109,7 +114,7 @@ export function signOut() {
 // }
 
 // export function signUp(userData, navigation) {
-//     return async (dispatch) => {
+//     return async (dispatch:any) => {
 
 //         try {
 
@@ -134,7 +139,7 @@ export function signOut() {
 // }
 
 // export function signInOauth(oauthAccessToken, type) {
-//     return async (dispatch) => {
+//     return async (dispatch:any) => {
 
 //         try {
 

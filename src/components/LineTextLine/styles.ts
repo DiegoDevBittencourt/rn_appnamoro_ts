@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const LineTextLineContainer = styled.View`
     width: auto;
     align-items: center;
+    justify-content: center;
     flex-direction: row;
     width: 100%;
 `;
