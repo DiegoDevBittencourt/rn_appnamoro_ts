@@ -3,7 +3,7 @@ import jwt from 'jwt-decode';
 import { dangerNotification } from './notifications';
 import * as Options from './options';
 
-export function handleError(err) {
+export function handleError(err: any) {
     try {
         const somethingIsWrong = 'Ops, parece que algo saiu mal. Tente novamente.';
 
@@ -28,18 +28,18 @@ export function handleError(err) {
     }
 }
 
-export function calculateAge(birthday) { // birthday is a date
-    var ageDifMs = Date.now() - birthday.getTime();
+export function calculateAge(birthday: Date) { // birthday is a date
+    var ageDifMs = Date.now() - birthday?.getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
-export function emailValidator(text) {
+export function emailValidator(text: string) {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return reg.test(text);
 }
 
-export function calculateDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+export function calculateDistanceFromLatLonInKm({ lat1, lon1, lat2, lon2 }: { lat1: number, lon1: number, lat2: number, lon2: number }) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2 - lat1); // deg2rad below
     var dLon = deg2rad(lon2 - lon1);
@@ -52,15 +52,15 @@ export function calculateDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     return d;
 }
 
-function deg2rad(deg) {
+function deg2rad(deg: number) {
     return deg * (Math.PI / 180)
 }
 
-export function decodeJwtToken(JWT_TOKEN) {
-    return JWT_TOKEN ? jwt(JWT_TOKEN).payload : '';
+export function decodeJwtToken(JWT_TOKEN: string) {
+    return JWT_TOKEN ? jwt<any>(JWT_TOKEN)?.payload : '';
 }
 
-export function convertDateFormatToDDMMYYYY(date) {
+export function convertDateFormatToDDMMYYYY(date: any) {
     if (date !== '' && date !== null) {
 
         try {
@@ -89,12 +89,12 @@ export function convertDateFormatToDDMMYYYY(date) {
         return '';
 }
 
-export function convertDateStringFromDDMMYYYYtoMMDDYYYY(date) {
+export function convertDateStringFromDDMMYYYYtoMMDDYYYY(date: any) {
     const splittedBirthday = date.split('/');
     return splittedBirthday[1] + '-' + splittedBirthday[0] + '-' + splittedBirthday[2];
 }
 
-export function convertDateFormatToHHMM(date) {
+export function convertDateFormatToHHMM(date: any) {
     if (date !== '' && date !== null) {
 
         try {
@@ -117,13 +117,13 @@ export function convertDateFormatToHHMM(date) {
         return '';
 }
 
-export function handleUserBirthday(birthday) {
+export function handleUserBirthday(birthday: any) {
     //this validation is needed cause if there's no birthdayon database, it brings todays date on userData.birthday:
     return convertDateFormatToDDMMYYYY(birthday) != convertDateFormatToDDMMYYYY(new Date()) ?
         convertDateFormatToDDMMYYYY(birthday) : null
 }
 
-export function setLimitCharactereSizeToString(str, limitSize) {
+export function setLimitCharactereSizeToString(str: string, limitSize: number) {
 
     let finalStr = str.substring(0, limitSize);
     finalStr = finalStr.length >= limitSize ? finalStr + '...' : finalStr;
@@ -131,7 +131,7 @@ export function setLimitCharactereSizeToString(str, limitSize) {
     return finalStr;
 }
 
-export function getSearchingByDesc(searchingById) {
+export function getSearchingByDesc(searchingById: number) {
     const searchingByOptions = Options.searchingByOptions();
 
     let index = 0;
@@ -143,7 +143,7 @@ export function getSearchingByDesc(searchingById) {
     return searchingByOptions[index].label;
 }
 
-export function getSchoolingDesc(schoolingId) {
+export function getSchoolingDesc(schoolingId: number) {
     const schoolingOptions = Options.schoolingOptions();
 
     let index = 0;
@@ -155,7 +155,7 @@ export function getSchoolingDesc(schoolingId) {
     return schoolingOptions[index].label;
 }
 
-export function getGenderDesc(genderId) {
+export function getGenderDesc(genderId: number) {
     const genderOptions = Options.genderOptions();
 
     let index = 0;
@@ -167,17 +167,16 @@ export function getGenderDesc(genderId) {
     return genderOptions[index].label;
 }
 
-export function checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed) {
+export function checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed: Date) {
     var timeStart = new Date(lastTimeSuperLikeWasUsed).getTime();
     var timeEnd = new Date().getTime();
     var hourDiff = timeEnd - timeStart; //in ms
     var hDiff = hourDiff / 3600 / 1000; //in hours
-    var humanReadable = {};
-    humanReadable.hours = Math.floor(hDiff);
+    var hours = Math.floor(hDiff);
 
-    return humanReadable.hours > 24
+    return hours > 24;
 }
 
-export function generateRandomKey() {
-    return parseInt(Math.random(1, 999999) * 999)
+export function generateRandomKey(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }

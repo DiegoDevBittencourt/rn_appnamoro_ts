@@ -47,12 +47,12 @@ export function getNextProfileForTheMatchSearcher() {
 
                 if (res.data.user) {
 
-                    res.data.user.distance = parseInt(calculateDistanceFromLatLonInKm(
-                        userData.currentLongitude,
-                        userData.currentLatitude,
-                        res.data.user.lastLongitude,
-                        res.data.user.lastLatitude
-                    ));
+                    res.data.user.distance = parseInt(calculateDistanceFromLatLonInKm({
+                        lat1: userData.currentLongitude,
+                        lon1: userData.currentLatitude,
+                        lat2: res.data.user.lastLongitude,
+                        lon2: res.data.user.lastLatitude
+                    }));
 
                     res.data.user.age = calculateAge(new Date(res.data.user.birthday));
 
