@@ -1,21 +1,17 @@
 import * as RootNavigationRef from '@routes/RootNavigationRef';
-// import * as userActions from './actions';
-// import * as errorThunk from '@store/error/thunk';
-// import * as utilsThunk from '@store/utils/thunk';
-// import * as matchThunk from '@store/match/thunk';
-// import * as firebaseThunk from '@store/firebase/thunk';
 import api from '@utils/api';
 import { COMPLETE_YOUR_PROFILE_MODAL } from '~/constants/screenNames';
-// import { COMPLETE_YOUR_PROFILE_MODAL } from '~/constants/screenNames';
+import { signInOrSignUpToFirebase } from '../firebase/thunk';
+import { getAddress } from '../utils/thunk';
+import { updateUserDataOnRedux } from './reducer';
 import {
     calculateAge,
     getSearchingByDesc,
     getSchoolingDesc,
     getGenderDesc
 } from '~/utils/functions';
-import { signInOrSignUpToFirebase } from '../firebase/thunk';
-import { getAddress } from '../utils/thunk';
-import { updateUserDataOnRedux } from './reducer';
+import { getMatchedProfiles, getNextProfileForTheMatchSearcher } from '../match/thunk';
+import { handleThunkError } from '../error/thunk';
 
 export function getUserData({
     shouldGetAddress,
@@ -23,10 +19,10 @@ export function getUserData({
     shouldSignInOnFirebase,
     shouldGetMatchedProfiles
 }: {
-    shouldGetAddress: boolean,
-    shouldGetProfilesForMatchSearcher: boolean,
-    shouldSignInOnFirebase: boolean,
-    shouldGetMatchedProfiles: boolean
+    shouldGetAddress?: boolean,
+    shouldGetProfilesForMatchSearcher?: boolean,
+    shouldSignInOnFirebase?: boolean,
+    shouldGetMatchedProfiles?: boolean
 }) {
 
     return async (dispatch: any, getState: any) => {
@@ -37,7 +33,7 @@ export function getUserData({
 
             const res = await api.get(`users/get_user/${userState.userData?.id}`, {});
 
-            const userData = res.data;
+            const userData = res?.data;
 
             //handling userData fields to be correctly "read" by the app
             const ageRange = userData?.ageRange.split(',');
@@ -50,7 +46,7 @@ export function getUserData({
             userData.showMeOnApp = userData?.showMeOnApp == 1;
             userData.emailNotification = userData?.emailNotification == 1;
             userData.pushNotification = userData?.pushNotification == 1;
-
+            console.log('userData123', userData)
             userData?.userImages.map((item: any) => {
                 item.progress = 0;
                 item.uploaded = true;
@@ -58,19 +54,19 @@ export function getUserData({
             });
 
             dispatch(updateUserDataOnRedux(userData));
-
+            console.log('userData', userData)
             !userData?.profileComplete && RootNavigationRef.push(COMPLETE_YOUR_PROFILE_MODAL);
 
             shouldGetAddress && dispatch(getAddress());
 
             shouldSignInOnFirebase && dispatch(signInOrSignUpToFirebase());
 
-            shouldGetMatchedProfiles && dispatch(matchThunk.getMatchedProfiles());
+            shouldGetMatchedProfiles && dispatch(getMatchedProfiles());
 
-            // shouldGetProfilesForMatchSearcher && dispatch(matchThunk.getNextProfileForTheMatchSearcher());
+            shouldGetProfilesForMatchSearcher && dispatch(getNextProfileForTheMatchSearcher());
 
         } catch (err) {
-            // dispatch(errorThunk.handleThunkError(err));
+            dispatch(handleThunkError(err));
         }
     }
 }

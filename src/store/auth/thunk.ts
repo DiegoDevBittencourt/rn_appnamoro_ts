@@ -1,20 +1,16 @@
 import { Keyboard } from 'react-native';
-// import firebase from "firebase/compat/app";
 // import firebase from "firebase";
 import AsyncStorage from '@react-native-community/async-storage';
 
-import api from '@utils/api';
 import * as RootNavigationRef from '@routes/RootNavigationRef';
-// import * as errorThunk from '@store/error/thunk';
-// import * as userThunk from '@store/user/thunk';
-// import * as matchActions from '@store/match/actions';
-// import * as matchThunk from '@store/match/thunk';
-// import { LOGIN_SCREEN } from '~/constants/screenNames';
+import api from '@utils/api';
 import { decodeJwtToken } from '~/utils/functions';
 import { updateUserDataOnRedux } from '../users/reducer';
-import { signInAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
+import { signInAction, signUpAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
 import { showLoader } from '../utils/reducer';
 import { getUserData } from '../users/thunk';
+import { DASHBOARD_SCREEN } from '~/constants/screenNames';
+import { handleThunkError } from '../error/thunk';
 
 const unsubscribeFirebaseListeners: any[] = [];
 
@@ -41,10 +37,10 @@ export function signInLocal(userData: any) {
                 shouldGetMatchedProfiles: true
             }));
 
-            // RootNavigationRef.reset('Dashboard');
+            RootNavigationRef.reset(DASHBOARD_SCREEN);
 
         } catch (err) {
-            // dispatch(errorThunk.handleThunkError(err));
+            dispatch(handleThunkError(err));
         }
     }
 }
@@ -85,6 +81,30 @@ export function signOut() {
     }
 }
 
+export function signUp(userData?: any) {
+    return async (dispatch: any) => {
+
+        try {
+            dispatch(showLoader(true));
+
+            const res = await api.post('account/signup', userData);
+
+            RootNavigationRef.goBack();
+
+            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
+
+            dispatch(signUpAction());
+
+            dispatch(showLoader(false));
+
+            RootNavigationRef.reset('Dashboard');
+
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
+
 // export function checkIfTokenHasExpired() {
 //     return async (dispatch, getState) => {
 //         try {
@@ -108,31 +128,6 @@ export function signOut() {
 
 //         } catch (err) {
 //             dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
-
-// export function signUp(userData, navigation) {
-//     return async (dispatch:any) => {
-
-//         try {
-
-//             dispatch(utilsActions.showLoader(true));
-
-//             const res = await api.post('account/signup', userData);
-
-//             navigation.goBack();
-
-//             dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
-
-//             dispatch(authActions.signUpAction());
-
-//             dispatch(utilsActions.showLoader(false));
-
-//             RootNavigationRef.reset('Dashboard');
-
-//         } catch (err) {
 //             dispatch(errorThunk.handleThunkError(err));
 //         }
 //     }

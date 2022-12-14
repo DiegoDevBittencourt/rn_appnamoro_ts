@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-// import * as authThunk from '@store/auth/thunk';
 import * as Options from '~/utils/options';
 import { theme } from '@constants/styledComponentsTheme';
 import { convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
@@ -16,10 +15,11 @@ import {
 } from '@components/index';
 import { MainContainer } from './styles';
 import { RNModalSelectorDataType } from '~/components/ModalSelector/interface';
+import { signUp } from '~/store/auth/thunk';
 
 export default function SignUpFields() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
 
     const { $lightGray, $gray } = theme;
@@ -68,7 +68,7 @@ export default function SignUpFields() {
                     pushNotification: 1
                 });
 
-                // dispatch(authThunk.signUp(userData, navigation));
+                dispatch(signUp(userData));
             }
             else {
                 dangerNotification('Preencha todos os campos antes de continuar.');

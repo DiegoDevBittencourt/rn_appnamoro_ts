@@ -20,10 +20,10 @@ const sliceUtils = createSlice({
             return { ...state, showLoader: payload }
         },
         updateIsGettingLocation(state, { payload }: PayloadAction<boolean>) {
-            return { ...state, isGeolocationEnabled: payload }
-        },
-        setIsGeoLocationEnable(state, { payload }: PayloadAction<boolean>) {
             return { ...state, isGettingLocation: payload }
+        },
+        setIsGeoLocationEnabled(state, { payload }: PayloadAction<boolean>) {
+            return { ...state, isGeolocationEnabled: payload }
         }
     }
 });
@@ -32,7 +32,7 @@ export default sliceUtils.reducer;
 export const {
     showLoader,
     updateIsGettingLocation,
-    setIsGeoLocationEnable
+    setIsGeoLocationEnabled
 } = sliceUtils.actions;
 
 export const useUtils = (state: any) => {

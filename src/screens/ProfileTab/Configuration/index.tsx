@@ -25,10 +25,11 @@ import {
     PHONE_EDITOR_SCREEN,
     SEARCHING_BY_EDITOR_SCREEN
 } from '~/constants/screenNames';
+import { getUserData } from '~/store/users/thunk';
 
 const Configuration = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation<any>();
 
     const { userData } = useSelector(useUsers);
@@ -38,7 +39,7 @@ const Configuration = () => {
         address,
         searchingBy,
         maxDistance,
-        ageRange,
+        ageRange = [25, 35],
         showMeOnApp,
         emailNotification,
         pushNotification
@@ -51,7 +52,7 @@ const Configuration = () => {
     const [pushNotificationLocal, setPushNotificationLocal] = useState(pushNotification);
 
     useEffect(() => {
-        // dispatch(userThunk.getUserData());
+        dispatch(getUserData({}));
     }, []);
 
     useEffect(() => {

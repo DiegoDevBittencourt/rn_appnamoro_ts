@@ -20,7 +20,7 @@ export interface UserDataType {
     pushNotification?: boolean,
     verifiedEmail?: number,
     about?: string,
-    birthday?: Date,
+    birthday?: any,
     gender?: any,
     company?: string,
     oauthUId?: string,
@@ -51,7 +51,7 @@ const sliceUsers = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         updateUserDataOnRedux(state, { payload }: PayloadAction<UserDataType>) {
-            return { ...state, userData: payload }
+            return { ...state, userData: { ...state?.userData, ...payload } }
         }
     }
 });

@@ -9,7 +9,7 @@ const unsubscribeFirebaseListeners = [];
 export function signInOrSignUpToFirebase() {//if there's no record try sign in, otherwise: sign up
     return async (dispatch: any, getState: any) => {
 
-        const userEmail = getState()?.dashboard?.userData?.email;
+        const userEmail = getState()?.users?.userData?.email;
 
         const addUserOnFirestore = async (user: any) => {
             try {

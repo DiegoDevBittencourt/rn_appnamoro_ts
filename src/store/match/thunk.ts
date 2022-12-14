@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import * as RootNavigationRef from '@routes/RootNavigationRef';
 import api from '~/utils/api';
 import { calculateAge, calculateDistanceFromLatLonInKm } from '~/utils/functions';
@@ -37,20 +38,32 @@ export function getNextProfileForTheMatchSearcher() {
         const { userData } = getState().users;
         const { isGeolocationEnabled } = getState().utils;
 
+        const currentLongitude = await AsyncStorage.getItem('currentLongitude');
+        const currentLatitude = await AsyncStorage.getItem('currentLatitude');
+        console.log('currentLongitude222', currentLongitude)
         try {
-            if (!isGettingProfileForTheMatchSearcher && matchSearcherProfiles.length < 2 && isGeolocationEnabled) {
+            if (!isGettingProfileForTheMatchSearcher && matchSearcherProfiles?.length < 2 && isGeolocationEnabled) {
 
                 dispatch(updateIsGettingProfileForTheMatchSearcher(true));
 
                 const res = await api.post('users/get_profile_to_the_match_searcher', {
-                    currentLongitude: userData.currentLongitude,
-                    currentLatitude: userData.currentLatitude,
+                    currentLongitude: userData.currentLongitude || currentLongitude,
+                    currentLatitude: userData.currentLatitude || currentLatitude,
                     maxDistance: userData.maxDistance,
                     userId: userData.id,
                     searchingBy: userData.searchingBy.key,
                     profileIdsAlreadyDownloaded: profileIdsAlreadyDownloaded,
                     ageRange: userData.ageRange
                 });
+                console.log('wwwwww', {
+                    currentLongitude: userData.currentLongitude || currentLongitude,
+                    currentLatitude: userData.currentLatitude || currentLatitude,
+                    maxDistance: userData.maxDistance,
+                    userId: userData.id,
+                    searchingBy: userData.searchingBy.key,
+                    profileIdsAlreadyDownloaded: profileIdsAlreadyDownloaded,
+                    ageRange: userData.ageRange
+                })
 
                 if (res?.data?.user) {
                     res.data.user.distance = parseInt(String(calculateDistanceFromLatLonInKm({

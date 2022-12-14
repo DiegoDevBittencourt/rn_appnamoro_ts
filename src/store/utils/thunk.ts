@@ -3,32 +3,22 @@ import Geocoder from 'react-native-geocoding';
 import { PermissionsAndroid } from 'react-native';
 
 import * as RootNavigationRef from '@routes/RootNavigationRef';
-// import * as errorThunk from '@store/error/thunk';
-import { setIsGeoLocationEnable, updateIsGettingLocation } from './reducer';
+import { setIsGeoLocationEnabled, updateIsGettingLocation } from './reducer';
 import { handleThunkError } from '../error/thunk';
 import { TURN_ON_LOCATION_MODAL } from '~/constants/screenNames';
-// import { TURN_ON_LOCATION_MODAL } from '~/constants/screenNames';
 import { updateUserDataOnRedux } from '../users/reducer';
 import { getNextProfileForTheMatchSearcher } from '../match/thunk';
 import { REACT_APP_GEOCODE_API_KEY } from '@env';
+import AsyncStorage from '@react-native-community/async-storage';
 
 Geocoder.init(REACT_APP_GEOCODE_API_KEY, { language: 'pt-br' });
 
 export function getAddress() {
     return async (dispatch: any) => {
 
-        const handleGeolocationError = (error: any) => {
-            dispatch(updateIsGettingLocation(false));
-            dispatch(setIsGeoLocationEnable(false));
-
-            RootNavigationRef.push(TURN_ON_LOCATION_MODAL);
-
-            dispatch(handleThunkError(error));
-        }
-
         dispatch(updateIsGettingLocation(true));
 
-        await PermissionsAndroid.request(
+        const locationAllowed = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
             {
                 title: "Libere o acesso a sua localização!",
@@ -39,30 +29,40 @@ export function getAddress() {
             }
         );
 
+        const handleGeolocationError = (error: any) => {
+            dispatch(updateIsGettingLocation(false));
+            dispatch(setIsGeoLocationEnabled(false));
+
+            if (locationAllowed != PermissionsAndroid.RESULTS.GRANTED)
+                RootNavigationRef.push(TURN_ON_LOCATION_MODAL);
+
+            dispatch(handleThunkError(error));
+        }
+
         Geolocation.getCurrentPosition(
             (position) => {
 
                 let lat = position?.coords?.latitude;
                 let lng = position?.coords?.longitude;
 
-                Geocoder.from({ lat, lng }).then(json => {
+                Geocoder.from({ lat, lng }).then(async json => {
 
                     const address = json.results[6].formatted_address;
 
-                    dispatch(setIsGeoLocationEnable(true));
+                    dispatch(setIsGeoLocationEnabled(true));
 
                     dispatch(updateUserDataOnRedux({
                         address,
                         currentLongitude: lng,
-                        currentLatitude: lat
-                    }));
-
-                    dispatch(updateUserDataOnRedux({
+                        currentLatitude: lat,
                         lastLongitude: lng,
                         lastLatitude: lat
                     }));
 
                     dispatch(updateIsGettingLocation(false));
+
+                    await AsyncStorage.setItem('currentLongitude', String(lng));
+                    await AsyncStorage.setItem('currentLatitude', String(lat));
 
                     dispatch(getNextProfileForTheMatchSearcher());
 
