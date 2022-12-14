@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
 
-import * as userThunk from '~/store/users/thunk';
 import * as Options from '~/utils/options';
 import { dangerNotification } from '~/utils/notifications';
 import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
@@ -17,6 +16,7 @@ import {
     GenericModalContainer,
 } from '@components/index';
 import { signOut } from '~/store/auth/thunk';
+import { updateUser } from '~/store/users/thunk';
 
 const CompleteYourProfileContent = () => {
 
@@ -68,8 +68,8 @@ const CompleteYourProfileContent = () => {
                 profileComplete: 1,
                 showMeOnApp: 1
             });
-
-            // dispatch(userThunk.updateUser(userData, true)).then(() => navigation.goBack());
+            console.log('asduserData', userData)
+            dispatch(updateUser({ user: userData, shouldShowLoader: true })).then(() => navigation.goBack());
         }
         else dangerNotification('"Dt. de nascimento", "Gênero", "Procuro por", "Escolaridade" e "Cargo" são campos obrigatórios.');
     }
@@ -135,7 +135,7 @@ const CompleteYourProfileContent = () => {
             <GenericAppButton
                 customButtonStyle={{ margin: 30, width: 'auto' }}
                 textButton={'CONTINUAR'}
-                onPress={() => updateUserInfo()}
+                onPress={updateUserInfo}
             />
 
         </MainContainer>

@@ -25,14 +25,13 @@ export function getUserData({
     shouldSignInOnFirebase?: boolean,
     shouldGetMatchedProfiles?: boolean
 }) {
-
     return async (dispatch: any, getState: any) => {
 
         const userState = getState().users;
-
+        console.log('userState', userState);
         try {
 
-            const res = await api.get(`users/get_user/${userState.userData?.id}`, {});
+            const res = await api.get(`users/get_user/${userState?.userData?.id}`, {});
 
             const userData = res?.data;
 
@@ -47,7 +46,7 @@ export function getUserData({
             userData.showMeOnApp = userData?.showMeOnApp == 1;
             userData.emailNotification = userData?.emailNotification == 1;
             userData.pushNotification = userData?.pushNotification == 1;
-            console.log('userData123', userData)
+
             userData?.userImages.map((item: any) => {
                 item.progress = 0;
                 item.uploaded = true;
@@ -55,7 +54,7 @@ export function getUserData({
             });
 
             dispatch(updateUserDataOnRedux(userData));
-            console.log('userData', userData)
+
             !userData?.profileComplete && RootNavigationRef.push(COMPLETE_YOUR_PROFILE_MODAL);
 
             shouldGetAddress && dispatch(getAddress());
@@ -84,17 +83,18 @@ export function updateUser({
 
     return async (dispatch: any, getState: any) => {
 
-        const userState = getState().user;
+        const userState = getState().users;
 
         try {
 
             shouldShowLoader && dispatch(showLoader(true));
 
-            user = { ...user, id: userState.userData?.id };
+            user = { ...user, id: userState?.userData?.id };
 
             await api.post('users/update_user', { user });
 
             const userData = user.ageRange ? {
+                ...user,
                 ageRange: [
                     parseInt(user.ageRange.split(',')[0]),
                     parseInt(user.ageRange.split(',')[1])

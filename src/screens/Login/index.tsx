@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import logo from '@assets/logo.png';
 import appBackgroundOpaque from '@assets/appBackgroundOpaque.jpg';
@@ -15,5 +15,5 @@ export default function Login() {
 
         </GenericScrollView>
 
-    </ImageBackgroundContainer >
+    </ImageBackgroundContainer>
 }

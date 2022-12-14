@@ -4,6 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import { Provider, useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
+import FlashMessage from 'react-native-flash-message';
 
 if (__DEV__) { import('@config/ReactotronConfig').then(() => console.warn('Reactotron Configured')) };
 
@@ -54,11 +55,14 @@ export default function App() {
 
   return <ThemeProvider theme={theme}>
     <Provider store={store}>
-      <TheLoader />
 
       <NavigationContainer ref={navigationRef}>
         <Routes />
       </NavigationContainer>
+
+      <TheLoader />
+
+      <FlashMessage position='bottom' />
 
     </Provider>
   </ThemeProvider>

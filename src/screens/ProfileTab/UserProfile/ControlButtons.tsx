@@ -7,15 +7,15 @@ import Button from './Button';
 import { theme } from '@constants/styledComponentsTheme';
 import { ControlButtonsContainer } from './styles';
 import { CONFIGURATION_SCREEN, EDIT_INFO_SCREEN } from '~/constants/screenNames';
+import { signOut } from '~/store/auth/thunk';
 
 export default function ControlButtons() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation<any>();
 
     const handleSignOut = () => {
-        // dispatch(authThunk.signOut());
-        navigation.push('Login');//remove later
+        dispatch(signOut());
     }
 
     const handleConfigButtonClick = () => {

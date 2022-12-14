@@ -47,6 +47,39 @@ export function signInLocal(userData: any) {
     }
 }
 
+export function signUp(userData?: any) {
+    return async (dispatch: any) => {
+
+        try {
+            dispatch(showLoader(true));
+
+            const res = await api.post('account/signup', userData);
+
+            RootNavigationRef.goBack();
+
+            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
+
+            const userId = decodeJwtToken(res.data.token)?.id;
+            dispatch(updateUserDataOnRedux({ id: userId }));
+
+            dispatch(signUpAction());
+            dispatch(getUserData({
+                shouldGetAddress: true,
+                shouldGetProfilesForMatchSearcher: true,
+                shouldSignInOnFirebase: true,
+                shouldGetMatchedProfiles: true
+            }));
+
+            dispatch(showLoader(false));
+
+            RootNavigationRef.reset(DASHBOARD_SCREEN);
+
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
+
 export function setAccessTokenOnStorageAndRedux(accessToken: string) {
     return async (dispatch: any) => {
         AsyncStorage.setItem('accessToken', accessToken || '');
@@ -83,30 +116,6 @@ export function signOut() {
         } catch (err) {
             dispatch(handleThunkError(err));
             dispatch(setAccessTokenOnStorageAndRedux(''));
-        }
-    }
-}
-
-export function signUp(userData?: any) {
-    return async (dispatch: any) => {
-
-        try {
-            dispatch(showLoader(true));
-
-            const res = await api.post('account/signup', userData);
-
-            RootNavigationRef.goBack();
-
-            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
-
-            dispatch(signUpAction());
-
-            dispatch(showLoader(false));
-
-            RootNavigationRef.reset('Dashboard');
-
-        } catch (err) {
-            dispatch(handleThunkError(err));
         }
     }
 }
@@ -169,7 +178,7 @@ export function signUp(userData?: any) {
 
 //             dispatch(userThunk.getUserData(true, true, true, true));
 
-//             RootNavigationRef.reset('Dashboard');
+//             RootNavigationRef.reset(DASHBOARD_SCREEN);
 
 //         } catch (err) {
 //             dispatch(errorThunk.handleThunkError(err));

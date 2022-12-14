@@ -10,6 +10,7 @@ import { updateUserDataOnRedux } from '../users/reducer';
 import { getNextProfileForTheMatchSearcher } from '../match/thunk';
 import { REACT_APP_GEOCODE_API_KEY } from '@env';
 import AsyncStorage from '@react-native-community/async-storage';
+import { updateUser } from '../users/thunk';
 
 Geocoder.init(REACT_APP_GEOCODE_API_KEY, { language: 'pt-br' });
 
@@ -57,6 +58,13 @@ export function getAddress() {
                         currentLatitude: lat,
                         lastLongitude: lng,
                         lastLatitude: lat
+                    }));
+
+                    dispatch(updateUser({
+                        user: {
+                            lastLongitude: lng,
+                            lastLatitude: lat
+                        }
                     }));
 
                     dispatch(updateIsGettingLocation(false));

@@ -40,7 +40,7 @@ export function getNextProfileForTheMatchSearcher() {
 
         const currentLongitude = await AsyncStorage.getItem('currentLongitude');
         const currentLatitude = await AsyncStorage.getItem('currentLatitude');
-        console.log('currentLongitude222', currentLongitude)
+
         try {
             if (!isGettingProfileForTheMatchSearcher && matchSearcherProfiles?.length < 2 && isGeolocationEnabled) {
 
@@ -55,15 +55,6 @@ export function getNextProfileForTheMatchSearcher() {
                     profileIdsAlreadyDownloaded: profileIdsAlreadyDownloaded,
                     ageRange: userData.ageRange
                 });
-                console.log('wwwwww', {
-                    currentLongitude: userData.currentLongitude || currentLongitude,
-                    currentLatitude: userData.currentLatitude || currentLatitude,
-                    maxDistance: userData.maxDistance,
-                    userId: userData.id,
-                    searchingBy: userData.searchingBy.key,
-                    profileIdsAlreadyDownloaded: profileIdsAlreadyDownloaded,
-                    ageRange: userData.ageRange
-                })
 
                 if (res?.data?.user) {
                     res.data.user.distance = parseInt(String(calculateDistanceFromLatLonInKm({

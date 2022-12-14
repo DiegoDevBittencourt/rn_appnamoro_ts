@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-// import * as userThunk from '~/store/users/thunk';
 import * as Options from '~/utils/options';
 import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
 import { useUsers } from '~/store/users/reducer';
@@ -14,10 +13,11 @@ import {
     SectionTitle,
 } from '@components/index';
 import { UserInfoEditorContainer } from './styles';
+import { updateUser } from '~/store/users/thunk';
 
 export default function UserInfoEditor() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
 
     const { userData } = useSelector(useUsers);
@@ -26,7 +26,7 @@ export default function UserInfoEditor() {
     const [aboutLocal, setAboutLocal] = useState<string>();
     const [birthdayLocal, setBirthdayLocal] = useState<any>();
     const [genderLocal, setGenderLocal] = useState<any>();
-    const [schoolingLocal, setSchoolingLocal] = useState();
+    const [schoolingLocal, setSchoolingLocal] = useState<any>();
     const [companyLocal, setCompanyLocal] = useState<any>();
     const [positionLocal, setPositionLocal] = useState<any>();
 
@@ -52,16 +52,17 @@ export default function UserInfoEditor() {
             about: aboutLocal,
             birthday: convertDateStringFromDDMMYYYYtoMMDDYYYY(birthdayLocal),
             gender: genderLocal.key,
+            schooling: schoolingLocal?.key,
             company: companyLocal,
             position: positionLocal
         });
 
-        // dispatch(userThunk.updateUser(user, true)).then(() => navigation.goBack());
+        dispatch(updateUser({ user, shouldShowLoader: true })).then(() => navigation.goBack());
     }
 
     return <UserInfoEditorContainer>
 
-        <SectionTitle titleText={`SOBRE ${firstName.toUpperCase()} ${lastName.toUpperCase()}`} />
+        <SectionTitle titleText={`SOBRE ${firstName?.toUpperCase()} ${lastName?.toUpperCase()}`} />
         <TextInputRightIconButton
             placeholder={'Escreva algo sobre você'}
             value={aboutLocal}
