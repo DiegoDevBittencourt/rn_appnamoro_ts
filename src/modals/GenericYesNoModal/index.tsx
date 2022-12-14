@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 
 import { GenericAppButton, GenericModalContainer } from '@components/index';
 import { PCustom, ContentContainer } from "./styles";
+import { handleError } from "~/utils/functions";
+import { deleteAccount } from "~/store/dashboard/thunk";
 
 export default function GenericYesNoModal(props: any) {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation<any>();
 
     const {
@@ -30,24 +32,24 @@ export default function GenericYesNoModal(props: any) {
     const handleClose = () => navigation?.goBack();
 
     const acceptMethod = () => {
-        // try {
-        //     switch (selectedMethod) {
-        //         case 'genericYesNoModalDeleteAccount':
-        //             handleClose();
-        //             dispatch(dashboardThunk.deleteAccount());
-        //             break;
-        //         case 'genericYesNoModalUnmatch':
-        //             dispatch(matchThunk.unmatch(matchedProfile?.id));
-        //             break;
-        //         case 'genericYesNoModalDeleteUserImage':
-        //             dispatch(userThunk.deleteUserImage(selectedUserImageId));
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // } catch (error) {
-        //     handleError(error);
-        // }
+        try {
+            switch (selectedMethod) {
+                case 'genericYesNoModalDeleteAccount':
+                    handleClose();
+                    dispatch(deleteAccount());
+                    break;
+                case 'genericYesNoModalUnmatch':
+                    dispatch(unmatch(matchedProfile?.id));
+                    break;
+                case 'genericYesNoModalDeleteUserImage':
+                    dispatch(deleteUserImage(selectedUserImageId));
+                    break;
+                default:
+                    break;
+            }
+        } catch (error) {
+            handleError(error);
+        }
     }
 
     return <GenericModalContainer closeButtonPress={() => navigation?.goBack()} title={title.toUpperCase()}>

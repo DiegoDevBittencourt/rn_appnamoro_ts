@@ -1,21 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-
-interface File {
-    file: any,
-    id: string | null,
-    progress: number | null;
-    uploaded: boolean;
-    error: boolean;
-}
-
 interface Menu {
     selectedConfigMenu: string,
     selectedConfigMenuTitle: string,
 }
 
 interface DashboardStoreType {
-    uploadingImagesPreview: [File] | [],
+    uploadingImagesPreview: any,
     selectedConfigMenu: string,
     selectedConfigMenuTitle: string;
 }
@@ -30,7 +21,7 @@ const sliceDashboard = createSlice({
     name: 'dashboard',
     initialState: INITIAL_STATE,
     reducers: {
-        updateUploadingImagesPreview(state, { payload }: PayloadAction<[File]>) {
+        updateUploadingImagesPreview(state, { payload }: PayloadAction<any>) {
             return { ...state, uploadingImagesPreview: payload }
         },
         setSelectedConfigMenu(state, { payload }: PayloadAction<Menu>) {

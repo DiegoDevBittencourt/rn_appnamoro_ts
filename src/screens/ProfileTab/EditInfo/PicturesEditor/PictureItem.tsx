@@ -9,6 +9,7 @@ import { RoundCloseButton } from '@components/index';
 import noProfile from '@assets/noProfile.png';
 import { Button, ButtonContainer, ProgressBarContainer, UserImage, UserImageContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
+import { GENERIC_YES_NO_MODAL } from '~/constants/screenNames';
 
 export default function PictureItem({ PictureItem }: any) {
 
@@ -30,7 +31,7 @@ export default function PictureItem({ PictureItem }: any) {
     };
 
     const handleDeletePicture = () => {
-        navigation.push('GenericYesNoModal', {
+        navigation.push(GENERIC_YES_NO_MODAL, {
             title: 'Excluir imagem?',
             subtitle: 'Esta ação não pode ser desfeita!',
             acceptText: 'Excluir',

@@ -18,14 +18,15 @@ import {
 } from '@components/index';
 import { useUsers } from '~/store/users/reducer';
 import { setSelectedConfigMenu } from '~/store/dashboard/reducer';
+import { getUserData } from '~/store/users/thunk';
 import {
     CONTACT_MODAL,
     EMAIL_EDITOR_SCREEN,
+    GENERIC_YES_NO_MODAL,
     LOCATION_EDITOR_SCREEN,
     PHONE_EDITOR_SCREEN,
     SEARCHING_BY_EDITOR_SCREEN
 } from '~/constants/screenNames';
-import { getUserData } from '~/store/users/thunk';
 
 const Configuration = () => {
 
@@ -72,7 +73,7 @@ const Configuration = () => {
     };
 
     const handleDeleteAccountPress = () => {
-        navigation.push('GenericYesNoModal', {
+        navigation.push(GENERIC_YES_NO_MODAL, {
             title: 'Excluir conta?',
             subtitle: 'Todos os dados serão apagados. Esta ação não pode ser desfeita!',
             acceptText: 'Excluir',
