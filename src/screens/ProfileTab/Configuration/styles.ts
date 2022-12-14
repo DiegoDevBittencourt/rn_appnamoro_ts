@@ -28,3 +28,8 @@ export const MyLocationContainer = styled.View`
     flex-direction: column;
     width: 100%;
 `;
+
+export const PCustomSearchingBy = styled(P)`
+    margin-top: 15px;
+    margin-left: 10px;
+`;

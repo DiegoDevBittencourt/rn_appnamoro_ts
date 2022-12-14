@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { theme } from '@constants/styledComponentsTheme';
-// import * as userThunk from '~/store/users/thunk';
-// import * as dashboardActions from '@store/dashboard/actions';
+import { useUsers } from '~/store/users/reducer';
+import { setSelectedConfigMenu } from '~/store/dashboard/reducer';
+import { getUserData, updateUser } from '~/store/users/thunk';
 import {
     SectionTitle,
     ConfigItem,
@@ -16,9 +17,6 @@ import {
     Toolbar,
     GenericContainer
 } from '@components/index';
-import { useUsers } from '~/store/users/reducer';
-import { setSelectedConfigMenu } from '~/store/dashboard/reducer';
-import { getUserData } from '~/store/users/thunk';
 import {
     CONTACT_MODAL,
     EMAIL_EDITOR_SCREEN,
@@ -46,11 +44,15 @@ const Configuration = () => {
         pushNotification
     } = userData;
 
-    const [maxDistanceLocal, setMaxDistanceLocal] = useState([maxDistance]);
+    const [maxDistanceLocal, setMaxDistanceLocal] = useState<any>([maxDistance]);
     const [ageRangeLocal, setAgeRangeLocal] = useState([ageRange[0], ageRange[1]]);
     const [showMeOnAppLocal, setShowMeOnAppLocal] = useState(showMeOnApp);
     const [emailNotificationLocal, setEmailNotificationLocal] = useState(emailNotification);
     const [pushNotificationLocal, setPushNotificationLocal] = useState(pushNotification);
+
+    useEffect(() => {
+        console.log('userData', userData);
+    }, [userData]);
 
     useEffect(() => {
         dispatch(getUserData({}));
@@ -90,9 +92,11 @@ const Configuration = () => {
     const changeScreen = (screenName: string) => navigation.push(screenName);
 
     const updateUserData = (newUserData?: any, CleanMatchSearcherArrayAndGetNextProfile?: boolean) => {
-        // dispatch(
-        // userThunk.updateUser(newUserData, false, CleanMatchSearcherArrayAndGetNextProfile)
-        // );
+        dispatch(updateUser({
+            user: newUserData,
+            shouldShowLoader: true,
+            shouldCleanMatchSearcherArrayAndGetNextProfile: CleanMatchSearcherArrayAndGetNextProfile
+        }));
     }
 
     const handleTermsPress = () => Linking.openURL('https://www.appnamoro.com/terms');

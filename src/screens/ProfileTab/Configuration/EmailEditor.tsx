@@ -13,17 +13,20 @@ import {
     TextInputRightIconButton,
     Toolbar
 } from '@components/index';
+import { emailValidator } from '~/utils/functions';
+import { sendEmailVerification } from '~/store/dashboard/thunk';
+import { dangerNotification } from '~/utils/notifications';
 
 const EmailEditor = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
-    const { selectedConfigMenu, selectedConfigMenuTitle } = useSelector(useDashboard);
+    const { selectedConfigMenuTitle } = useSelector(useDashboard);
 
     const { userData } = useSelector(useUsers);
     const { verifiedEmail, email } = userData;
 
-    const [emailLocal, setEmailLocal] = useState(email);
+    const [emailLocal, setEmailLocal] = useState<any>(email);
     const [verifiedEmailLocal, setVerifiedEmailLocal] = useState(verifiedEmail == 1);
 
     const customButtonStyle = {
@@ -35,12 +38,11 @@ const EmailEditor = () => {
         setVerifiedEmailLocal((emailLocal == email) && verifiedEmail == 1);
     }, [verifiedEmailLocal]);
 
-    const sendEmailVerification = async () => {
-        // if (!verifiedEmailLocal)
-
-        //     if (emailValidator(emailLocal))
-        //         dispatch(dashboardThunk.sendEmailVerification(emailLocal));
-        //     else dangerNotification('Digite um email válido!');
+    const handleSendEmailVerification = async () => {
+        if (!verifiedEmailLocal)
+            if (emailValidator(emailLocal))
+                dispatch(sendEmailVerification(emailLocal));
+            else dangerNotification('Digite um email válido!');
     }
 
     const changeEmailText = (value: string) => {
@@ -81,7 +83,7 @@ const EmailEditor = () => {
                 enable={!verifiedEmailLocal}
                 customButtonStyle={customButtonStyle}
                 textButton='Me envie um email de verificação'
-                onPress={sendEmailVerification}
+                onPress={handleSendEmailVerification}
             />
 
         </GenericScrollView>

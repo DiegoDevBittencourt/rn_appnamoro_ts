@@ -80,6 +80,28 @@ export function deleteAccount() {
     }
 }
 
+export function sendEmailVerification(email: string) {
+    return async (dispatch: any, getState: any) => {
+
+        const { accessToken } = getState().auth;
+
+        try {
+            dispatch(showLoader(true));
+
+            const userId = decodeJwtToken(accessToken).id;
+
+            await api.post('account/send_email_verification', { email, id: userId });
+
+            dispatch(showLoader(false));
+
+            successNotification('E-mail enviado, verifique sua caixa de entrada.');
+
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
+
 // export function sendNewUserContact(name, email, subject, message) {
 //     return async (dispatch) => {
 
@@ -113,28 +135,6 @@ export function deleteAccount() {
 //         } catch (err) {
 
 //             dispatch(utilsActions.showLoader(false));
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
-
-// export function sendEmailVerification(email) {
-//     return async (dispatch, getState) => {
-
-//         const { accessToken } = getState().auth;
-
-//         try {
-//             dispatch(utilsActions.showLoader(true));
-
-//             const userId = decodeJwtToken(accessToken).id;
-
-//             await api.post('account/send_email_verification', { email, id: userId });
-
-//             dispatch(utilsActions.showLoader(false));
-
-//             successNotification('E-mail enviado, verifique sua caixa de entrada.');
-
-//         } catch (err) {
 //             dispatch(errorThunk.handleThunkError(err));
 //         }
 //     }

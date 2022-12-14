@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { GenericAppButton, GenericContainer, SectionTitle, TextInputRightIconButton, Toolbar } from '@components/index';
@@ -7,11 +7,13 @@ import { useDashboard } from '~/store/dashboard/reducer';
 import { MainContainer } from './styles';
 import { theme } from '~/constants/styledComponentsTheme';
 import { useUsers } from '~/store/users/reducer';
+import { updateUser } from '~/store/users/thunk';
 
 const PhoneEditor = () => {
 
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
-    const { selectedConfigMenu, selectedConfigMenuTitle } = useSelector(useDashboard);
+    const { selectedConfigMenuTitle } = useSelector(useDashboard);
 
     const { userData } = useSelector(useUsers);
     const { phone } = userData;
@@ -29,7 +31,7 @@ const PhoneEditor = () => {
     }
 
     const updateUserPhone = () => {
-        // isUpdateButtonEnable && dispatch(userThunk.updateUser({ phone: phoneLocal }, true)).then(() => navigation.goBack());
+        isUpdateButtonEnable && dispatch(updateUser({ user: { phone: phoneLocal }, shouldShowLoader: true })).then(() => navigation.goBack());
     }
 
     return <MainContainer>

@@ -1,42 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components';
 
-// import * as userThunk from '~/store/users/thunk';
-import { P, ConfigItem, GenericScrollView, SectionTitle, Toolbar } from '@components/index';
 import { useUsers } from '~/store/users/reducer';
 import { theme } from '~/constants/styledComponentsTheme';
-import { MainContainer } from './styles';
+import { MainContainer, PCustomSearchingBy } from './styles';
 import { useDashboard } from '~/store/dashboard/reducer';
-
-const PCustom = styled(P)`
-    margin-top: 15px;
-    margin-left: 10px;
-`;
+import { updateUser } from '~/store/users/thunk';
+import {
+    ConfigItem,
+    GenericScrollView,
+    SectionTitle,
+    Toolbar
+} from '@components/index';
 
 const SearchingByEditor = () => {
 
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
-    const dispatch = useDispatch();
 
     const { userData } = useSelector(useUsers);
-    const { selectedConfigMenu, selectedConfigMenuTitle } = useSelector(useDashboard);
+    const { selectedConfigMenuTitle } = useSelector(useDashboard);
 
-    const { key: searchingBy } = userData?.searchingBy || { key: 0 };
+    const { searchingBy } = userData;
+
+    useEffect(() => {
+        console.log('userData123123', userData);
+        console.log('searchingBy', searchingBy);
+    }, [userData, searchingBy]);
 
     const updateSearchingBy = (value: number) => {
-        // dispatch(userThunk.updateUser({ searchingBy: value }, true, true));
+        dispatch(updateUser({
+            user: { searchingBy: value },
+            shouldShowLoader: true,
+            shouldCleanMatchSearcherArrayAndGetNextProfile: true
+        }));
     }
 
     const InfoText = () => {
-        switch (searchingBy) {
+        switch (searchingBy?.key) {
             case 0:
-                return <PCustom>{'Você só verá homens na Descoberta'}</PCustom>;
+                return <PCustomSearchingBy>{'Você só verá homens na Descoberta'}</PCustomSearchingBy>;
             case 1:
-                return <PCustom>{'Você só verá mulheres na Descoberta'}</PCustom>;
+                return <PCustomSearchingBy>{'Você só verá mulheres na Descoberta'}</PCustomSearchingBy>;
             default:
-                return <PCustom>{'Você verá todos na Descoberta'}</PCustom>;
+                return <PCustomSearchingBy>{'Você verá todos na Descoberta'}</PCustomSearchingBy>;
         }
     }
 
@@ -54,19 +62,19 @@ const SearchingByEditor = () => {
 
             <ConfigItem
                 leftText={'HOMENS'}
-                rightIconName={searchingBy == 0 ? 'check' : 'none'}
+                rightIconName={searchingBy?.key == 0 ? 'check' : 'none'}
                 onPress={() => updateSearchingBy(0)}
             />
 
             <ConfigItem
                 leftText='MULHERES'
-                rightIconName={searchingBy == 1 ? 'check' : 'none'}
+                rightIconName={searchingBy?.key == 1 ? 'check' : 'none'}
                 onPress={() => updateSearchingBy(1)}
             />
 
             <ConfigItem
                 leftText='TODOS'
-                rightIconName={searchingBy == 2 ? 'check' : 'none'}
+                rightIconName={searchingBy?.key == 2 ? 'check' : 'none'}
                 onPress={() => updateSearchingBy(2)}
             />
 

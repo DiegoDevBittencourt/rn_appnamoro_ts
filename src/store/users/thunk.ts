@@ -28,7 +28,7 @@ export function getUserData({
     return async (dispatch: any, getState: any) => {
 
         const userState = getState().users;
-        console.log('userState', userState);
+
         try {
 
             const res = await api.get(`users/get_user/${userState?.userData?.id}`, {});
@@ -86,22 +86,27 @@ export function updateUser({
         const userState = getState().users;
 
         try {
-
             shouldShowLoader && dispatch(showLoader(true));
 
             user = { ...user, id: userState?.userData?.id };
 
             await api.post('users/update_user', { user });
 
-            const userData = user.ageRange ? {
-                ...user,
-                ageRange: [
+            if (user?.ageRange) {
+                user.ageRange = [
                     parseInt(user.ageRange.split(',')[0]),
                     parseInt(user.ageRange.split(',')[1])
-                ]
-            } : user;
+                ];
+            }
 
-            dispatch(updateUserDataOnRedux(userData));
+            if (user?.searchingBy != undefined) {
+                user.searchingBy = {
+                    key: user?.searchingBy,
+                    label: getSearchingByDesc(user?.searchingBy)
+                };
+            }
+
+            dispatch(updateUserDataOnRedux(user));
 
             shouldCleanMatchSearcherArrayAndGetNextProfile && dispatch(cleanMatchSearcherArrayAndGetNextProfile(true));
 
@@ -113,21 +118,21 @@ export function updateUser({
     }
 }
 
-// export function deleteUserImage(imageId) {
-//     return async (dispatch) => {
-//         try {
+export function deleteUserImage(imageId: string) {
+    return async (dispatch: any) => {
+        try {
 
-//             dispatch(utilsActions.showLoader(true));
+            dispatch(showLoader(true));
 
-//             await api.delete(`users/user_images/${imageId}`);
+            await api.delete(`users/user_images/${imageId}`);
 
-//             dispatch(utilsActions.showLoader(false));
-//             dispatch(getUserData(true));
+            dispatch(showLoader(false));
+            dispatch(getUserData({ shouldGetAddress: true }));
 
-//             RootNavigationRef.goBack();
+            RootNavigationRef.goBack();
 
-//         } catch (err) {
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}

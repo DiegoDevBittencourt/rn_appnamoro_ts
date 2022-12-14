@@ -6,6 +6,8 @@ import { GenericAppButton, GenericModalContainer } from '@components/index';
 import { PCustom, ContentContainer } from "./styles";
 import { handleError } from "~/utils/functions";
 import { deleteAccount } from "~/store/dashboard/thunk";
+import { unmatch } from "~/store/match/thunk";
+import { deleteUserImage } from "~/store/users/thunk";
 
 export default function GenericYesNoModal(props: any) {
 
