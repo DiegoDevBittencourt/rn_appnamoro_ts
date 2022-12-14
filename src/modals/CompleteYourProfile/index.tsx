@@ -16,10 +16,11 @@ import {
     GenericAppButton,
     GenericModalContainer,
 } from '@components/index';
+import { signOut } from '~/store/auth/thunk';
 
 const CompleteYourProfileContent = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const navigation = useNavigation();
 
     const { userData } = useSelector(useUsers);
@@ -74,7 +75,7 @@ const CompleteYourProfileContent = () => {
     }
 
     const handleCloseButtonPress = () => {
-        // dispatch(authThunk.signOut());
+        dispatch(signOut());
     }
 
     return <GenericModalContainer closeButtonPress={() => handleCloseButtonPress()} title={'Vamos completar seu perfil!'}>

@@ -10,8 +10,9 @@ import {
     getSchoolingDesc,
     getGenderDesc
 } from '~/utils/functions';
-import { getMatchedProfiles, getNextProfileForTheMatchSearcher } from '../match/thunk';
+import { cleanMatchSearcherArrayAndGetNextProfile, getMatchedProfiles, getNextProfileForTheMatchSearcher } from '../match/thunk';
 import { handleThunkError } from '../error/thunk';
+import { showLoader } from '../utils/reducer';
 
 export function getUserData({
     shouldGetAddress,
@@ -71,37 +72,46 @@ export function getUserData({
     }
 }
 
-// export function updateUser(user, shouldShowLoader, shouldCleanMatchSearcherArrayAndGetNextProfile) {
-//     return async (dispatch, getState) => {
+export function updateUser({
+    user,
+    shouldShowLoader,
+    shouldCleanMatchSearcherArrayAndGetNextProfile
+}: {
+    user?: any,
+    shouldShowLoader?: boolean,
+    shouldCleanMatchSearcherArrayAndGetNextProfile?: boolean
+}) {
 
-//         const userState = getState().user;
+    return async (dispatch: any, getState: any) => {
 
-//         try {
+        const userState = getState().user;
 
-//             shouldShowLoader && dispatch(utilsActions.showLoader(true));
+        try {
 
-//             user = { ...user, id: userState.userData?.id };
+            shouldShowLoader && dispatch(showLoader(true));
 
-//             await api.post('users/update_user', { user });
+            user = { ...user, id: userState.userData?.id };
 
-//             const userData = user.ageRange ? {
-//                 ageRange: [
-//                     parseInt(user.ageRange.split(',')[0]),
-//                     parseInt(user.ageRange.split(',')[1])
-//                 ]
-//             } : user;
+            await api.post('users/update_user', { user });
 
-//             dispatch(userActions.updateUserDataOnRedux(userData));
+            const userData = user.ageRange ? {
+                ageRange: [
+                    parseInt(user.ageRange.split(',')[0]),
+                    parseInt(user.ageRange.split(',')[1])
+                ]
+            } : user;
 
-//             shouldCleanMatchSearcherArrayAndGetNextProfile && dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(true));
+            dispatch(updateUserDataOnRedux(userData));
 
-//             dispatch(utilsActions.showLoader(false));
+            shouldCleanMatchSearcherArrayAndGetNextProfile && dispatch(cleanMatchSearcherArrayAndGetNextProfile(true));
 
-//         } catch (err) {
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+            dispatch(showLoader(false));
+
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
 
 // export function deleteUserImage(imageId) {
 //     return async (dispatch) => {

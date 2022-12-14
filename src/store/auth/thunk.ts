@@ -1,16 +1,18 @@
 import { Keyboard } from 'react-native';
-// import firebase from "firebase";
+import firebase from "firebase";
 import AsyncStorage from '@react-native-community/async-storage';
 
 import * as RootNavigationRef from '@routes/RootNavigationRef';
 import api from '@utils/api';
 import { decodeJwtToken } from '~/utils/functions';
 import { updateUserDataOnRedux } from '../users/reducer';
-import { signInAction, signUpAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
+import { signInAction, signOutAction, signUpAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
 import { showLoader } from '../utils/reducer';
 import { getUserData } from '../users/thunk';
-import { DASHBOARD_SCREEN } from '~/constants/screenNames';
+import { DASHBOARD_SCREEN, LOGIN_SCREEN } from '~/constants/screenNames';
 import { handleThunkError } from '../error/thunk';
+import { updateMatchedProfilesArray } from '../match/reducer';
+import { cleanMatchSearcherArrayAndGetNextProfile } from '../match/thunk';
 
 const unsubscribeFirebaseListeners: any[] = [];
 
@@ -59,23 +61,27 @@ export function signOut() {
 
             await AsyncStorage.setItem('accessToken', '');
 
-            // firebase.auth().signOut();
+            firebase.auth().signOut();
 
-            // dispatch(matchThunk.cleanMatchSearcherArrayAndGetNextProfile(false));
-            // dispatch(matchActions.updateMatchedProfilesArray([]));
+            dispatch(cleanMatchSearcherArrayAndGetNextProfile(false));
+            dispatch(updateMatchedProfilesArray([]));
 
-            // dispatch(setAccessTokenOnStorageAndRedux(''));
-            // dispatch(authActions.signOutAction());
+            dispatch(setAccessTokenOnStorageAndRedux(''));
+            dispatch(signOutAction());
 
-            // dispatch(utilsActions.showLoader(false));
+            dispatch(showLoader(false));
 
-            // //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
-            // //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
-            // //on Login screen "recreating" it many times
-            // RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN && RootNavigationRef.reset(LOGIN_SCREEN);
+            //if the user logout while something didn't finished yet, errorThunk.handleThunkError and then signOut() will be called
+            //this will make RootNavigationRef.reset(LOGIN_SCREEN) be read more than once, wich will create a non desirable effect
+            //on Login screen "recreating" it many times
+
+            if (RootNavigationRef.getCurrentRoutName() != LOGIN_SCREEN) {
+                RootNavigationRef.goBack();
+                RootNavigationRef.reset(LOGIN_SCREEN);
+            }
 
         } catch (err) {
-            // dispatch(errorThunk.handleThunkError(err));
+            dispatch(handleThunkError(err));
             dispatch(setAccessTokenOnStorageAndRedux(''));
         }
     }
