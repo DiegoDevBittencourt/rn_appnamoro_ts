@@ -40,10 +40,10 @@ const sliceMatch = createSlice({
         updateIsSuperLikeAvailable(state, { payload }: PayloadAction<boolean>) {
             return { ...state, isSuperLikeAvailable: payload }
         },
-        removeAllIdsFromProfileIdsAlreadyDownloaded(state, { payload }: PayloadAction<any>) {
+        removeAllIdsFromProfileIdsAlreadyDownloaded(state) {
             return { ...state, profileIdsAlreadyDownloaded: [] }
         },
-        removeProfileFromMatchSearcher(state, { payload }: PayloadAction<any>) {
+        removeProfileFromMatchSearcher(state, { payload }: PayloadAction<{ removeAll?: boolean, profileId?: string }>) {
             return {
                 ...state, matchSearcherProfiles:
                     payload.removeAll ? [] :

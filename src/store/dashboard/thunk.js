@@ -90,7 +90,7 @@ export function deleteAccount() {
 
         dispatch(utilsActions.showLoader(true));
 
-        const userState = getState().user;
+        const userState = getState().users;
 
         try {
             await api.delete(`account/delete-account/${userState.userData.id}`, { email, token, password, passwordConfirmation })
@@ -105,7 +105,7 @@ export function deleteAccount() {
 export function uploadImageToServer(imageData, selectedFile) {
     return async (dispatch, getState) => {
 
-        const { id: userId } = getState().user.userData;
+        const { id: userId } = getState().users.userData;
 
         try {
             await api.post(`users/user_images/${userId}`, imageData, {

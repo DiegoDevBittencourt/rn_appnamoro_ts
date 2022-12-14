@@ -1,15 +1,14 @@
 import { handleError } from '~/utils/functions';
-import * as utilsActions from '@store/utils/actions';
-import * as authThunk from '@store/auth/thunk';
+import { signOut } from '../auth/thunk';
+import { showLoader } from '../utils/reducer';
 
-export function handleThunkError(err) {
-    return dispatch => {
-
-        dispatch(utilsActions.showLoader(false));
+export function handleThunkError(err: any) {
+    return (dispatch: any) => {
+        dispatch(showLoader(false));
 
         //status 401 is Unauthorized, which means that user loses the access to the API
         if (err?.response?.status == 401 && err?.response?.data == 'Unauthorized')
-            dispatch(authThunk.signOut());
+            dispatch(signOut());
         else if (err?.message != 'Location permission not granted.')
             handleError(err);
     }

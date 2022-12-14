@@ -16,7 +16,7 @@ const sliceFirebase = createSlice({
     name: 'firebase',
     initialState: INITIAL_STATE,
     reducers: {
-        updateFirebaseUidOnRedux(state, { payload }: PayloadAction<string>) {
+        updateFirebaseUidOnRedux(state, { payload }: PayloadAction<any>) {
             return { ...state, firebaseUid: payload }
         },
         updateFirebaseUserOnRedux(state, { payload }: PayloadAction<any>) {
@@ -31,6 +31,8 @@ const sliceFirebase = createSlice({
 export default sliceFirebase.reducer;
 export const {
     updateFirebaseUidOnRedux,
+    updateFirebaseUserOnRedux,
+    updateRealTimeFirebaseChat
 } = sliceFirebase.actions;
 
 export const useFirebase = (state: any) => {

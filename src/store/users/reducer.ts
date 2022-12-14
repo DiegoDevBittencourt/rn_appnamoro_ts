@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface UserDataType {
+export interface UserDataType {
     id?: string,
     ageRange?: number[],
     maxDistance?: number,
@@ -23,6 +23,13 @@ interface UserDataType {
     birthday?: Date,
     gender?: any,
     company?: string,
+    oauthUId?: string,
+    method?: string,
+    profileComplete?: number,
+    lastLongitude?: number,
+    lastLatitude?: number,
+    currentLongitude?: number,
+    currentLatitude?: number
 }
 
 interface UserStoreType {

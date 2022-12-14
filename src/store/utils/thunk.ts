@@ -1,33 +1,32 @@
 import Geolocation from 'react-native-geolocation-service';
-import { PermissionsAndroid } from 'react-native';
 import Geocoder from 'react-native-geocoding';
+import { PermissionsAndroid } from 'react-native';
 
 import * as RootNavigationRef from '@routes/RootNavigationRef';
-import * as utilsActions from '@store/utils/actions';
-import * as userActions from '@store/user/actions';
-import * as errorThunk from '@store/error/thunk';
-import * as userThunk from '~/store/users/thunk';
-import * as matchThunk from '@store/match/thunk';
+// import * as errorThunk from '@store/error/thunk';
+import { setIsGeoLocationEnable, updateIsGettingLocation } from './reducer';
+import { handleThunkError } from '../error/thunk';
 import { TURN_ON_LOCATION_MODAL } from '~/constants/screenNames';
-import { REACT_APP_GEOCODE_API_KEY } from 'react-native-expand-dotenv';
+// import { TURN_ON_LOCATION_MODAL } from '~/constants/screenNames';
+import { updateUserDataOnRedux } from '../users/reducer';
+import { getNextProfileForTheMatchSearcher } from '../match/thunk';
+import { REACT_APP_GEOCODE_API_KEY } from '@env';
 
 Geocoder.init(REACT_APP_GEOCODE_API_KEY, { language: 'pt-br' });
 
 export function getAddress() {
-    return async dispatch => {
+    return async (dispatch: any) => {
 
-        const handleGeolocationError = (error) => {
-
-            dispatch(utilsActions.updateIsGettingLocation(false));
-
-            dispatch(utilsActions.setIsGeoLocationEnable(false));
+        const handleGeolocationError = (error: any) => {
+            dispatch(updateIsGettingLocation(false));
+            dispatch(setIsGeoLocationEnable(false));
 
             RootNavigationRef.push(TURN_ON_LOCATION_MODAL);
 
-            dispatch(errorThunk.handleThunkError(error));
+            dispatch(handleThunkError(error));
         }
 
-        dispatch(utilsActions.updateIsGettingLocation(true));
+        dispatch(updateIsGettingLocation(true));
 
         await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -50,22 +49,22 @@ export function getAddress() {
 
                     const address = json.results[6].formatted_address;
 
-                    dispatch(utilsActions.setIsGeoLocationEnable(true));
+                    dispatch(setIsGeoLocationEnable(true));
 
-                    dispatch(userActions.updateUserDataOnRedux({
+                    dispatch(updateUserDataOnRedux({
                         address,
                         currentLongitude: lng,
                         currentLatitude: lat
                     }));
 
-                    dispatch(userThunk.updateUser({
+                    dispatch(updateUserDataOnRedux({
                         lastLongitude: lng,
                         lastLatitude: lat
                     }));
 
-                    dispatch(utilsActions.updateIsGettingLocation(false));
+                    dispatch(updateIsGettingLocation(false));
 
-                    dispatch(matchThunk.getNextProfileForTheMatchSearcher());
+                    dispatch(getNextProfileForTheMatchSearcher());
 
                 }).catch(error => handleGeolocationError(error));
             },

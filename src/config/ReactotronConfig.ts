@@ -7,7 +7,7 @@ const { scriptURL } = NativeModules.SourceCode;
 const hostName = scriptURL.split('://')[1].split(':')[0]
 
 Reactotron.setAsyncStorageHandler!!(AsyncStorage)
-    .configure({ host: hostName })
+    .configure({ host: '10.0.2.2' })
     .useReactNative()
     .use(reactotronRedux())
     .connect();
