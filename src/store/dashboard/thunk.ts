@@ -102,58 +102,58 @@ export function sendEmailVerification(email: string) {
     }
 }
 
-// export function sendNewUserContact(name, email, subject, message) {
-//     return async (dispatch) => {
+export function sendNewUserContact({ name, email, subject, message }: { name?: string, email?: string, subject?: string, message?: string }) {
+    return async (dispatch: any) => {
 
-//         try {
-//             dispatch(utilsActions.showLoader(true));
+        try {
+            dispatch(showLoader(true));
 
-//             await api.post('users/contact', { name, email, subject, message });
+            await api.post('users/contact', { name, email, subject, message });
 
-//             dispatch(utilsActions.showLoader(false));
+            dispatch(showLoader(false));
 
-//             successNotification('Contato enviado com sucesso! Obrigado por nos contactar.');
+            successNotification('Contato enviado com sucesso! Obrigado por nos contactar.');
 
-//         } catch (err) {
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
 
-// export function sendRecoverPasswordEmail(email) {
-//     return async (dispatch) => {
+export function sendRecoverPasswordEmail(email: string) {
+    return async (dispatch: any) => {
 
-//         try {
-//             dispatch(utilsActions.showLoader(true));
+        try {
+            dispatch(showLoader(true));
 
-//             await api.post('account/send_recovery_password_email', { email });
+            await api.post('account/send_recovery_password_email', { email });
 
-//             dispatch(utilsActions.showLoader(false));
+            dispatch(showLoader(false));
 
-//             successNotification('E-mail enviado, verifique sua caixa de entrada.');
+            successNotification('E-mail enviado, verifique sua caixa de entrada.');
 
-//         } catch (err) {
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
 
-//             dispatch(utilsActions.showLoader(false));
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+export function resetPassword(
+    { email, token, password, passwordConfirmation }: { email?: string, token?: string, password?: string, passwordConfirmation?: string }
+) {
+    return async (dispatch: any) => {
 
-// export function resetPassword(email, token, password, passwordConfirmation) {
-//     return async (dispatch) => {
+        try {
+            dispatch(showLoader(true));
 
-//         try {
-//             dispatch(utilsActions.showLoader(true));
+            const res = await api.post('account/passwordreset', { email, token, password, passwordConfirmation });
 
-//             const res = await api.post('account/passwordreset', { email, token, password, passwordConfirmation });
+            dispatch(showLoader(false));
 
-//             dispatch(utilsActions.showLoader(false));
+            return res;
 
-//             return res;
-
-//         } catch (err) {
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}
