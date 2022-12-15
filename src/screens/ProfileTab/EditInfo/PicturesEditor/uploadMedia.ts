@@ -28,24 +28,19 @@ export function pickFile(userImagesLength: number, dispatch: any) {
 }
 
 export const uploadMedia = (files: any[], userImagesLength: number, dispatch: any) => {
-    if (files.length + userImagesLength <= 9) {
+    if (!files.some(item => item.size > 5 * 1024 * 1024)) {
+        const selectedFiles = files.map((file) => ({
+            file,
+            id: generateRandomKey(1, 999999),//(used to when finished upload the image, removes the preview from uploadingImagesPreview array)
+            progress: 0,
+            uploaded: false,
+            error: false,
+        }));
 
-        if (!files.some(item => item.size > 5 * 1024 * 1024)) {
-            const selectedFiles = files.map((file) => ({
-                file,
-                id: generateRandomKey(1, 999999),//(used to when finished upload the image, removes the preview from uploadingImagesPreview array)
-                progress: 0,
-                uploaded: false,
-                error: false,
-            }));
-
-            uploadImages(selectedFiles, dispatch);
-        }
-        else
-            dangerNotification('As imagens devem ser menores que 5MB!');
+        uploadImages(selectedFiles, dispatch);
     }
     else
-        dangerNotification('Impossível adicionar mais que nove imagens!');
+        dangerNotification('As imagens devem ser menores que 5MB!');
 }
 
 const uploadImages = (selectedFiles: any[], dispatch: any) => {

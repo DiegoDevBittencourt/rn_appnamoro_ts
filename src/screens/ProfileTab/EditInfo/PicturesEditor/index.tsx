@@ -6,6 +6,7 @@ import { SectionTitle, GenericAppButton } from '@components/index';
 import { pickFile } from './uploadMedia';
 import { PicturesContainer, PicturesEditorContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
+import { dangerNotification } from '~/utils/notifications';
 
 const PicturesEditor = () => {
 
@@ -14,7 +15,12 @@ const PicturesEditor = () => {
     const { userData } = useSelector(useUsers);
     const { userImages } = userData;
 
-    const pickImages = () => pickFile(userImages?.length || 0, dispatch);
+    const pickImages = () => {
+        if (userImages && userImages?.length <= 8)
+            pickFile(userImages?.length || 0, dispatch);
+        else
+            dangerNotification('Impossível adicionar mais que nove imagens!');
+    }
 
     return <PicturesEditorContainer>
 

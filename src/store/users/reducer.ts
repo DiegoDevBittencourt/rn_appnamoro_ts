@@ -42,7 +42,8 @@ const INITIAL_STATE: UserStoreType = {
         maxDistance: 80,
         firstName: '',
         lastName: '',
-        showMeOnApp: true
+        showMeOnApp: true,
+        userImages: []
     },
 }
 

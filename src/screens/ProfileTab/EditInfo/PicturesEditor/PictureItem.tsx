@@ -3,13 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Progress from 'react-native-progress';
 
+import noProfile from '@assets/noProfile.png';
 import { pickFile } from './uploadMedia';
 import { theme } from '@constants/styledComponentsTheme';
 import { RoundCloseButton } from '@components/index';
-import noProfile from '@assets/noProfile.png';
 import { Button, ButtonContainer, ProgressBarContainer, UserImage, UserImageContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
 import { GENERIC_YES_NO_MODAL } from '~/constants/screenNames';
+import { dangerNotification } from '~/utils/notifications';
 
 export default function PictureItem({ PictureItem }: any) {
 
@@ -64,17 +65,20 @@ export default function PictureItem({ PictureItem }: any) {
             </ProgressBarContainer> : null
     }
 
-    const pickImages = () => pickFile(userImages?.length || 0, dispatch);
+    const pickImages = () => {
+        console.log('userImages', userImages);
+        if (userImages && userImages?.length <= 8)
+            pickFile(userImages?.length || 0, dispatch);
+        else
+            dangerNotification('Impossível adicionar mais que nove imagens!');
+    }
 
     return <UserImageContainer>
 
         <Button underlayColor={theme.$gray} onPress={pickImages}>
             <ButtonContainer>
-
                 <UserImage source={imageSource} />
-
                 <UploadProgressBar />
-
             </ButtonContainer>
         </Button>
 
