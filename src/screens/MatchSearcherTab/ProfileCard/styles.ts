@@ -31,6 +31,7 @@ export const Distance = styled(H3)`
 export const UserImage = styled.Image`
     flex: 1;
     height: 100%;
+    width: 100%;
     border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
     resize-mode: cover;
 `;

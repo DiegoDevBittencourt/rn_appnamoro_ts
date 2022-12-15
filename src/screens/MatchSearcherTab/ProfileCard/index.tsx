@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from 'react-native-looped-carousel';
+// import Carousel from 'react-native-looped-carousel';
 
 import noProfile from '@assets/noProfile.png';
 import { generateRandomKey } from '~/utils/functions';
@@ -27,7 +27,7 @@ const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) =>
     };
 
     return <ProfileCardInfo>
-        <Carousel
+        {/* <Carousel
             style={{ width: '100%', height: '100%' }}
             arrowStyle={{ height: '100%', justifyContent: 'center' }}
             pageInfoTextStyle={{ color: 'white' }}
@@ -41,14 +41,14 @@ const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) =>
             swipe={false}
             isLooped={false}
             autoplay={false}
-        >
-            {
-                userImages?.length > 0 ?
-                    userImages.map((image: any) => <UserImage key={generateRandomKey(1, 999999)} source={{ uri: image?.imageUrl }} />)
-                    :
-                    <UserImage source={noProfile} />
-            }
-        </Carousel>
+        > */}
+        {
+            userImages?.length > 0 ?
+                userImages.map((image: any) => <UserImage key={generateRandomKey(1, 999999)} source={{ uri: image?.imageUrl }} />)
+                :
+                <UserImage source={noProfile} />
+        }
+        {/* </Carousel> */}
 
         <NameAge style={textShadow}>{`${firstName} ${lastName}, ${age}`}</NameAge>
 

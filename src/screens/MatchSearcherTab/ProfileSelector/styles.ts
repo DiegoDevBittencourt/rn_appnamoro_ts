@@ -7,4 +7,6 @@ export const MainContainer = styled(GenericContainer)`
     padding-top: 15px;
     padding-left: 15px;
     padding-right: 15px;
+    justify-content: center;
+    align-items: center;
 `;
