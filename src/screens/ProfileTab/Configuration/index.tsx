@@ -25,6 +25,7 @@ import {
     PHONE_EDITOR_SCREEN,
     SEARCHING_BY_EDITOR_SCREEN
 } from '~/constants/screenNames';
+import { phoneMask } from '~/utils/functions';
 
 const Configuration = () => {
 
@@ -121,7 +122,8 @@ const Configuration = () => {
 
             <ConfigItem
                 leftText='Número de telefone'
-                rightText={phone}
+
+                rightText={phoneMask(phone)}
                 onPress={() => setSelectedConfigMenuAndChangeScreen(PHONE_EDITOR_SCREEN, 'SEU TELEFONE')}
             />
 

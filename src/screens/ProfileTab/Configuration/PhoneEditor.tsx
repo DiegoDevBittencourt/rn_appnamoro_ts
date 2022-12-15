@@ -8,6 +8,7 @@ import { MainContainer } from './styles';
 import { theme } from '~/constants/styledComponentsTheme';
 import { useUsers } from '~/store/users/reducer';
 import { updateUser } from '~/store/users/thunk';
+import { phoneMask } from '~/utils/functions';
 
 const PhoneEditor = () => {
 
@@ -18,7 +19,7 @@ const PhoneEditor = () => {
     const { userData } = useSelector(useUsers);
     const { phone } = userData;
 
-    const [phoneLocal, setPhoneLocal] = useState(phone);
+    const [phoneLocal, setPhoneLocal] = useState(phoneMask(phone));
     const [isUpdateButtonEnable, setIsUpdateButtonEnable] = useState(false);
 
     useEffect((() => {

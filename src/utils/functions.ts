@@ -3,6 +3,45 @@ import jwt from 'jwt-decode';
 import { dangerNotification } from './notifications';
 import * as Options from './options';
 
+export function titleCase(str: string) {
+    var splitStr = str.toLowerCase().split(' ');
+
+    for (var i = 0; i < splitStr.length; i++) {
+        // You do not need to check if i is larger than splitStr length, as your for does that for you
+        // Assign it back to the array
+        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    // Directly return the joined string
+    return splitStr.join(' ');
+}
+
+export function phoneMask(tel: string | undefined) {
+    if (tel) {
+        tel = tel.replace(/\D/g, "")
+        tel = tel.replace(/^(\d)/, "+$1")
+        tel = tel.replace(/(.{3})(\d)/, "$1($2")
+        tel = tel.replace(/(.{6})(\d)/, "$1)$2")
+
+        if (tel.length == 12) {
+            tel = tel.replace(/(.{1})$/, "-$1")
+        } else if (tel.length == 13) {
+            tel = tel.replace(/(.{2})$/, "-$1")
+        } else if (tel.length == 14) {
+            tel = tel.replace(/(.{3})$/, "-$1")
+        } else if (tel.length == 15) {
+            tel = tel.replace(/(.{4})$/, "-$1")
+        } else if (tel.length > 15) {
+            tel = tel.replace(/(.{4})$/, "-$1")
+        }
+    }
+
+    return tel;
+}
+
+export function keepOnlyNumbers(text: string) {
+    return text?.replace(/\D+/g, '');
+}
+
 export function handleError(err: any) {
     try {
         const somethingIsWrong = 'Ops, parece que algo saiu mal. Tente novamente.';

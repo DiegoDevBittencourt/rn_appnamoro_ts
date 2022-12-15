@@ -24,6 +24,7 @@ export const TheCircle = styled.View`
 export const UserPersonalInfoContainer = styled(GenericContainer)`
     height: auto;
     align-items: center;
+    margin-bottom: -10px;
 `;
 
 export const UserImage = styled.Image`
@@ -56,7 +57,7 @@ export const ControlButtonsContainer = styled.View`
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 `;
 
 export const ButtonContainer = styled.View`

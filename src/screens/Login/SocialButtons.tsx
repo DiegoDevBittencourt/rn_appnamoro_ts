@@ -25,7 +25,7 @@ export const SocialButtonsContainer = styled.View`
 
 export default function SocialButtons() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
 
     const googleLogin = async () => {
         // try {

@@ -5,7 +5,7 @@ import { BackHandler } from 'react-native';
 
 import * as Options from '~/utils/options';
 import { dangerNotification } from '~/utils/notifications';
-import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
+import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY, phoneMask } from '~/utils/functions';
 import { MainContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
 import {
@@ -43,7 +43,7 @@ const CompleteYourProfileContent = () => {
 
         setGenderLocal(gender);
         setSearchingByLocal(searchingBy);
-        setPhoneLocal(phone);
+        setPhoneLocal(phoneMask(phone));
     }, [userData]);
 
     useEffect(() => {
@@ -55,23 +55,29 @@ const CompleteYourProfileContent = () => {
     }, []);
 
     const updateUserInfo = async () => {
-        if (birthdayLocal && genderLocal && searchingByLocal && schoolingLocal && position) {
 
-            const userData = ({
-                birthday: convertDateStringFromDDMMYYYYtoMMDDYYYY(birthdayLocal),
-                gender: genderLocal.key,
-                searchingBy: searchingByLocal.key,
-                schooling: schoolingLocal.key,
-                phone: phoneLocal,
-                company,
-                position,
-                profileComplete: 1,
-                showMeOnApp: 1
-            });
-            console.log('asduserData', userData)
-            dispatch(updateUser({ user: userData, shouldShowLoader: true })).then(() => navigation.goBack());
-        }
-        else dangerNotification('"Dt. de nascimento", "Gênero", "Procuro por", "Escolaridade" e "Cargo" são campos obrigatórios.');
+        if (!birthdayLocal)
+            return dangerNotification('Preencha a data de nascimento antes de continuar.');
+        if (!schoolingLocal)
+            return dangerNotification('Escolha um nível de escolaridade antes de continuar.');
+        if (!company)
+            return dangerNotification('Preencha o campo "Empresa onde trabalha" antes de continuar.');
+        if (!position)
+            return dangerNotification('Preencha o campo "Cargo" antes de continuar.');
+
+        const userData = ({
+            birthday: convertDateStringFromDDMMYYYYtoMMDDYYYY(birthdayLocal),
+            gender: genderLocal.key,
+            searchingBy: searchingByLocal.key,
+            schooling: schoolingLocal.key,
+            phone: phoneLocal,
+            company,
+            position,
+            profileComplete: 1,
+            showMeOnApp: 1
+        });
+        console.log('asduserData', userData)
+        dispatch(updateUser({ user: userData, shouldShowLoader: true })).then(() => navigation.goBack());
     }
 
     const handleCloseButtonPress = () => {
@@ -112,7 +118,7 @@ const CompleteYourProfileContent = () => {
                 keyboardType={'number-pad'}
                 value={phoneLocal}
                 returnKeyType={'next'}
-                onChangeText={(value) => setPhoneLocal(value)}
+                onChangeText={(value) => setPhoneLocal(phoneMask(value))}
                 onSubmitEditing={() => tiCompany.current.focus()}
             />
 

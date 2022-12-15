@@ -6,13 +6,14 @@ import * as RootNavigationRef from '@routes/RootNavigationRef';
 import api from '@utils/api';
 import { decodeJwtToken } from '~/utils/functions';
 import { updateUserDataOnRedux } from '../users/reducer';
-import { signInAction, signOutAction, signUpAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
+import { isCheckingIfTokenHasExpiredStatus, signInAction, signOutAction, signUpAction, updateAccessTokenOnRedux } from '@store/auth/reducer';
 import { showLoader } from '../utils/reducer';
 import { getUserData } from '../users/thunk';
 import { DASHBOARD_SCREEN, LOGIN_SCREEN } from '~/constants/screenNames';
 import { handleThunkError } from '../error/thunk';
 import { updateMatchedProfilesArray } from '../match/reducer';
 import { cleanMatchSearcherArrayAndGetNextProfile } from '../match/thunk';
+import { formatUserToApi } from '~/utils/formatters';
 
 const unsubscribeFirebaseListeners: any[] = [];
 
@@ -53,7 +54,7 @@ export function signUp(userData?: any) {
         try {
             dispatch(showLoader(true));
 
-            const res = await api.post('account/signup', userData);
+            const res = await api.post('account/signup', formatUserToApi(userData));
 
             RootNavigationRef.goBack();
 
@@ -120,68 +121,78 @@ export function signOut() {
     }
 }
 
-// export function checkIfTokenHasExpired() {
-//     return async (dispatch, getState) => {
-//         try {
+export function checkIfTokenHasExpired() {
+    return async (dispatch: any, getState: any) => {
+        try {
 
-//             dispatch(authActions.isCheckingIfTokenHasExpiredStatus(true));
+            dispatch(isCheckingIfTokenHasExpiredStatus(true));
 
-//             const accessToken = getState().auth.accessToken;
+            const accessToken = getState().auth.accessToken;
 
-//             if (accessToken) {
+            if (accessToken) {
 
-//                 await api.post('account/check_if_token_has_expired', {});
+                await api.post('account/check_if_token_has_expired', {});
 
-//                 dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
+                dispatch(isCheckingIfTokenHasExpiredStatus(false));
 
-//                 dispatch(userThunk.getUserData(true, true, true, true));
+                dispatch(getUserData({
+                    shouldGetAddress: true,
+                    shouldGetProfilesForMatchSearcher: true,
+                    shouldSignInOnFirebase: true,
+                    shouldGetMatchedProfiles: true
+                }));
 
-//             } else {
-//                 dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
-//                 dispatch(signOut());
-//             }
+            } else {
+                dispatch(isCheckingIfTokenHasExpiredStatus(false));
+                dispatch(signOut());
+            }
 
-//         } catch (err) {
-//             dispatch(authActions.isCheckingIfTokenHasExpiredStatus(false));
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+        } catch (err) {
+            dispatch(isCheckingIfTokenHasExpiredStatus(false));
+            dispatch(handleThunkError(err));
+        }
+    }
+}
 
-// export function signInOauth(oauthAccessToken, type) {
-//     return async (dispatch:any) => {
+export function signInOauth(oauthAccessToken?: string, type?: string) {
+    return async (dispatch: any) => {
 
-//         try {
+        try {
 
-//             dispatch(utilsActions.showLoader(true));
+            dispatch(showLoader(true));
 
-//             let res;
+            let res;
 
-//             switch (type) {
-//                 case 'facebook':
-//                     res = await api.post('account/facebook', { access_token: oauthAccessToken });
-//                     break;
-//                 default:
-//                     res = await api.post('account/google', { access_token: oauthAccessToken });
-//                     break;
-//             }
+            switch (type) {
+                case 'facebook':
+                    res = await api.post('account/facebook', { access_token: oauthAccessToken });
+                    break;
+                default:
+                    res = await api.post('account/google', { access_token: oauthAccessToken });
+                    break;
+            }
 
-//             dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
+            dispatch(setAccessTokenOnStorageAndRedux(res.data.token));
 
-//             dispatch(userActions.updateUserDataOnRedux({ id: decodeJwtToken(res.data.token).id }));
+            dispatch(updateUserDataOnRedux({ id: decodeJwtToken(res.data.token).id }));
 
-//             dispatch(utilsActions.showLoader(false));
+            dispatch(showLoader(false));
 
-//             Keyboard.dismiss();
+            Keyboard.dismiss();
 
-//             dispatch(authActions.signInAction());
+            dispatch(signInAction());
 
-//             dispatch(userThunk.getUserData(true, true, true, true));
+            dispatch(getUserData({
+                shouldGetAddress: true,
+                shouldGetProfilesForMatchSearcher: true,
+                shouldSignInOnFirebase: true,
+                shouldGetMatchedProfiles: true
+            }));
 
-//             RootNavigationRef.reset(DASHBOARD_SCREEN);
+            RootNavigationRef.reset(DASHBOARD_SCREEN);
 
-//         } catch (err) {
-//             dispatch(errorThunk.handleThunkError(err));
-//         }
-//     }
-// }
+        } catch (err) {
+            dispatch(handleThunkError(err));
+        }
+    }
+}

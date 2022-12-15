@@ -11,6 +11,7 @@ export const PTitle = styled(P)`
 `;
 
 export const PCustom = styled(P)`
+    margin-top: 5px;
     color: ${({ theme }) => theme.$lightTextColor};
 `;
 

@@ -8,11 +8,12 @@ import {
     calculateAge,
     getSearchingByDesc,
     getSchoolingDesc,
-    getGenderDesc
+    getGenderDesc,
 } from '~/utils/functions';
 import { cleanMatchSearcherArrayAndGetNextProfile, getMatchedProfiles, getNextProfileForTheMatchSearcher } from '../match/thunk';
 import { handleThunkError } from '../error/thunk';
 import { showLoader } from '../utils/reducer';
+import { formatUserToApi } from '~/utils/formatters';
 
 export function getUserData({
     shouldGetAddress,
@@ -90,20 +91,13 @@ export function updateUser({
 
             user = { ...user, id: userState?.userData?.id };
 
-            await api.post('users/update_user', { user });
+            await api.post('users/update_user', { user: formatUserToApi(user) });
 
             if (user?.ageRange) {
                 user.ageRange = [
-                    parseInt(user.ageRange.split(',')[0]),
-                    parseInt(user.ageRange.split(',')[1])
+                    parseInt(user?.ageRange?.split(',')[0]),
+                    parseInt(user?.ageRange?.split(',')[1])
                 ];
-            }
-
-            if (user?.searchingBy != undefined) {
-                user.searchingBy = {
-                    key: user?.searchingBy,
-                    label: getSearchingByDesc(user?.searchingBy)
-                };
             }
 
             dispatch(updateUserDataOnRedux(user));

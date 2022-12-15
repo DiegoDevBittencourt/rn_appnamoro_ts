@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import * as Options from '~/utils/options';
 import { theme } from '@constants/styledComponentsTheme';
-import { convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
+import { convertDateStringFromDDMMYYYYtoMMDDYYYY, phoneMask } from '~/utils/functions';
 import { dangerNotification } from '~/utils/notifications';
 import {
     TextInputRightIconButton,
@@ -27,7 +27,7 @@ export default function SignUpFields() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState<any>('');
     const [birthday, setBirthday] = useState('');
     const [gender, setGender] = useState<RNModalSelectorDataType>();
     const [searchingBy, setSearchingBy] = useState<RNModalSelectorDataType>();
@@ -114,7 +114,7 @@ export default function SignUpFields() {
             keyboardType={'phone-pad'}
             value={phone}
             returnKeyType={'next'}
-            onChangeText={(value) => setPhone(value)}
+            onChangeText={(value) => setPhone(phoneMask(value))}
         />
 
         <DatePickerButton
