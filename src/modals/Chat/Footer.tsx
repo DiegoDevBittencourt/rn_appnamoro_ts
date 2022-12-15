@@ -6,7 +6,7 @@ import * as firebaseThunk from '@store/firebase/thunk';
 import { TextInput, GenericAppButton, RoundIconButton } from '@components/index';
 import { theme } from '@constants/styledComponentsTheme';
 import { successNotification } from '~/utils/notifications';
-import { MainContainer } from './styles';
+import { FooterContainer } from './styles';
 
 const Footer = ({ matchedProfile }: any) => {
 
@@ -37,22 +37,13 @@ const Footer = ({ matchedProfile }: any) => {
     }
 
     const handleEmoticonClick = () => successNotification(
-        'Emoticons não estão disponíveis no momento, estamos trabalhando para disponibilizá-los assim que possível! =)'
+        'Emoticons não estão disponíveis no momento, estamos trabalhando para disponibilizá-los em breve! =)'
     );
 
-    const customInputStyle = {
-        borderWidth: 0,
-    };
-
-    const customEmoticonButtonStyle = {
-        backgroundColor: 'white',
-        elevation: 0
-    };
-
-    return <MainContainer>
+    return <FooterContainer>
         <TextInput
             reference={tiMessage}
-            customInputStyle={customInputStyle}
+            customInputStyle={{ borderWidth: 0 }}
             placeholder={'Digite uma mensagem'}
             solidIcon
             returnKeyType={'done'}
@@ -61,7 +52,12 @@ const Footer = ({ matchedProfile }: any) => {
         />
 
         <RoundIconButton
-            customButtonStyle={customEmoticonButtonStyle}
+            customButtonStyle={{
+                elevation: 0,
+                height: 45,
+                width: 45,
+                marginRight: 2
+            }}
             customIconStyle={{ fontSize: 30, color: $primaryColor }}
             iconName={'smile-wink'}
             underlayColor={$lightGray}
@@ -70,11 +66,11 @@ const Footer = ({ matchedProfile }: any) => {
 
         <GenericAppButton
             enable={sendMessageButtonEnable}
-            customButtonStyle={{ width: 80, marginRight: 5 }}
+            customButtonStyle={{ height: 45, width: 80, marginRight: 5 }}
             textButton={'Enviar'}
             onPress={sendMessage}
         />
-    </MainContainer>
+    </FooterContainer>
 }
 
 export default Footer;

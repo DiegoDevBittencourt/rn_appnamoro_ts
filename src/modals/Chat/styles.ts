@@ -2,8 +2,8 @@ import styled from 'styled-components/native';
 
 import { P } from '@components/index';
 
-export const MainContainer = styled.View`
-    height: 60px;
+export const FooterContainer = styled.View`
+    height: 50px;
     background-color: white;
     border-top-width: 0.4px;
     border-color: ${({ theme }) => theme.$lightGray};
@@ -14,7 +14,7 @@ export const MainContainer = styled.View`
 `;
 
 export const HeaderContainer = styled.View`
-    height: 80px;
+    height: 85px;
     border-bottom-width: 0.9px;
     align-items: center;
     border-color: ${({ theme }) => theme.$lightGray};
@@ -30,10 +30,8 @@ export const PCustom = styled(P)`
 
 export const RightButtonsContainer = styled.View`
     width: ${({ theme }) => theme.$heightOfGenericComponent}px;
-    height: 100%;
-    align-items: center;
+    align-items: flex-end;
     flex-direction: column;
-    width: 100%;
 `;
 
 export const MessageContainer = styled.View`
@@ -76,4 +74,5 @@ export const TipText = styled.Text`
     margin-bottom: 6px;
     color: ${({ theme }) => theme.$textColor};
     padding: 30px;
+    text-align: center;
 `;

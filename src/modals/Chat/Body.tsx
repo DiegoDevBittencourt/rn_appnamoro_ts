@@ -23,16 +23,16 @@ const Body = ({ matchedProfile, profileImage }: any) => {
 
     const MessageItemFL = ({ item }: any) => <MessageItem userId={userId} messageItem={item} />
 
-    const BodyContent = () => {
-        return chatMessages.length > 0 ? <GenericDataList
-            inverted
-            customContentContainerStyle={{ paddingTop: 5 }}
-            data={chatMessages}
-            renderItem={MessageItemFL}
-        /> : <TipItem profileImage={profileImage} />
-    }
-
-    return <BodyContent />
+    return <>
+        {
+            chatMessages.length > 0 ? <GenericDataList
+                inverted
+                customContentContainerStyle={{ paddingTop: 5 }}
+                data={chatMessages}
+                renderItem={MessageItemFL}
+            /> : <TipItem profileImage={profileImage} />
+        }
+    </>
 }
 
 export default Body;

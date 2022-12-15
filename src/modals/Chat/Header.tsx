@@ -42,23 +42,26 @@ const Header = ({ matchedProfile, profileImage }: any) => {
                     customButtonStyle={{
                         height: 40,
                         width: 40,
+                        margin: 1,
                         marginRight: 5,
                         color: theme.$primaryColor
                     }}
+                    iconName={'user-alt-slash'}
                 />
 
                 <RoundIconButton
+                    onPress={unmatch}
                     customButtonStyle={{
                         height: 40,
                         width: 40,
-                        margin: -1,
+                        margin: 1,
+                        marginRight: 5,
                         backgroundColor: 'white',
                         elevation: 0,
                     }}
                     customIconStyle={{ color: theme.$primaryColor }}
                     iconName={'user-alt-slash'}
                     underlayColor={theme.$lightGray}
-                    onPress={unmatch}
                 />
 
             </RightButtonsContainer>
