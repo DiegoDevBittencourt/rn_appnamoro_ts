@@ -108,6 +108,7 @@ const Configuration = () => {
             title={'Configurações'}
             customContainerStyle={{ backgroundColor: theme.$primaryColor }}
         />
+
         <GenericScrollView>
 
             <SectionTitle titleText='CONFIGURAÇÕES DA CONTA' />

@@ -10,7 +10,7 @@ interface MatchStoreType {
 }
 
 const INITIAL_STATE: MatchStoreType = {
-    isGettingProfileForTheMatchSearcher: null,
+    isGettingProfileForTheMatchSearcher: true,
     matchSearcherProfiles: [],
     matchedProfiles: [],
     profileIdsAlreadyDownloaded: [],

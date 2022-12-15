@@ -1,46 +1,32 @@
 import React, { useEffect, useRef } from 'react';
-// import SwipeCards from 'react-native-swipe-cards';
 import { useDispatch, useSelector } from 'react-redux';
-// import CardStack, { Card } from 'react-native-card-stack-swiper';
-// import Swiper from 'react-native-deck-swiper';
-import TinderCard from 'react-tinder-card'
+// import TinderCard from 'react-tinder-card'
 
 import ProfileCard from '../ProfileCard';
 import MatchSearcherPlaceholder from '../MatchSearcherPlaceholder';
 import { theme } from '@constants/styledComponentsTheme';
-import { ignoreCurrentProfile, likeCurrentProfile } from '../MatchSearcherFunctions';
 import { MainContainer } from './styles';
 import { updateSwipeCardRef, useMatch } from '~/store/match/reducer';
-import { P } from '~/components';
-import { Text } from 'react-native-paper';
+import { likeCurrentProfile } from '~/store/match/thunk';
 
 export default function ProfileSelector() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
     const swipeCardRef = useRef<any>();
 
     const { matchSearcherProfiles, isSuperLikeAvailable } = useSelector(useMatch);
     const { $lightBlue, $green, $red } = theme;
 
-    const handleLikeCurrentProfile = (superLike: boolean, currentProfile: any) => likeCurrentProfile(dispatch, superLike, currentProfile);
+    const handleLikeCurrentProfile = (superLike: boolean, currentProfile: any) => {
+        dispatch(likeCurrentProfile(currentProfile, superLike));
+    };
 
     useEffect(() => {
         dispatch(updateSwipeCardRef(swipeCardRef));
     }, []);
 
-    const onSwipe = (direction: any) => {
-        console.log('You swiped: ' + direction)
-    }
-
-    const onCardLeftScreen = (myIdentifier: any) => {
-        console.log(myIdentifier + ' left the screen')
-    }
-
     return <MainContainer>
-        <TinderCard
-            onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} >
-            <ProfileCard /*{...cardData}*/ />
-        </TinderCard>
+        <ProfileCard {...matchSearcherProfiles[0]}/*{...cardData}*/ />
         {/* <SwipeCards
             ref={swipeCardRef}
             keyExtractor={(item: any) => item.id.toString()}

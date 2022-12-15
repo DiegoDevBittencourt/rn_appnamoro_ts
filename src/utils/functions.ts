@@ -167,7 +167,7 @@ export function getGenderDesc(genderId: number) {
     return genderOptions[index].label;
 }
 
-export function checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed: Date) {
+export function checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed: any) {
     var timeStart = new Date(lastTimeSuperLikeWasUsed).getTime();
     var timeEnd = new Date().getTime();
     var hourDiff = timeEnd - timeStart; //in ms

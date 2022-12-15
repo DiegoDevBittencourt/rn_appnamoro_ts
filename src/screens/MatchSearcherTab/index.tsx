@@ -17,25 +17,28 @@ export default function MatchSearcherTab() {
     const { userData } = useSelector(useUsers);
     const { showMeOnApp } = userData;
 
-    const shouldRenderLoadingScreen = (isGettingProfileForTheMatchSearcher || isGettingProfileForTheMatchSearcher == null || isGettingLocation);
-
-    const MatchSeacherBody = shouldRenderLoadingScreen ? <MatchSearcherPlaceholder bodyText={'Buscando perfis...'} />
-        :
-        !showMeOnApp ? <MatchSearcherPlaceholder title={weFoundAProblem} bodyText={turnOnShowMeOnApp} />
-            :
-            !isGeolocationEnabled ? <MatchSearcherPlaceholder title={weFoundAProblem} bodyText={turnOnLocation} />
-                :
-                matchSearcherProfiles.length > 0 ? <ProfileSelector />
-                    :
-                    !isGettingProfileForTheMatchSearcher && <MatchSearcherPlaceholder bodyText={'Oops, não encontramos ninguém próximo a você. Tente aumentar sua "Distância máxima" ou a\n"Faixa etária" no menu "Configurações".\nBoa sorte!'} />
-
-    const ControlButtonSection = matchSearcherProfiles.length > 0 && <ControlButtons currentProfile={matchSearcherProfiles[0]} />
-
     return <MainContainer>
+        {(isGettingLocation || isGettingProfileForTheMatchSearcher && matchSearcherProfiles.length <= 0) && <MatchSearcherPlaceholder
+            bodyText={'Buscando perfis...'}
+        />}
 
-        {MatchSeacherBody}
+        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && !showMeOnApp) && <MatchSearcherPlaceholder
+            title={weFoundAProblem}
+            bodyText={turnOnShowMeOnApp}
+        />}
 
-        {ControlButtonSection}
+        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && !isGeolocationEnabled) && <MatchSearcherPlaceholder
+            title={weFoundAProblem}
+            bodyText={turnOnLocation}
+        />}
 
+        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && matchSearcherProfiles.length == 0) && <MatchSearcherPlaceholder
+            bodyText={'Oops, não encontramos ninguém próximo a você. Tente aumentar sua "Distância máxima" ou a\n"Faixa etária" no menu "Configurações".\nBoa sorte!'}
+        />}
+
+        {matchSearcherProfiles.length > 0 && <>
+            <ProfileSelector />
+            <ControlButtons currentProfile={matchSearcherProfiles[0]} />
+        </>}
     </MainContainer>
 }

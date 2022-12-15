@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { theme } from '@constants/styledComponentsTheme';
 import { RoundIconButton } from '@components/index';
 import { checkIfSuperLikeIsAvailable } from '~/utils/functions';
-import { ignoreCurrentProfile, likeCurrentProfile } from '../MatchSearcherFunctions';
 import { updateIsSuperLikeAvailable, useMatch } from '~/store/match/reducer';
 import { MainContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
+import { ignoreCurrentProfile, likeCurrentProfile } from '~/store/match/thunk';
 
 export default function ControlButtons({ currentProfile }: any) {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
 
     const { userData } = useSelector(useUsers);
     const { isSuperLikeAvailable, swipeCardRef } = useSelector(useMatch);
@@ -23,20 +23,20 @@ export default function ControlButtons({ currentProfile }: any) {
         dispatch(updateIsSuperLikeAvailable(checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed)));
     }, [lastTimeSuperLikeWasUsed]);
 
-    const handleLikeCurrentProfile = (superLike: boolean) => {
-        superLike ? swipeCardRef._forceUpSwipe() : swipeCardRef._forceRightSwipe();
+    const handleLikeCurrentProfile = (wasSuperLikeUsed: boolean) => {
+        // superLike ? swipeCardRef._forceUpSwipe() : swipeCardRef._forceRightSwipe();
 
-        setTimeout(() => {
-            likeCurrentProfile(dispatch, superLike, currentProfile);
-        }, 1000);
+        // setTimeout(() => {
+        dispatch(likeCurrentProfile(currentProfile, wasSuperLikeUsed));
+        // }, 1000);
     };
 
     const handleIgnoreCurrentProfile = async () => {
-        swipeCardRef._forceLeftSwipe();
+        // swipeCardRef._forceLeftSwipe();
 
-        setTimeout(() => {
-            ignoreCurrentProfile(dispatch, currentProfile?.id);
-        }, 1000);
+        // setTimeout(() => {
+        dispatch(ignoreCurrentProfile(currentProfile?.id));
+        // }, 1000);
     };
 
     const customButtonStyle = {

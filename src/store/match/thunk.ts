@@ -23,11 +23,35 @@ export function ignoreCurrentProfile(profileId: string) {
     }
 }
 
-export function likeCurrentProfile(profile: UserDataType, superLike: boolean) {
+export function likeCurrentProfile(profile: UserDataType, wasSuperLikeUsed: boolean) {
     return (dispatch: any) => {
-        superLike && dispatch(updateUserDataOnRedux({ lastTimeSuperLikeWasUsed: new Date() }));
+
+        wasSuperLikeUsed && dispatch(updateUserDataOnRedux({ lastTimeSuperLikeWasUsed: new Date() }));
         dispatch(removeProfileFromMatchSearcher({ profileId: profile.id }));
+        dispatch(createOrUpdateUserMatch({ profileId: profile.id, superLike: wasSuperLikeUsed }));
         dispatch(getNextProfileForTheMatchSearcher());
+    }
+}
+
+export function createOrUpdateUserMatch({ profileId, superLike }: { profileId?: string, superLike?: boolean }) {
+    return async (dispatch: any, getState: any) => {
+
+        const { userData } = getState().users;
+
+        const res = await api.post('users/create_or_update_user_match', {
+            userId: userData?.id,
+            profileId,
+            superLike: superLike ? 1 : 0
+        });
+
+        if (res?.data == 'you have a match!') {
+            dispatch(getUserData({
+                shouldGetAddress: true,
+                shouldGetProfilesForMatchSearcher: true,
+                shouldSignInOnFirebase: true,
+                shouldGetMatchedProfiles: true
+            }));
+        }
     }
 }
 
