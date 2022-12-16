@@ -1,3 +1,1 @@
-export const TEST1 = 'a'
-export const TEST2 = 'b'
-export const TEST3 = 'c'
+export const IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES = 'Impossível adicionar mais que nove imagens!'

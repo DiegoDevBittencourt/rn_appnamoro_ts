@@ -1,6 +1,7 @@
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import { PermissionsAndroid } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import * as RootNavigationRef from '@routes/RootNavigationRef';
 import { setIsGeoLocationEnabled, updateIsGettingLocation } from './reducer';
@@ -8,9 +9,8 @@ import { handleThunkError } from '../error/thunk';
 import { TURN_ON_LOCATION_MODAL } from '~/constants/screenNames';
 import { updateUserDataOnRedux } from '../users/reducer';
 import { getNextProfileForTheMatchSearcher } from '../match/thunk';
-import { REACT_APP_GEOCODE_API_KEY } from '@env';
-import AsyncStorage from '@react-native-community/async-storage';
 import { updateUser } from '../users/thunk';
+import { REACT_APP_GEOCODE_API_KEY } from '@env';
 
 Geocoder.init(REACT_APP_GEOCODE_API_KEY, { language: 'pt-br' });
 

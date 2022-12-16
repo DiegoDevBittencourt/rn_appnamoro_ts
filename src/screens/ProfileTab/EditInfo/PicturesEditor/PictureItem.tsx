@@ -12,6 +12,8 @@ import { Button, ButtonContainer, ProgressBarContainer, UserImage, UserImageCont
 import { useUsers } from '~/store/users/reducer';
 import { GENERIC_YES_NO_MODAL } from '~/constants/screenNames';
 import { dangerNotification } from '~/utils/notifications';
+import { IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES } from '~/constants/messages';
+import { useDashboard } from '~/store/dashboard/reducer';
 
 export default function PictureItem({ PictureItem }: any) {
 
@@ -19,6 +21,7 @@ export default function PictureItem({ PictureItem }: any) {
     const navigation = useNavigation<any>();
 
     const { userData } = useSelector(useUsers);
+    const { uploadingImagesPreview } = useSelector(useDashboard);
     const { userImages } = userData;
 
     const imageSource = PictureItem.imageUrl ? { uri: PictureItem.imageUrl } : noProfile;
@@ -67,14 +70,15 @@ export default function PictureItem({ PictureItem }: any) {
     }
 
     const pickImages = () => {
-        if (userImages && userImages?.length <= 8)
+        const imagesQuantity = (userImages?.length || 0) + (uploadingImagesPreview?.length || 0);
+
+        if (imagesQuantity <= 8)
             pickFile(userImages?.length || 0, dispatch);
         else
-            dangerNotification('Impossível adicionar mais que nove imagens!');
+            dangerNotification(IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES);
     }
 
     return <UserImageContainer>
-
         <Button underlayColor={theme.$gray} onPress={pickImages}>
             <ButtonContainer>
                 {PictureItem.imageUrl ? <ImageSlider
@@ -90,6 +94,5 @@ export default function PictureItem({ PictureItem }: any) {
         </Button>
 
         <DeleteImageButton />
-
     </UserImageContainer>
 }

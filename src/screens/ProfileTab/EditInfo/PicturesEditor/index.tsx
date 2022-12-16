@@ -4,22 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import Pictures from './Pictures';
 import { SectionTitle, GenericAppButton } from '@components/index';
 import { pickFile } from './uploadMedia';
-import { PicturesContainer, PicturesEditorContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
 import { dangerNotification } from '~/utils/notifications';
+import { IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES } from '~/constants/messages';
+import { useDashboard } from '~/store/dashboard/reducer';
+import { PicturesContainer, PicturesEditorContainer } from './styles';
 
 const PicturesEditor = () => {
 
     const dispatch = useDispatch();
 
+    const { uploadingImagesPreview } = useSelector(useDashboard);
     const { userData } = useSelector(useUsers);
     const { userImages } = userData;
 
     const pickImages = () => {
-        if (userImages && userImages?.length <= 8)
+        const imagesQuantity = (userImages?.length || 0) + (uploadingImagesPreview?.length || 0);
+
+        if (imagesQuantity <= 8)
             pickFile(userImages?.length || 0, dispatch);
         else
-            dangerNotification('Impossível adicionar mais que nove imagens!');
+            dangerNotification(IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES);
     }
 
     return <PicturesEditorContainer>
