@@ -1,7 +1,8 @@
 import React from 'react';
+import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import * as Progress from 'react-native-progress';
+import { ImageSlider } from "react-native-image-slider-banner";
 
 import noProfile from '@assets/noProfile.png';
 import { pickFile } from './uploadMedia';
@@ -66,7 +67,6 @@ export default function PictureItem({ PictureItem }: any) {
     }
 
     const pickImages = () => {
-        console.log('userImages', userImages);
         if (userImages && userImages?.length <= 8)
             pickFile(userImages?.length || 0, dispatch);
         else
@@ -77,7 +77,14 @@ export default function PictureItem({ PictureItem }: any) {
 
         <Button underlayColor={theme.$gray} onPress={pickImages}>
             <ButtonContainer>
-                <UserImage source={imageSource} />
+                {PictureItem.imageUrl ? <ImageSlider
+                    data={[{ img: PictureItem.imageUrl }]}
+                    autoPlay={false}
+                    activeIndicatorStyle={{ display: 'none' }}
+                    indicatorContainerStyle={{ display: 'none' }}
+                    caroselImageStyle={{ resizeMode: "cover", height: '100%' }}
+                    closeIconColor="#fff"
+                /> : <UserImage source={imageSource} />}
                 <UploadProgressBar />
             </ButtonContainer>
         </Button>

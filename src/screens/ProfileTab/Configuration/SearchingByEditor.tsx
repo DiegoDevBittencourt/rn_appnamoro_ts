@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -23,11 +23,6 @@ const SearchingByEditor = () => {
     const { selectedConfigMenuTitle } = useSelector(useDashboard);
 
     const { searchingBy } = userData;
-
-    useEffect(() => {
-        console.log('userData123123', userData);
-        console.log('searchingBy', searchingBy);
-    }, [userData, searchingBy]);
 
     const updateSearchingBy = (value: number) => {
         dispatch(updateUser({

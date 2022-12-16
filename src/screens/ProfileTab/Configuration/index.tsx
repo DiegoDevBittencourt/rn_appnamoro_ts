@@ -52,10 +52,6 @@ const Configuration = () => {
     const [pushNotificationLocal, setPushNotificationLocal] = useState(pushNotification);
 
     useEffect(() => {
-        console.log('userData', userData);
-    }, [userData]);
-
-    useEffect(() => {
         dispatch(getUserData({}));
     }, []);
 

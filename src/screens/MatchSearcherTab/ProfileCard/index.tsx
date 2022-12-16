@@ -1,11 +1,14 @@
 import React from 'react';
 // import Carousel from 'react-native-looped-carousel';
+import { ImageSlider } from "react-native-image-slider-banner";
 
 import noProfile from '@assets/noProfile.png';
 import { generateRandomKey } from '~/utils/functions';
 import { AwesomeIcon } from '@components/index';
 import { textShadow } from '@constants/InlineStyling';
+import { theme } from '@constants/styledComponentsTheme';
 import { Distance, NameAge, ProfileCardInfo, UserImage } from './styles';
+import { Dimensions } from 'react-native';
 
 const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) => {
 
@@ -27,6 +30,16 @@ const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) =>
     };
 
     return <ProfileCardInfo>
+        <ImageSlider
+            data={userImages?.map((item: any) => ({ ...item, img: item?.imageUrl }))}
+            autoPlay={false}
+            caroselImageStyle={{
+                height: '100%',
+                width: Dimensions.get('window').width - 20,
+                borderRadius: theme?.$bigBorderRadius
+            }}
+            closeIconColor="#fff"
+        />
         {/* <Carousel
             style={{ width: '100%', height: '100%' }}
             arrowStyle={{ height: '100%', justifyContent: 'center' }}

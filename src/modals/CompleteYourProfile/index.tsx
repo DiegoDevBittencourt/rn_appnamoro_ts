@@ -76,7 +76,7 @@ const CompleteYourProfileContent = () => {
             profileComplete: 1,
             showMeOnApp: 1
         });
-        console.log('asduserData', userData)
+
         dispatch(updateUser({ user: userData, shouldShowLoader: true })).then(() => navigation.goBack());
     }
 
