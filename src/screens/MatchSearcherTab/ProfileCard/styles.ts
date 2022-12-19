@@ -5,12 +5,13 @@ import { H2, H3 } from '~/components';
 
 export const ProfileCardInfo = styled.View`
     flex: 1;
-    width: ${Dimensions.get('window').width - 20}px;
     justify-content: center;
     align-items: center;
     background-color: white;
     elevation: 5;
+    margin-bottom: 25;
     border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
+    background-color: blue;
 `;
 
 export const NameAge = styled(H2)`

@@ -21,7 +21,7 @@ const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) =>
 
     const customIconContainer = {
         width: 30,
-        alignItems: 'flex-end',
+        alignItems: 'flex-end'
     };
 
     return <ProfileCardInfo>

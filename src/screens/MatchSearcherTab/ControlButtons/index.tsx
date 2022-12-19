@@ -14,7 +14,7 @@ export default function ControlButtons({ currentProfile }: any) {
     const dispatch = useDispatch<any>();
 
     const { userData } = useSelector(useUsers);
-    const { isSuperLikeAvailable, swipeCardRef } = useSelector(useMatch);
+    const { isSuperLikeAvailable } = useSelector(useMatch);
     const { lastTimeSuperLikeWasUsed } = userData;
 
     const { $lightGray, $gray, $red, $lightGreen, $lightBlue } = theme;
@@ -24,19 +24,11 @@ export default function ControlButtons({ currentProfile }: any) {
     }, [lastTimeSuperLikeWasUsed]);
 
     const handleLikeCurrentProfile = (wasSuperLikeUsed: boolean) => {
-        // superLike ? swipeCardRef._forceUpSwipe() : swipeCardRef._forceRightSwipe();
-
-        // setTimeout(() => {
         dispatch(likeCurrentProfile(currentProfile, wasSuperLikeUsed));
-        // }, 1000);
     };
 
     const handleIgnoreCurrentProfile = async () => {
-        // swipeCardRef._forceLeftSwipe();
-
-        // setTimeout(() => {
         dispatch(ignoreCurrentProfile(currentProfile?.id));
-        // }, 1000);
     };
 
     const customButtonStyle = {

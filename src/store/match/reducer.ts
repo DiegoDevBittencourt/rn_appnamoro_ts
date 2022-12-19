@@ -6,7 +6,6 @@ interface MatchStoreType {
     matchedProfiles: any[],
     profileIdsAlreadyDownloaded: any[],
     isSuperLikeAvailable: boolean,
-    swipeCardRef: any,
 }
 
 const INITIAL_STATE: MatchStoreType = {
@@ -15,16 +14,12 @@ const INITIAL_STATE: MatchStoreType = {
     matchedProfiles: [],
     profileIdsAlreadyDownloaded: [],
     isSuperLikeAvailable: false,
-    swipeCardRef: null,
 }
 
 const sliceMatch = createSlice({
     name: 'match',
     initialState: INITIAL_STATE,
     reducers: {
-        updateSwipeCardRef(state, { payload }: PayloadAction<any>) {
-            return { ...state, swipeCardRef: payload }
-        },
         updateMatchedProfilesArray(state, { payload }: PayloadAction<any[]>) {
             return { ...state, matchedProfiles: payload }
         },
@@ -55,7 +50,6 @@ const sliceMatch = createSlice({
 
 export default sliceMatch.reducer;
 export const {
-    updateSwipeCardRef,
     updateMatchedProfilesArray,
     updateIsGettingProfileForTheMatchSearcher,
     updateProfileIdsAlreadyDownloaded,
