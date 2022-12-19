@@ -4,7 +4,6 @@ export const AppLogoImage = styled.Image`
     max-width: 450px;
     min-width: 300px;
     min-height: 120px;
-    max-height: 150px;
     width: 50%;
     resize-mode: contain;
     display: flex;

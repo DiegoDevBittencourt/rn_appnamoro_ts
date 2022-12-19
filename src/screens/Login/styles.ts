@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import { P } from '@components/index';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export const LoginCardContainer = styled.View`
     padding: 30px 15px 15px;
@@ -41,3 +42,26 @@ export const SignUpNowText2 = styled(P)`
     color: ${({ theme }) => theme.$green};
     font-size: 14px;
 `;
+
+export const cardContainerStyle = EStyleSheet.create({
+    '@media (min-width: 0)': {
+        loginCardContainer: {
+            height: '$loginCardHeightMin0Width',
+            width: '$loginCardWidthMin0Width'
+        },
+    },
+
+    '@media(min-width: 768px)': {
+        loginCardContainer: {
+            height: '$loginCardHeightMin768Width',
+            width: '$loginCardWidthMin768Width'
+        },
+    },
+
+    '@media(min-width: 1024px)': {
+        loginCardContainer: {
+            height: '$loginCardHeightMin1024Width',
+            width: '$loginCardWidthMin1024Width'
+        },
+    }
+});
