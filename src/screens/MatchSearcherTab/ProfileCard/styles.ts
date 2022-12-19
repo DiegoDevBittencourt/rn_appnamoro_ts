@@ -11,7 +11,6 @@ export const ProfileCardInfo = styled.View`
     background-color: white;
     elevation: 5;
     border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
-    flex-direction: column;
 `;
 
 export const NameAge = styled(H2)`
@@ -32,6 +31,19 @@ export const UserImage = styled.Image`
     flex: 1;
     height: 100%;
     width: 100%;
+    align-items: center;
+    flex-direction: column;
     border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
     resize-mode: cover;
+`;
+
+export const ControlButtonContainer = styled.View`
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: ${({ theme }) => theme?.$bigBorderRadius}px;
+    height: 100%;
+    width: 100%;
+    background-color: ${({ theme }) => theme?.$opaqueBlackBackgroundColor};
+    flex-direction: row;
 `;
