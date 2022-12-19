@@ -7,6 +7,7 @@ import { theme } from '@constants/styledComponentsTheme';
 import { useUsers } from '~/store/users/reducer';
 import { setSelectedConfigMenu } from '~/store/dashboard/reducer';
 import { getUserData, updateUser } from '~/store/users/thunk';
+import { phoneMask } from '~/utils/functions';
 import {
     SectionTitle,
     ConfigItem,
@@ -25,7 +26,6 @@ import {
     PHONE_EDITOR_SCREEN,
     SEARCHING_BY_EDITOR_SCREEN
 } from '~/constants/screenNames';
-import { phoneMask } from '~/utils/functions';
 
 const Configuration = () => {
 

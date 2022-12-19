@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Pictures from './Pictures';
+import useUploadMedia from '../../../../hooks/useUploadMedia';
 import { SectionTitle, GenericAppButton } from '@components/index';
-import { pickFile } from './uploadMedia';
 import { useUsers } from '~/store/users/reducer';
 import { dangerNotification } from '~/utils/notifications';
 import { IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES } from '~/constants/messages';
@@ -12,7 +12,7 @@ import { PicturesContainer, PicturesEditorContainer } from './styles';
 
 const PicturesEditor = () => {
 
-    const dispatch = useDispatch();
+    const { pickFile } = useUploadMedia();
 
     const { uploadingImagesPreview } = useSelector(useDashboard);
     const { userData } = useSelector(useUsers);
@@ -22,7 +22,7 @@ const PicturesEditor = () => {
         const imagesQuantity = (userImages?.length || 0) + (uploadingImagesPreview?.length || 0);
 
         if (imagesQuantity <= 8)
-            pickFile(userImages?.length || 0, dispatch);
+            pickFile();
         else
             dangerNotification(IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES);
     }

@@ -1,11 +1,11 @@
 import React from 'react';
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ImageSlider } from "react-native-image-slider-banner";
 
 import noProfile from '@assets/noProfile.png';
-import { pickFile } from './uploadMedia';
+import useUploadMedia from '~/hooks/useUploadMedia';
 import { theme } from '@constants/styledComponentsTheme';
 import { RoundCloseButton } from '@components/index';
 import { Button, ButtonContainer, ProgressBarContainer, UserImage, UserImageContainer } from './styles';
@@ -17,8 +17,8 @@ import { useDashboard } from '~/store/dashboard/reducer';
 
 export default function PictureItem({ PictureItem }: any) {
 
-    const dispatch = useDispatch();
     const navigation = useNavigation<any>();
+    const { pickFile } = useUploadMedia();
 
     const { userData } = useSelector(useUsers);
     const { uploadingImagesPreview } = useSelector(useDashboard);
@@ -73,7 +73,7 @@ export default function PictureItem({ PictureItem }: any) {
         const imagesQuantity = (userImages?.length || 0) + (uploadingImagesPreview?.length || 0);
 
         if (imagesQuantity <= 8)
-            pickFile(userImages?.length || 0, dispatch);
+            pickFile();
         else
             dangerNotification(IMPOSSIBLE_ADD_MORE_THAN_NINE_IMAGES);
     }

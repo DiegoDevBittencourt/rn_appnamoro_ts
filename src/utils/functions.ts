@@ -15,28 +15,34 @@ export function titleCase(str: string) {
     return splitStr.join(' ');
 }
 
-export function phoneMask(tel: string | undefined) {
-    if (tel) {
-        tel = tel.replace(/\D/g, "")
-        tel = tel.replace(/^(\d)/, "+$1")
-        tel = tel.replace(/(.{3})(\d)/, "$1($2")
-        tel = tel.replace(/(.{6})(\d)/, "$1)$2")
+export function phoneMask(value: string | undefined) {
+    let formattedValue = value;
 
-        if (tel.length == 12) {
-            tel = tel.replace(/(.{1})$/, "-$1")
-        } else if (tel.length == 13) {
-            tel = tel.replace(/(.{2})$/, "-$1")
-        } else if (tel.length == 14) {
-            tel = tel.replace(/(.{3})$/, "-$1")
-        } else if (tel.length == 15) {
-            tel = tel.replace(/(.{4})$/, "-$1")
-        } else if (tel.length > 15) {
-            tel = tel.replace(/(.{4})$/, "-$1")
+    if (value) {
+        if (typeof formattedValue !== 'string') {
+            formattedValue = String(formattedValue);
         }
+
+        formattedValue = formattedValue.replace(/\D/g, '');
+
+        if (formattedValue.length <= 10) {
+            formattedValue = formattedValue.replace(
+                /(\d{1,2})(\d{1,4})(\d{1,4})/g,
+                '($1) $2-$3'
+            );
+        } else {
+            formattedValue = formattedValue.replace(
+                /(\d{1,2})(\d{1,5})(\d{1,4})/g,
+                '($1) $2-$3'
+            );
+        }
+
+        formattedValue = formattedValue.slice(0, 15);
     }
 
-    return tel;
+    return formattedValue;
 }
+
 
 export function keepOnlyNumbers(text: string) {
     return text?.replace(/\D+/g, '');

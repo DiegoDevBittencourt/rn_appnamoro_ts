@@ -6,6 +6,7 @@ import { theme } from '@constants/styledComponentsTheme';
 import { RoundImage } from '@components/index';
 import { setLimitCharactereSizeToString } from '~/utils/functions';
 import { Button, MainContainer, PMessage, PTime, PTitle, TextContainer, TimeContainer } from './styles';
+import { CHAT_MODAL } from '~/constants/screenNames';
 
 export default function ConversationItem({ conversationItem, matchedProfile }: any) {
 
@@ -16,7 +17,7 @@ export default function ConversationItem({ conversationItem, matchedProfile }: a
 
     const profileImage = userImages?.length > 0 ? { uri: userImages[0]?.imageUrl } : noProfile;
 
-    const openChatScreen = () => navigation.push('ChatModal', { profileImage, matchedProfile });
+    const openChatScreen = () => navigation.push(CHAT_MODAL, { profileImage, matchedProfile });
 
     return <Button underlayColor={theme.$lightGray} onPress={openChatScreen}>
         <MainContainer>

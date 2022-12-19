@@ -15,7 +15,6 @@ export default function Login() {
 
     useEffect(() => {
         const marginTop = (Dimensions.get('window').height - cardContainerStyle?.loginCardContainer?.height) / 4;
-        console.log('marginTop', marginTop);
         setAdjustmentMargin(marginTop > 0 ? marginTop : 0);
     }, [])
 

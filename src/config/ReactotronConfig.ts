@@ -4,10 +4,10 @@ import Reactotron from 'reactotron-react-native';
 import { reactotronRedux } from 'reactotron-redux';
 
 const { scriptURL } = NativeModules.SourceCode;
-const hostName = scriptURL.split('://')[1].split(':')[0]
+const hostName = '10.0.2.2';//scriptURL.split('://')[1].split(':')[0]
 
 Reactotron.setAsyncStorageHandler!!(AsyncStorage)
-    .configure({ host: '10.0.2.2' })
+    .configure({ host: hostName })
     .useReactNative()
     .use(reactotronRedux())
     .connect();

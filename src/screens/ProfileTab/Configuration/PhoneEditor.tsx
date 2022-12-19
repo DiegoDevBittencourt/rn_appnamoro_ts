@@ -51,7 +51,7 @@ const PhoneEditor = () => {
                 placeholder={'Digite seu telefone aqui'}
                 keyboardType={'phone-pad'}
                 value={phoneLocal}
-                onChangeText={(value) => setPhoneLocal(value)}
+                onChangeText={(value) => setPhoneLocal(phoneMask(value))}
             />
 
             <GenericAppButton
