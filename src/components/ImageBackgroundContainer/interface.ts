@@ -1,4 +1,4 @@
 export interface ImageBackgroundContainerType {
     source: any,
-    children: any;
+    children?: any;
 }

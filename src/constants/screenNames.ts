@@ -1,5 +1,8 @@
 export const LOGIN_SCREEN = 'Login';
 export const DASHBOARD_SCREEN = 'Dashboard';
+export const MATCH_SEARCHER_TAB_SCREEN = 'MatchSearcher';
+export const MATCHES_AND_CONVERSATIONS_TAB_SCREEN = 'MatchesAndConversations';
+export const USER_PROFILE_TAB_SCREEN = 'UserProfileTabScreen';
 export const CONFIGURATION_SCREEN = 'Configuration';
 export const EDIT_INFO_SCREEN = 'EditInfo';
 export const USER_PROFILE_SCREEN = 'UserProfile';
@@ -15,3 +18,4 @@ export const SIGN_UP_MODAL = 'SignUpModal';
 export const CHAT_MODAL = 'ChatModal';
 export const TURN_ON_LOCATION_MODAL = 'TurnOnLocationModal';
 export const COMPLETE_YOUR_PROFILE_MODAL = 'CompleteYourProfileModal';
+export const ITS_A_MATCH_MODAL = 'ItsAMatchModal';

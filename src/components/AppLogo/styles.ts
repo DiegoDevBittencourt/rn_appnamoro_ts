@@ -8,5 +8,5 @@ export const AppLogoImage = styled.Image`
     resize-mode: contain;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
 `;

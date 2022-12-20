@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import * as RootNavigationRef from '@routes/RootNavigationRef';
+import { ITS_A_MATCH_MODAL } from '~/constants/screenNames';
 import api from '~/utils/api';
 import { calculateAge, calculateDistanceFromLatLonInKm } from '~/utils/functions';
 import { handleThunkError } from '../error/thunk';
@@ -11,6 +12,7 @@ import {
     addProfileIntoMatchSearcherArray,
     removeAllIdsFromProfileIdsAlreadyDownloaded,
     removeProfileFromMatchSearcher,
+    setCurrentMatchedProfile,
     updateIsGettingProfileForTheMatchSearcher,
     updateMatchedProfilesArray,
     updateProfileIdsAlreadyDownloaded
@@ -28,29 +30,33 @@ export function likeCurrentProfile(profile: UserDataType, wasSuperLikeUsed: bool
 
         wasSuperLikeUsed && dispatch(updateUserDataOnRedux({ lastTimeSuperLikeWasUsed: new Date() }));
         dispatch(removeProfileFromMatchSearcher({ profileId: profile.id }));
-        dispatch(createOrUpdateUserMatch({ profileId: profile.id, superLike: wasSuperLikeUsed }));
+        dispatch(createOrUpdateUserMatch({ profile, superLike: wasSuperLikeUsed }));
         dispatch(getNextProfileForTheMatchSearcher());
     }
 }
 
-export function createOrUpdateUserMatch({ profileId, superLike }: { profileId?: string, superLike?: boolean }) {
+export function createOrUpdateUserMatch({ profile, superLike }: { profile: UserDataType, superLike?: boolean }) {
     return async (dispatch: any, getState: any) => {
 
         const { userData } = getState().users;
 
         const res = await api.post('users/create_or_update_user_match', {
             userId: userData?.id,
-            profileId,
+            profileId: profile?.id,
             superLike: superLike ? 1 : 0
         });
 
         if (res?.data == 'you have a match!') {
+
+            dispatch(setCurrentMatchedProfile(profile));
+
             dispatch(getUserData({
                 shouldGetAddress: true,
                 shouldGetProfilesForMatchSearcher: true,
                 shouldSignInOnFirebase: true,
                 shouldGetMatchedProfiles: true
             }));
+            RootNavigationRef.push(ITS_A_MATCH_MODAL);
         }
     }
 }
@@ -119,7 +125,7 @@ export function getMatchedProfiles() {
         const userState = getState().users;
 
         try {
-            const res = await api.get(`users/get_match_profiles/${userState.userData.id}`, {});
+            const res = await api.get(`users/get_matched_profiles/${userState.userData.id}`, {});
 
             res?.data?.map((item: any) => {
                 item.age = calculateAge(new Date(item.birthday))

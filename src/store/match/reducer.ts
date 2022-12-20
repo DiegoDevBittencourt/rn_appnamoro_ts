@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserDataType } from '../users/reducer';
 
 interface MatchStoreType {
     isGettingProfileForTheMatchSearcher: boolean | null,
@@ -6,6 +7,7 @@ interface MatchStoreType {
     matchedProfiles: any[],
     profileIdsAlreadyDownloaded: any[],
     isSuperLikeAvailable: boolean,
+    currentMatchedProfile: UserDataType
 }
 
 const INITIAL_STATE: MatchStoreType = {
@@ -14,6 +16,7 @@ const INITIAL_STATE: MatchStoreType = {
     matchedProfiles: [],
     profileIdsAlreadyDownloaded: [],
     isSuperLikeAvailable: false,
+    currentMatchedProfile: {}
 }
 
 const sliceMatch = createSlice({
@@ -45,6 +48,9 @@ const sliceMatch = createSlice({
                         state.matchSearcherProfiles.filter(item => item.id !== payload.profileId)
             }
         },
+        setCurrentMatchedProfile(state, { payload }: PayloadAction<UserDataType>) {
+            return { ...state, currentMatchedProfile: payload }
+        },
     }
 });
 
@@ -56,7 +62,8 @@ export const {
     addProfileIntoMatchSearcherArray,
     updateIsSuperLikeAvailable,
     removeAllIdsFromProfileIdsAlreadyDownloaded,
-    removeProfileFromMatchSearcher
+    removeProfileFromMatchSearcher,
+    setCurrentMatchedProfile
 } = sliceMatch.actions;
 
 export const useMatch = (state: any) => {

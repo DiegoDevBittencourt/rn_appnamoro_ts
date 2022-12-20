@@ -41,7 +41,6 @@ export default function ControlButtons({ currentProfile }: any) {
     };
 
     return <MainContainer>
-
         <RoundIconButton
             customButtonStyle={customButtonStyle}
             iconName={'times'}
@@ -66,6 +65,5 @@ export default function ControlButtons({ currentProfile }: any) {
             underlayColor={$lightGray}
             onPress={() => handleLikeCurrentProfile(false)}
         />
-
     </MainContainer>
 }

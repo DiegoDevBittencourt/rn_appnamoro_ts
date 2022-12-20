@@ -10,6 +10,7 @@ import ContactModal from '@modals/Contact';
 import ChatModal from '@modals/Chat';
 import TurnOnLocationModal from '@modals/TurnOnLocation';
 import CompleteYourProfileModal from '@modals/CompleteYourProfile';
+import ItsAMatchModal from '@modals/ItsAMatch';
 import { modalOptions } from '@constants/modalOptions';
 import {
     CHAT_MODAL,
@@ -18,6 +19,7 @@ import {
     DASHBOARD_SCREEN,
     FORGOT_PASSWORD_MODAL,
     GENERIC_YES_NO_MODAL,
+    ITS_A_MATCH_MODAL,
     LOGIN_SCREEN,
     SIGN_UP_MODAL,
     TURN_ON_LOCATION_MODAL
@@ -43,6 +45,7 @@ const RootStackNavigator = () => {
         <RootStack.Screen options={modalOptions} name={CHAT_MODAL} component={ChatModal} />
         <RootStack.Screen options={modalOptions} name={TURN_ON_LOCATION_MODAL} component={TurnOnLocationModal} />
         <RootStack.Screen options={modalOptions} name={COMPLETE_YOUR_PROFILE_MODAL} component={CompleteYourProfileModal} />
+        <RootStack.Screen options={modalOptions} name={ITS_A_MATCH_MODAL} component={ItsAMatchModal} />
     </RootStack.Navigator>
 }
 
