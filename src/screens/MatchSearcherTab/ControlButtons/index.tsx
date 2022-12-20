@@ -5,16 +5,16 @@ import { theme } from '@constants/styledComponentsTheme';
 import { RoundIconButton } from '@components/index';
 import { checkIfSuperLikeIsAvailable } from '~/utils/functions';
 import { updateIsSuperLikeAvailable, useMatch } from '~/store/match/reducer';
-import { MainContainer } from './styles';
 import { useUsers } from '~/store/users/reducer';
 import { ignoreCurrentProfile, likeCurrentProfile } from '~/store/match/thunk';
+import { MainContainer } from './styles';
 
-export default function ControlButtons({ currentProfile }: any) {
+export default function ControlButtons() {
 
     const dispatch = useDispatch<any>();
 
     const { userData } = useSelector(useUsers);
-    const { isSuperLikeAvailable } = useSelector(useMatch);
+    const { availableProfilesToMatch, isSuperLikeAvailable } = useSelector(useMatch);
     const { lastTimeSuperLikeWasUsed } = userData;
 
     const { $lightGray, $gray, $red, $lightGreen, $lightBlue } = theme;
@@ -24,11 +24,11 @@ export default function ControlButtons({ currentProfile }: any) {
     }, [lastTimeSuperLikeWasUsed]);
 
     const handleLikeCurrentProfile = (wasSuperLikeUsed: boolean) => {
-        dispatch(likeCurrentProfile(currentProfile, wasSuperLikeUsed));
+        dispatch(likeCurrentProfile(availableProfilesToMatch[0], wasSuperLikeUsed));
     };
 
     const handleIgnoreCurrentProfile = async () => {
-        dispatch(ignoreCurrentProfile(currentProfile?.id));
+        dispatch(ignoreCurrentProfile(availableProfilesToMatch[0]?.id));
     };
 
     const customButtonStyle = {

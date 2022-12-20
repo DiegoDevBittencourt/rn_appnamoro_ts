@@ -38,7 +38,7 @@ const Pictures = () => {
 
         for (i = 0; i <= 2; i++) {
             finalArray.push(
-                <LineImagesContainer style={{ flex: 1, backgroundColor: 'blue' }} key={i}>
+                <LineImagesContainer style={{ flex: 1 }} key={i}>
                     {lineArrays[i]}
                 </LineImagesContainer>
             )

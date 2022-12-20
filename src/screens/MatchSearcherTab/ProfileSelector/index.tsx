@@ -14,26 +14,26 @@ export default function ProfileSelector() {
 
     const dispatch = useDispatch<any>();
 
-    const { matchSearcherProfiles, isSuperLikeAvailable } = useSelector(useMatch);
+    const { availableProfilesToMatch, isSuperLikeAvailable } = useSelector(useMatch);
 
     const handleLikeCurrentProfile = (wasSuperLikeUsed: boolean) => {
-        dispatch(likeCurrentProfile(matchSearcherProfiles[0], wasSuperLikeUsed));
+        dispatch(likeCurrentProfile(availableProfilesToMatch[0], wasSuperLikeUsed));
     };
 
     const handleIgnoreCurrentProfile = async () => {
-        dispatch(ignoreCurrentProfile(matchSearcherProfiles[0]?.id));
+        dispatch(ignoreCurrentProfile(availableProfilesToMatch[0]?.id));
     };
 
     return <MainContainer>
         <SwipeCards
             backgroundColor={'transparent'}
             keyExtractor={(item: any) => item?.id?.toString()}
-            cards={matchSearcherProfiles}
+            cards={availableProfilesToMatch}
             onSwipedLeft={handleIgnoreCurrentProfile}
             onSwipedRight={() => handleLikeCurrentProfile(false)}
             onSwipedTop={() => handleLikeCurrentProfile(true)}
             cardStyle={{ flex: 1, marginTop: -50 }}
-            renderCard={(cardData: any) => <ProfileCard {...cardData} />}
+            renderCard={() => <ProfileCard />}
             disableBottomSwipe
             disableTopSwipe={!isSuperLikeAvailable}
         />

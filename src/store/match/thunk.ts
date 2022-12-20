@@ -56,6 +56,7 @@ export function createOrUpdateUserMatch({ profile, superLike }: { profile: UserD
                 shouldSignInOnFirebase: true,
                 shouldGetMatchedProfiles: true
             }));
+
             RootNavigationRef.push(ITS_A_MATCH_MODAL);
         }
     }
@@ -64,7 +65,7 @@ export function createOrUpdateUserMatch({ profile, superLike }: { profile: UserD
 export function getNextProfileForTheMatchSearcher() {
     return async (dispatch: any, getState: any) => {
 
-        const { isGettingProfileForTheMatchSearcher, profileIdsAlreadyDownloaded, matchSearcherProfiles } = getState().match;
+        const { isGettingProfileForTheMatchSearcher, profileIdsAlreadyDownloaded, availableProfilesToMatch } = getState().match;
         const { userData } = getState().users;
         const { isGeolocationEnabled } = getState().utils;
 
@@ -72,7 +73,7 @@ export function getNextProfileForTheMatchSearcher() {
         const currentLatitude = await AsyncStorage.getItem('currentLatitude');
 
         try {
-            if (!isGettingProfileForTheMatchSearcher && matchSearcherProfiles?.length < 2 && isGeolocationEnabled) {
+            if (!isGettingProfileForTheMatchSearcher && availableProfilesToMatch?.length < 2 && isGeolocationEnabled) {
 
                 dispatch(updateIsGettingProfileForTheMatchSearcher(true));
 
@@ -102,8 +103,8 @@ export function getNextProfileForTheMatchSearcher() {
 
                     dispatch(updateIsGettingProfileForTheMatchSearcher(false));
 
-                    /*matchSearcherProfiles must have at least 2 profiles, so when user likes/ignores the first one, the second will appear*/
-                    matchSearcherProfiles.length < 2 && dispatch(getNextProfileForTheMatchSearcher());
+                    /*availableProfilesToMatch must have at least 2 profiles, so when user likes/ignores the first one, the second will appear*/
+                    availableProfilesToMatch.length < 2 && dispatch(getNextProfileForTheMatchSearcher());
                 }
                 else
                     dispatch(updateIsGettingProfileForTheMatchSearcher(false));

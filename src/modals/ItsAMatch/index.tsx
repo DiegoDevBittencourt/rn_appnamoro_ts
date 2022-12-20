@@ -4,12 +4,12 @@ import { StyleSheet } from 'react-native';
 
 import itsAMatch from '@assets/itsAMatch.png';
 import noProfile from '@assets/noProfile.png';
-import { AppLogo, GenericAppButton, P } from '~/components';
+import { AppLogo, GenericAppButton } from '~/components';
 import { useSelector } from 'react-redux';
 import { useUsers } from '~/store/users/reducer';
 import { useNavigation } from '@react-navigation/native';
-import { MATCHES_AND_CONVERSATIONS_TAB_SCREEN } from '~/constants/screenNames';
 import { useMatch } from '~/store/match/reducer';
+import { MATCHES_AND_CONVERSATIONS_TAB_SCREEN } from '~/constants/screenNames';
 import {
     DescriptionText,
     MainContainer,
@@ -28,7 +28,8 @@ const ItsAMatch = () => {
     const { userImages: matchedProfileImages } = currentMatchedProfile;
 
     const currentUserImageSource = userImages && userImages.length > 0 ? { uri: userImages[0].imageUrl } : noProfile
-    const currentMatchedProfileImageSource = matchedProfileImages && matchedProfileImages.length > 0 ? { uri: matchedProfileImages[0].imageUrl } : noProfile
+    const currentMatchedProfileImageSource = matchedProfileImages && matchedProfileImages.length > 0 ?
+        { uri: matchedProfileImages[0].imageUrl } : noProfile
 
     const customButtonStyle = {
         flex: 1,
@@ -80,7 +81,6 @@ const ItsAMatch = () => {
                     onPress={() => goBack()}
                 />
             </ControlButtonsContainer>
-
         </ContentContainer>
 
     </MainContainer>

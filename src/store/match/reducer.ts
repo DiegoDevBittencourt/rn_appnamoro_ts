@@ -3,7 +3,7 @@ import { UserDataType } from '../users/reducer';
 
 interface MatchStoreType {
     isGettingProfileForTheMatchSearcher: boolean | null,
-    matchSearcherProfiles: any[],
+    availableProfilesToMatch: any[],
     matchedProfiles: any[],
     profileIdsAlreadyDownloaded: any[],
     isSuperLikeAvailable: boolean,
@@ -12,7 +12,7 @@ interface MatchStoreType {
 
 const INITIAL_STATE: MatchStoreType = {
     isGettingProfileForTheMatchSearcher: true,
-    matchSearcherProfiles: [],
+    availableProfilesToMatch: [],
     matchedProfiles: [],
     profileIdsAlreadyDownloaded: [],
     isSuperLikeAvailable: false,
@@ -33,7 +33,7 @@ const sliceMatch = createSlice({
             return { ...state, profileIdsAlreadyDownloaded: [...state.profileIdsAlreadyDownloaded, payload] }
         },
         addProfileIntoMatchSearcherArray(state, { payload }: PayloadAction<any[]>) {
-            return { ...state, matchSearcherProfiles: [...state.matchSearcherProfiles, payload] }
+            return { ...state, availableProfilesToMatch: [...state.availableProfilesToMatch, payload] }
         },
         updateIsSuperLikeAvailable(state, { payload }: PayloadAction<boolean>) {
             return { ...state, isSuperLikeAvailable: payload }
@@ -43,9 +43,9 @@ const sliceMatch = createSlice({
         },
         removeProfileFromMatchSearcher(state, { payload }: PayloadAction<{ removeAll?: boolean, profileId?: string }>) {
             return {
-                ...state, matchSearcherProfiles:
+                ...state, availableProfilesToMatch:
                     payload.removeAll ? [] :
-                        state.matchSearcherProfiles.filter(item => item.id !== payload.profileId)
+                        state.availableProfilesToMatch.filter(item => item.id !== payload.profileId)
             }
         },
         setCurrentMatchedProfile(state, { payload }: PayloadAction<UserDataType>) {

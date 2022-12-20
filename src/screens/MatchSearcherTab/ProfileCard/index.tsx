@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import noProfile from '@assets/noProfile.png';
 import ControlButton from './ControlButton';
@@ -7,9 +8,13 @@ import { generateRandomKey } from '~/utils/functions';
 import { AwesomeIcon } from '@components/index';
 import { textShadow } from '@constants/InlineStyling';
 import { theme } from '@constants/styledComponentsTheme';
+import { useMatch } from '~/store/match/reducer';
 import { ControlButtonContainer, Distance, NameAge, ProfileCardInfo, UserImage } from './styles';
 
-const ProfileCard = ({ firstName, lastName, age, userImages, distance }: any) => {
+const ProfileCard = () => {
+
+    const { availableProfilesToMatch } = useSelector(useMatch);
+    const { firstName, lastName, age, userImages, distance } = availableProfilesToMatch[0];
 
     const [imageIndex, setImageIndex] = useState(0);
 

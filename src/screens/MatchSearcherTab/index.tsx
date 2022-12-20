@@ -12,13 +12,13 @@ import { weFoundAProblem, turnOnShowMeOnApp, turnOnLocation } from '@constants/I
 
 export default function MatchSearcherTab() {
 
-    const { matchSearcherProfiles, isGettingProfileForTheMatchSearcher } = useSelector(useMatch);
+    const { availableProfilesToMatch, isGettingProfileForTheMatchSearcher } = useSelector(useMatch);
     const { isGeolocationEnabled, isGettingLocation } = useSelector(useUtils);
     const { userData } = useSelector(useUsers);
     const { showMeOnApp } = userData;
 
     return <MainContainer>
-        {(isGettingLocation || isGettingProfileForTheMatchSearcher && matchSearcherProfiles.length <= 0) && <MatchSearcherPlaceholder
+        {(isGettingLocation || isGettingProfileForTheMatchSearcher && availableProfilesToMatch.length <= 0) && <MatchSearcherPlaceholder
             bodyText={'Buscando perfis...'}
         />}
 
@@ -32,13 +32,13 @@ export default function MatchSearcherTab() {
             bodyText={turnOnLocation}
         />}
 
-        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && matchSearcherProfiles.length == 0) && <MatchSearcherPlaceholder
+        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && availableProfilesToMatch.length == 0) && <MatchSearcherPlaceholder
             bodyText={'Oops, não encontramos ninguém próximo a você. Tente aumentar sua "Distância máxima" ou a\n"Faixa etária" no menu "Configurações".\nBoa sorte!'}
         />}
 
-        {matchSearcherProfiles.length > 0 && <>
+        {availableProfilesToMatch?.length > 0 && <>
             <ProfileSelector />
-            <ControlButtons currentProfile={matchSearcherProfiles[0]} />
+            <ControlButtons />
         </>}
     </MainContainer>
 }

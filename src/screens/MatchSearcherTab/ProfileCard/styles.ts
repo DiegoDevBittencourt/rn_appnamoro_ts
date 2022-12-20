@@ -11,7 +11,6 @@ export const ProfileCardInfo = styled.View`
     elevation: 5;
     margin-bottom: 25;
     border-radius: ${({ theme }) => theme.$bigBorderRadius}px;
-    background-color: blue;
 `;
 
 export const NameAge = styled(H2)`
