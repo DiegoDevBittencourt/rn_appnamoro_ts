@@ -7,7 +7,7 @@ import { GenericDataList } from '@components/index';
 import { useFirebase } from '~/store/firebase/reducer';
 import { useUsers } from '~/store/users/reducer';
 
-const Body = ({ matchedProfile, profileImage }: any) => {
+const Body = ({ matchedProfile }: any) => {
 
     const { realTimeFirebaseChat } = useSelector(useFirebase);
     const { userData } = useSelector(useUsers);
