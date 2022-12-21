@@ -31,6 +31,7 @@ export async function captureException({
     });
   }
 
+  console.log('111')
   Sentry.captureException(error, {
     tags: {
       userId,
@@ -43,4 +44,5 @@ export async function captureException({
       },
     },
   });
+  console.log('222')
 }

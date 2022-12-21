@@ -10,6 +10,7 @@ import { dangerNotification } from '~/utils/notifications'
 import { H2, LineTextLine, TextInputRightIconButton, GenericAppButton } from '@components/index';
 import { signInLocal } from '@store/auth/thunk';
 import { LoginCardContainer, cardContainerStyle } from './styles';
+import { captureException } from '~/utils/errors';
 
 export default function LoginCard() {
 
@@ -21,12 +22,19 @@ export default function LoginCard() {
     const tiPassword = useRef<any>();
 
     const localLogin = () => {
-        if (email && password) {
-            const userData = { email, password };
-            dispatch(signInLocal(userData));
+        try {
+            if (email && password) {
+                const userData = { email, password };
+                dispatch(signInLocal(userData));
+            }
+            else
+                dangerNotification("Preencha os campos Email e Senha");
+        } catch (error) {
+            captureException({
+                error,
+                errorCode: 'localLogin'
+            });
         }
-        else
-            dangerNotification("Preencha os campos Email e Senha");
     }
 
     return <LoginCardContainer style={cardContainerStyle?.loginCardContainer}>

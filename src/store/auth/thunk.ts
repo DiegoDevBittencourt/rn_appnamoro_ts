@@ -95,7 +95,7 @@ export function signOut() {
 
             await AsyncStorage.setItem('accessToken', '');
 
-            firebase.auth().signOut();
+            //firebase.auth().signOut();
 
             dispatch(cleanMatchSearcherArrayAndGetNextProfile(false));
             dispatch(updateMatchedProfilesArray([]));

@@ -1,5 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export interface UserImage {
+    id: string,
+    userId?: string,
+    imageUrl?: string,
+    amazonImageKey?: string,
+    createdAt?: Date,
+    updatedAt?: Date
+    progress?: number
+    uploaded?: boolean
+    error?: boolean
+}
+
 export interface UserDataType {
     about?: string,
     address?: string,
@@ -28,7 +40,7 @@ export interface UserDataType {
     schooling?: any,
     searchingBy?: any,
     showMeOnApp?: boolean,
-    userImages?: any[],
+    userImages?: UserImage[],
     verifiedEmail?: number,
 }
 

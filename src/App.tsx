@@ -54,8 +54,7 @@ const App = () => {
 
   useEffect(() => {
     Sentry.init({
-      // dsn: "https://2977d4f34b4545f99ec82747d6f1a08d@o4504367205842944.ingest.sentry.io/4504367208529920",
-      dsn: "https://8503d4b5a7414a6ca173a0692f82591e@o971799.ingest.sentry.io/5924202",
+      dsn: "https://2977d4f34b4545f99ec82747d6f1a08d@o4504367205842944.ingest.sentry.io/4504367208529920"
     });
 
     // onRealmChange();

@@ -3,7 +3,7 @@ import api from '@utils/api';
 import { COMPLETE_YOUR_PROFILE_MODAL } from '~/constants/screenNames';
 import { signInOrSignUpToFirebase } from '../firebase/thunk';
 import { getAddress } from '../utils/thunk';
-import { updateUserDataOnRedux } from './reducer';
+import { updateUserDataOnRedux, UserImage } from './reducer';
 import {
     calculateAge,
     getSearchingByDesc,
@@ -38,7 +38,7 @@ export function getUserData({
 
             //handling userData fields to be correctly "read" by the app
             const ageRange = userData?.ageRange.split(',');
-            userData.ageRange = ageRange.map((item: any) => parseInt(item));
+            userData.ageRange = ageRange.map((item: string) => parseInt(item));
             userData.schooling = { key: userData?.schooling || 0, label: getSchoolingDesc(userData?.schooling || 0) };
             userData.gender = { key: userData?.gender || 0, label: getGenderDesc(userData?.gender || 0) };
             userData.searchingBy = { key: userData?.searchingBy || 1, label: getSearchingByDesc(userData?.searchingBy || 1) };
@@ -48,7 +48,7 @@ export function getUserData({
             userData.emailNotification = userData?.emailNotification == 1;
             userData.pushNotification = userData?.pushNotification == 1;
 
-            userData?.userImages.map((item: any) => {
+            userData?.userImages.map((item: UserImage) => {
                 item.progress = 0;
                 item.uploaded = true;
                 item.error = false;
