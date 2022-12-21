@@ -23,6 +23,9 @@
       "@constants/*": [
         "./constants/*"
       ],
+      "@database/*": [
+        "./database/*"
+      ],
       "@modals/*": [
         "./modals/*"
       ],

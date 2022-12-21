@@ -60,7 +60,7 @@ export function getUserData({
 
             shouldGetAddress && dispatch(getAddress());
 
-            shouldSignInOnFirebase && dispatch(signInOrSignUpToFirebase());
+            // shouldSignInOnFirebase && dispatch(signInOrSignUpToFirebase());
 
             shouldGetMatchedProfiles && dispatch(getMatchedProfiles());
 
