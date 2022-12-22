@@ -14,6 +14,7 @@ import { cleanMatchSearcherArrayAndGetNextProfile, getMatchedProfiles, getNextPr
 import { handleThunkError } from '../error/thunk';
 import { showLoader } from '../utils/reducer';
 import { formatUserToApi } from '~/utils/formatters';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export function getUserData({
     shouldGetAddress,
@@ -35,6 +36,7 @@ export function getUserData({
             const res = await api.get(`users/get_user/${userState?.userData?.id}`, {});
 
             const userData = res?.data;
+            await AsyncStorage.setItem('@userId', userData?.id);
 
             //handling userData fields to be correctly "read" by the app
             const ageRange = userData?.ageRange.split(',');

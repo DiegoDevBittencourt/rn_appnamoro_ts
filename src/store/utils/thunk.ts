@@ -69,8 +69,8 @@ export function getAddress() {
 
                     dispatch(updateIsGettingLocation(false));
 
-                    await AsyncStorage.setItem('currentLongitude', String(lng));
-                    await AsyncStorage.setItem('currentLatitude', String(lat));
+                    await AsyncStorage.setItem('@currentLongitude', String(lng));
+                    await AsyncStorage.setItem('@currentLatitude', String(lat));
 
                     dispatch(getNextProfileForTheMatchSearcher());
 

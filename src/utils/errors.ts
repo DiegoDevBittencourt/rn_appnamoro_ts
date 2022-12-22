@@ -6,15 +6,20 @@ import AsyncStorage from '@react-native-community/async-storage';
 export async function captureException({
   error,
   errorCode,
-  hideFlashMessage = false,
+  hideFlashMessage = false
+}: {
+  error: any,
+  errorCode: string,
+  hideFlashMessage?: boolean
 }) {
+
   const userId = await AsyncStorage.getItem('@userId');
 
-  if (__DEV__ && error && error.response) {
+  if (__DEV__ && error?.response) {
     console.warn(error.response);
   }
 
-  if (error && error.response && error.response.data) {
+  if (error?.response?.data) {
     Sentry.setExtra('HTTP Response', error.response.data);
   }
 
@@ -31,7 +36,6 @@ export async function captureException({
     });
   }
 
-  console.log('111')
   Sentry.captureException(error, {
     tags: {
       userId,
@@ -44,5 +48,4 @@ export async function captureException({
       },
     },
   });
-  console.log('222')
 }

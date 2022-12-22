@@ -83,7 +83,7 @@ export function signUp(userData?: any) {
 
 export function setAccessTokenOnStorageAndRedux(accessToken: string) {
     return async (dispatch: any) => {
-        AsyncStorage.setItem('accessToken', accessToken || '');
+        await AsyncStorage.setItem('@accessToken', accessToken || '');
         dispatch(updateAccessTokenOnRedux(accessToken));
     }
 }
@@ -93,7 +93,7 @@ export function signOut() {
         try {
             unsubscribeFirebaseListeners.map(item => item());
 
-            await AsyncStorage.setItem('accessToken', '');
+            await AsyncStorage.setItem('@accessToken', '');
 
             //firebase.auth().signOut();
 
