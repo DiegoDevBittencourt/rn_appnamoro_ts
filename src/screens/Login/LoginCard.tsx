@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import EStyleSheet from 'react-native-extended-stylesheet';
 
 import SocialButtons from './SocialButtons';
 import ForgotPassword from './ForgotPassword';
@@ -9,8 +8,8 @@ import { theme } from '@constants/styledComponentsTheme';
 import { dangerNotification } from '~/utils/notifications'
 import { H2, LineTextLine, TextInputRightIconButton, GenericAppButton } from '@components/index';
 import { signInLocal } from '@store/auth/thunk';
+import { captureException } from '~/utils/error';
 import { LoginCardContainer, cardContainerStyle } from './styles';
-import { captureException } from '~/utils/errors';
 
 export default function LoginCard() {
 
