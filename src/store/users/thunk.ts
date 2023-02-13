@@ -36,7 +36,7 @@ export function getUserData({
             const res = await api.get(`users/get_user/${userState?.userData?.id}`, {});
 
             const userData = res?.data;
-            await AsyncStorage.setItem('@userId', userData?.id);
+            await AsyncStorage.setItem('@userId', String(userData?.id));
 
             //handling userData fields to be correctly "read" by the app
             const ageRange = userData?.ageRange.split(',');
