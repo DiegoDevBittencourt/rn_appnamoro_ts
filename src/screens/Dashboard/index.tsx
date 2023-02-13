@@ -19,7 +19,7 @@ const Dashboard = () => {
 
     const dashboardInitialization = async () => {
 
-        const accessToken = await AsyncStorage.getItem('accessToken');
+        const accessToken = await AsyncStorage.getItem('@accessToken');
 
         //needs the id to be used when download data from resource server:
         dispatch(updateUserDataOnRedux({ id: decodeJwtToken(accessToken || '').id }));
