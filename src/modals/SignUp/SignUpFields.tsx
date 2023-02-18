@@ -1,11 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { v4 as uuidv4 } from 'uuid';
 
 import * as Options from '~/utils/options';
 import { theme } from '@constants/styledComponentsTheme';
 import { convertDateStringFromDDMMYYYYtoMMDDYYYY, phoneMask } from '~/utils/functions';
 import { dangerNotification } from '~/utils/notifications';
+import { MainContainer } from './styles';
+import { RNModalSelectorDataType } from '~/components/ModalSelector/interface';
+import { signUp } from '~/store/auth/thunk';
 import {
     TextInputRightIconButton,
     DatePickerButton,
@@ -13,14 +16,10 @@ import {
     MultiSlider,
     GenericAppButton
 } from '@components/index';
-import { MainContainer } from './styles';
-import { RNModalSelectorDataType } from '~/components/ModalSelector/interface';
-import { signUp } from '~/store/auth/thunk';
 
 export default function SignUpFields() {
 
     const dispatch = useDispatch<any>();
-    const navigation = useNavigation();
 
     const { $lightGray, $gray } = theme;
 
@@ -49,6 +48,7 @@ export default function SignUpFields() {
 
             if (firstName !== '' && lastName !== '' && email !== '' && birthday && gender && searchingBy) {
                 const userData = ({
+                    id: uuidv4(),
                     firstName,
                     lastName,
                     email,
