@@ -4,7 +4,7 @@ import { ITS_A_MATCH_MODAL } from '~/constants/screenNames';
 import api from '~/utils/api';
 import { calculateAge, calculateDistanceFromLatLonInKm } from '~/utils/functions';
 import { handleThunkError } from '../error/thunk';
-import { removeAllConversationsFromThisMatch } from '../firebase/thunk';
+// import { removeAllConversationsFromThisMatch } from '../mongodb/thunk';
 import { updateUserDataOnRedux, UserDataType } from '../users/reducer';
 import { getUserData } from '../users/thunk';
 import { showLoader } from '../utils/reducer';
@@ -53,7 +53,6 @@ export function createOrUpdateUserMatch({ profile, superLike }: { profile: UserD
             dispatch(getUserData({
                 shouldGetAddress: true,
                 shouldGetProfilesForMatchSearcher: true,
-                shouldSignInOnFirebase: true,
                 shouldGetMatchedProfiles: true
             }));
 
@@ -166,14 +165,13 @@ export function unmatch(profileId: string) {
 
             await api.post('users/unmatch', { userId: userState.userData.id, profileId });
 
-            await dispatch(removeAllConversationsFromThisMatch(profileId));
+            // await dispatch(removeAllConversationsFromThisMatch(profileId));
 
             dispatch(showLoader(false));
 
             dispatch(getUserData({
                 shouldGetAddress: true,
                 shouldGetProfilesForMatchSearcher: true,
-                shouldSignInOnFirebase: false,
                 shouldGetMatchedProfiles: true
             }));
 

@@ -1,5 +1,4 @@
 import { Keyboard } from 'react-native';
-import firebase from "firebase";
 import AsyncStorage from '@react-native-community/async-storage';
 
 import * as RootNavigationRef from '@routes/RootNavigationRef';
@@ -14,8 +13,6 @@ import { handleThunkError } from '../error/thunk';
 import { updateMatchedProfilesArray } from '../match/reducer';
 import { cleanMatchSearcherArrayAndGetNextProfile } from '../match/thunk';
 import { formatUserToApi } from '~/utils/formatters';
-
-const unsubscribeFirebaseListeners: any[] = [];
 
 export function signInLocal(userData: any) {
     return async (dispatch: any) => {
@@ -36,7 +33,6 @@ export function signInLocal(userData: any) {
             dispatch(getUserData({
                 shouldGetAddress: true,
                 shouldGetProfilesForMatchSearcher: true,
-                shouldSignInOnFirebase: true,
                 shouldGetMatchedProfiles: true
             }));
 
@@ -67,7 +63,6 @@ export function signUp(userData?: any) {
             dispatch(getUserData({
                 shouldGetAddress: true,
                 shouldGetProfilesForMatchSearcher: true,
-                shouldSignInOnFirebase: true,
                 shouldGetMatchedProfiles: true
             }));
 
@@ -91,11 +86,8 @@ export function setAccessTokenOnStorageAndRedux(accessToken: string) {
 export function signOut() {
     return async (dispatch: any) => {
         try {
-            unsubscribeFirebaseListeners.map(item => item());
 
             await AsyncStorage.setItem('@accessToken', '');
-
-            //firebase.auth().signOut();
 
             dispatch(cleanMatchSearcherArrayAndGetNextProfile(false));
             dispatch(updateMatchedProfilesArray([]));
@@ -138,7 +130,6 @@ export function checkIfTokenHasExpired() {
                 dispatch(getUserData({
                     shouldGetAddress: true,
                     shouldGetProfilesForMatchSearcher: true,
-                    shouldSignInOnFirebase: true,
                     shouldGetMatchedProfiles: true
                 }));
 
@@ -185,7 +176,6 @@ export function signInOauth(oauthAccessToken?: string, type?: string) {
             dispatch(getUserData({
                 shouldGetAddress: true,
                 shouldGetProfilesForMatchSearcher: true,
-                shouldSignInOnFirebase: true,
                 shouldGetMatchedProfiles: true
             }));
 

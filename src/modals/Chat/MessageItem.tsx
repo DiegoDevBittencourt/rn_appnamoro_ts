@@ -11,20 +11,20 @@ import {
 export default class MessageItem extends React.PureComponent<any>{
     render() {
         const { messageItem, userId } = this.props;
-        const { message, hourMinute, userId_1 } = messageItem;
+        const { message, hourMinute, userId_sender } = messageItem;
         const { $myChatMessageColor, $notMyChatMessageColor, $bigBorderRadius, $textColor } = theme;
 
         const customMessageContainerStyle = {
-            backgroundColor: userId_1 == userId ? $myChatMessageColor : $notMyChatMessageColor,
-            borderBottomRightRadius: userId_1 == userId ? 0 : $bigBorderRadius,
-            borderBottomLeftRadius: userId_1 != userId ? 0 : $bigBorderRadius
+            backgroundColor: userId_sender == userId ? $myChatMessageColor : $notMyChatMessageColor,
+            borderBottomRightRadius: userId_sender == userId ? 0 : $bigBorderRadius,
+            borderBottomLeftRadius: userId_sender != userId ? 0 : $bigBorderRadius
         };
 
-        const customTextStyle = { color: userId_1 == userId ? 'white' : $textColor };
+        const customTextStyle = { color: userId_sender == userId ? 'white' : $textColor };
 
-        const customTimeStyle = userId_1 == userId ? { right: 5 } : { left: 5 };
+        const customTimeStyle = userId_sender == userId ? { right: 5 } : { left: 5 };
 
-        return <MessageContainer style={{ alignItems: userId_1 == userId ? 'flex-end' : 'flex-start' }}>
+        return <MessageContainer style={{ alignItems: userId_sender == userId ? 'flex-end' : 'flex-start' }}>
 
             <MessageBaloonContainer style={customMessageContainerStyle}>
 

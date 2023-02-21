@@ -13,6 +13,7 @@ export interface UserImage {
 }
 
 export interface UserDataType {
+    id?: string,
     about?: string,
     address?: string,
     age?: string,
@@ -25,7 +26,6 @@ export interface UserDataType {
     emailNotification?: boolean,
     firstName?: string,
     gender?: any,
-    id?: string,
     lastLongitude?: number,
     lastLatitude?: number,
     lastName?: string,

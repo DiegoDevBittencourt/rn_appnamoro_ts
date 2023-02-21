@@ -22,9 +22,6 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   async (response) => {
-
-    //console.log(response);
-
     return response;
   }
 )

@@ -1,6 +1,6 @@
+import { captureException } from '~/utils/error';
 import { getRealm } from '../index';
-import { captureException } from '~/helpers/errors/capture-exception';
-import { get } from '../transactions';
+import { get } from '.';
 
 export async function deleteObjects({ schema, where, objectsToBeDeleted }) {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { convertDateFormatToDDMMYYYY } from '~/utils/functions';
+import { formatDateToDDMMYYYY } from '~/utils/functions';
 import { theme } from '@constants/styledComponentsTheme';
 import { GENERIC_YES_NO_MODAL } from '~/constants/screenNames';
 import { HeaderContainer, PCustom, RightButtonsContainer } from './styles';
@@ -9,12 +9,12 @@ import { RoundCloseButton, RoundIconButton, RoundImage } from '~/components';
 
 const Header = ({ matchedProfile, profileImage }: any) => {
 
-    const navigation = useNavigation<any>();
+    const { goBack, push } = useNavigation<any>();
 
-    const closeChat = () => navigation.goBack();
+    const closeChat = () => goBack();
 
     const unmatch = () => {
-        navigation.push(GENERIC_YES_NO_MODAL, {
+        push(GENERIC_YES_NO_MODAL, {
             matchedProfile,
             title: 'Desfazer match?',
             subtitle: 'Deseja mesmo desfazer essa match? Você pode não encontrar essa pessoa novamente na busca!',
@@ -32,7 +32,7 @@ const Header = ({ matchedProfile, profileImage }: any) => {
             <PCustom>
                 {matchedProfile && `Você deu match com `}
                 <PCustom style={{ fontWeight: 'bold' }}>{matchedProfile?.firstName.toUpperCase()}</PCustom>
-                {`\nem ${convertDateFormatToDDMMYYYY(new Date(matchedProfile?.matchInfo[0].updatedAt))}`}
+                {`\nem ${formatDateToDDMMYYYY(new Date(matchedProfile?.matchInfo[0]?.updatedAt))}`}
             </PCustom>
 
             <RightButtonsContainer>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import DateTimePicker from "react-native-modal-datetime-picker"
 
 import P from '../P';
-import { convertDateFormatToDDMMYYYY } from '~/utils/functions';
+import { formatDateToDDMMYYYY } from '~/utils/functions';
 import { maxBirthdayDate } from '@constants/genericConstants';
 import { theme } from '@constants/styledComponentsTheme';
 import { Button, MainContainer } from './styles';
@@ -16,7 +16,7 @@ const DatePickerButton = (props: DatePickerButtonType) => {
 
     const handleDatePicked = (selectedDate: any) => {
         setIsDateTimePickerVisible(false);
-        updateSelectedDate(convertDateFormatToDDMMYYYY(selectedDate));
+        updateSelectedDate(formatDateToDDMMYYYY(selectedDate));
     }
 
     return <MainContainer>

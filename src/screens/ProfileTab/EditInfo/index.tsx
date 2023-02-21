@@ -17,7 +17,6 @@ const EditInfo = () => {
         dispatch(getUserData({
             shouldGetAddress: true,
             shouldGetProfilesForMatchSearcher: true,
-            shouldSignInOnFirebase: true,
             shouldGetMatchedProfiles: true
         }));
     }, []);

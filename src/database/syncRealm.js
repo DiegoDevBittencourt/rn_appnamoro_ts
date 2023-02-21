@@ -1,21 +1,22 @@
 import AsyncStorage from "@react-native-community/async-storage";
 import Realm from "realm";
 
-import { STOCK_DATABASE_PATH, STOCK_PROJECT_ID } from "~/constants/stock";
-import { ProductStock, StockHistory } from './schemas/Stocks';
+import { captureException } from "~/utils/error";
+import { Chat } from './schemas';
+import { MONGO_DATABASE_PATH, MONGO_APP_ID } from '@env';
 
 export async function getRealmSync() {
 
-  const menu_id = await AsyncStorage.getItem('@menu_id');
+  const partition_id = await AsyncStorage.getItem('@userId');
   const User = await anonymousLogin();
 
   const config = {
-    path: STOCK_DATABASE_PATH,
-    schema: [ProductStock, StockHistory],
+    path: MONGO_DATABASE_PATH,
+    schema: [Chat],
     schemaVersion: 3,
     sync: {
       user: User,
-      partitionValue: '1490',//menu_id,
+      partitionValue: partition_id,
       newRealmFileBehavior: { type: 'downloadBeforeOpen', timeOutBehavior: 'throwException' },
       existingRealmFileBehavior: { type: 'openImmediately', timeOutBehavior: 'openLocalRealm' },
       flexible: false
@@ -28,12 +29,10 @@ export async function getRealmSync() {
     return realmDB;
 
   } catch (error) {
-    // captureException({
-    //   error,
-    //   errorCode: "J828N5JG",
-    //   context: "src/database/syncRealm/getRealmSync",
-    // });
-    console.log('Realm Error', error);
+    captureException({
+      error,
+      errorCode: "J828N5JG",
+    });
   }
 }
 
@@ -50,11 +49,10 @@ async function anonymousLogin() {
     return user;
 
   } catch (error) {
-    // captureException({
-    //   error,
-    //   errorCode: "Q824N5J0",
-    //   context: "src/database/syncRealm/anonymousLogin",
-    // });
+    captureException({
+      error,
+      errorCode: "Q824N5J0",
+    });
     throw `Error logging in anonymously: ${JSON.stringify(error, null, 2)}`;
   }
 }
@@ -62,18 +60,18 @@ async function anonymousLogin() {
 export function getRealmApp() {
   try {
 
-    const appId = STOCK_PROJECT_ID;
+    const appId = MONGO_APP_ID;
     const appConfig = {
       id: appId,
       timeout: 10000,
     };
+
     return new Realm.App(appConfig);
 
   } catch (error) {
-    // captureException({
-    //   error,
-    //   errorCode: "A874B5J8",
-    //   context: "src/database/syncRealm/getRealmApp",
-    // });
+    captureException({
+      error,
+      errorCode: "A874B5J8",
+    });
   }
 }

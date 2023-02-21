@@ -1,5 +1,6 @@
+import 'react-native-get-random-values';
+
 import React, { useEffect } from 'react';
-// import firebase from "firebase";
 import * as Sentry from "@sentry/react-native";
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { Provider, useSelector } from 'react-redux';
@@ -16,35 +17,6 @@ import { Loader } from '@components/index';
 import { theme } from '@constants/styledComponentsTheme';
 import { useUtils } from '~/store/utils/reducer';
 import { navigationRef } from '@routes/RootNavigationRef';
-// import {
-//   REACT_APP_FIREBASE_API_KEY,
-//   REACT_APP_FIREBASE_AUTHDOMAIN,
-//   REACT_APP_FIREBASE_DATABASEURL,
-//   REACT_APP_FIREBASE_PROJECTID,
-//   REACT_APP_FIREBASE_STORAGEBUCKET,
-//   REACT_APP_FIREBASE_MESSAGINGSENDERID,
-//   REACT_APP_FIREBASE_APPID,
-//   REACT_APP_FIREBASE_MEASUREMENTID
-// } from '@env';
-
-// const firebaseConfig = {
-//   apiKey: REACT_APP_FIREBASE_API_KEY,
-//   authDomain: REACT_APP_FIREBASE_AUTHDOMAIN,
-//   databaseURL: REACT_APP_FIREBASE_DATABASEURL,
-//   projectId: REACT_APP_FIREBASE_PROJECTID,
-//   storageBucket: REACT_APP_FIREBASE_STORAGEBUCKET,
-//   messagingSenderId: REACT_APP_FIREBASE_MESSAGINGSENDERID,
-//   appId: REACT_APP_FIREBASE_APPID,
-//   measurementId: REACT_APP_FIREBASE_MEASUREMENTID
-// };
-
-// if (firebase.apps.length === 0) {
-//   firebase.initializeApp(firebaseConfig);
-//   firebase.firestore().settings({
-//     experimentalForceLongPolling: true,
-//     merge: true
-//   });
-// }
 
 EStyleSheet.build(theme);
 

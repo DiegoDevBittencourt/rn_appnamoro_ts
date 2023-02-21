@@ -1,7 +1,6 @@
 import * as RootNavigationRef from '@routes/RootNavigationRef';
 import api from '@utils/api';
 import { COMPLETE_YOUR_PROFILE_MODAL } from '~/constants/screenNames';
-import { signInOrSignUpToFirebase } from '../firebase/thunk';
 import { getAddress } from '../utils/thunk';
 import { updateUserDataOnRedux, UserImage } from './reducer';
 import {
@@ -19,12 +18,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 export function getUserData({
     shouldGetAddress,
     shouldGetProfilesForMatchSearcher,
-    shouldSignInOnFirebase,
     shouldGetMatchedProfiles
 }: {
     shouldGetAddress?: boolean,
     shouldGetProfilesForMatchSearcher?: boolean,
-    shouldSignInOnFirebase?: boolean,
     shouldGetMatchedProfiles?: boolean
 }) {
     return async (dispatch: any, getState: any) => {
@@ -61,8 +58,6 @@ export function getUserData({
             !userData?.profileComplete && RootNavigationRef.push(COMPLETE_YOUR_PROFILE_MODAL);
 
             shouldGetAddress && dispatch(getAddress());
-
-            // shouldSignInOnFirebase && dispatch(signInOrSignUpToFirebase());
 
             shouldGetMatchedProfiles && dispatch(getMatchedProfiles());
 

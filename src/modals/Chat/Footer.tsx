@@ -1,17 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
-import * as firebaseThunk from '@store/firebase/thunk';
 import { TextInput, GenericAppButton, RoundIconButton } from '@components/index';
 import { theme } from '@constants/styledComponentsTheme';
 import { successNotification } from '~/utils/notifications';
 import { FooterContainer } from './styles';
+import { insert } from '~/database/transactions';
+import { CHAT_SCHEMA } from '~/constants/database';
+import { useUsers } from '~/store/users/reducer';
+import { captureException } from '~/utils/error';
 
 const Footer = ({ matchedProfile }: any) => {
 
     const tiMessage = useRef();
     const dispatch = useDispatch();
+
+    const { userData } = useSelector(useUsers);
 
     const { $lightGray, $primaryColor } = theme;
 
@@ -24,15 +29,36 @@ const Footer = ({ matchedProfile }: any) => {
     }, [message]);
 
     const sendMessage = async () => {
+        try {
+            if (message != '' && !isSendingMessage) {
+                setIsSendingMessage(true);
 
-        if (message != '' && !isSendingMessage) {
-            setIsSendingMessage(true);
+                const chatBody = {
+                    _id: uuidv4(),
+                    _partition: userData?.id,
+                    message,
+                    userId_sender: userData?.id,
+                    userId_receiver: matchedProfile?.id,
+                    created_at: new Date(),
+                };
 
-            // dispatch(firebaseThunk.sendMessageToFirebase(message, matchedProfile.id))
-            //     .then(() => {
-            //         setIsSendingMessage(false);
-            //         setMessage('');
-            //     });
+                await insert({
+                    schema: CHAT_SCHEMA,
+                    data: chatBody,
+                });
+
+                setIsSendingMessage(false);
+                setMessage('');
+            }
+        } catch (error) {
+            setIsSendingMessage(false);
+            setMessage('');
+
+            captureException({
+                error,
+                errorCode: "QWE37592"
+            });
+
         }
     }
 

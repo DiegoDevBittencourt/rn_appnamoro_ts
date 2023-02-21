@@ -1,20 +1,20 @@
-import { getRealm } from '../index';
+import { captureException } from '~/utils/error';
 import { getRealmSync } from '../syncRealm';
-import { captureException } from '~/helpers/errors/capture-exception';
 
-export async function get({ schema, where, sortFieldName, shouldReverseSort, isSyncTransaction }) {
+export async function get({ schema, where, sortFieldName, shouldReverseSort }) {
     try {
-        const realm = isSyncTransaction ? await getRealmSync() : await getRealm();
+
+        const realm = await getRealmSync();
 
         var objects;
 
         where ?
-            objects = realm.objects(schema).filtered(where)
+            objects = realm?.objects(schema)?.filtered(where)
             :
-            objects = realm.objects(schema);
+            objects = realm?.objects(schema);
 
         if (sortFieldName)//reversed == asc sort
-            objects = objects.sorted(sortFieldName, shouldReverseSort);
+            objects = objects?.sorted(sortFieldName, shouldReverseSort);
 
         let result = objects || null;
 

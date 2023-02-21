@@ -1,17 +1,16 @@
-import { getRealm } from '../index';
+import { captureException } from '~/utils/error';
 import { getRealmSync } from '../syncRealm';
-import { captureException } from '~/helpers/errors/capture-exception';
 
-export async function insert({ schema, data, isSyncTransaction }) {
+export async function insert({ schema, data }) {
 
-    const realm = isSyncTransaction ? await getRealmSync() : await getRealm();
+    const realm = await getRealmSync();
 
     try {//the "modified" tag means that if the record already exists it will update, if not, will create
-        realm.write(() => {
+        realm?.write(() => {
             Array.isArray(data) ?
-                data.map(item => realm.create(schema, item, 'modified'))
+                data.map(item => realm?.create(schema, item, 'modified'))
                 :
-                realm.create(schema, data, 'modified');
+                realm?.create(schema, data, 'modified');
         });
     } catch (error) {
         console.warn('INSERT catch ' + ', ', schema + ', ', data);

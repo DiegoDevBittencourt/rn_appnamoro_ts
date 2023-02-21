@@ -26,3 +26,7 @@ export const formatUserToApi = (user: any) => {
 
     return user;
 }
+
+export const recordsToJSON = (records: any) => {
+    return JSON.parse(JSON.stringify(records));
+}

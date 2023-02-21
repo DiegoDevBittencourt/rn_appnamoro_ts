@@ -1,18 +1,19 @@
 import jwt from 'jwt-decode';
+import { captureException } from './error';
 
 import { dangerNotification } from './notifications';
 import * as Options from './options';
 
 export function titleCase(str: string) {
-    var splitStr = str.toLowerCase().split(' ');
+    var splitStr = str?.toLowerCase()?.split(' ');
 
-    for (var i = 0; i < splitStr.length; i++) {
+    for (var i = 0; i < splitStr?.length; i++) {
         // You do not need to check if i is larger than splitStr length, as your for does that for you
         // Assign it back to the array
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        splitStr[i] = splitStr[i]?.charAt(0)?.toUpperCase() + splitStr[i]?.substring(1);
     }
     // Directly return the joined string
-    return splitStr.join(' ');
+    return splitStr?.join(' ');
 }
 
 export function phoneMask(value: string | undefined) {
@@ -48,28 +49,32 @@ export function keepOnlyNumbers(text: string) {
     return text?.replace(/\D+/g, '');
 }
 
-export function handleError(err: any) {
+export function handleError(error: any) {
     try {
-        const somethingIsWrong = 'Ops, parece que algo saiu mal. Tente novamente.';
+        if (typeof error?.response?.data === "string") {
+            let helper = error?.response?.data.split(' ');
 
-        if (typeof err?.response?.data === "string") {
-            let helper = err?.response?.data.split(' ');
-
-            if (helper[0] !== '<!DOCTYPE' && err?.response?.status == 400)
-                dangerNotification(err?.response?.data);
+            if (helper[0] !== '<!DOCTYPE' && error?.response?.status == 400)
+                dangerNotification(error?.response?.data);
             else {
-                console.log(err);
-                console.log(somethingIsWrong + ' - ' + err?.response?.data);
+                captureException({
+                    error,
+                    errorCode: "DFE37591"
+                });
             }
 
         } else {
-            console.log(err);
-            console.log(somethingIsWrong + ' - Ref: ' + err);
+            captureException({
+                error,
+                errorCode: "DFE37592"
+            });
         }
 
     } catch (error) {
-        console.log(err);
-        console.log(error);
+        captureException({
+            error,
+            errorCode: "DFE37593"
+        });
     }
 }
 
@@ -105,7 +110,7 @@ export function decodeJwtToken(JWT_TOKEN: string) {
     return JWT_TOKEN ? jwt<any>(JWT_TOKEN)?.payload : '';
 }
 
-export function convertDateFormatToDDMMYYYY(date: any) {
+export function formatDateToDDMMYYYY(date: any) {
     if (date !== '' && date !== null) {
 
         try {
@@ -139,7 +144,7 @@ export function convertDateStringFromDDMMYYYYtoMMDDYYYY(date: any) {
     return splittedBirthday[1] + '-' + splittedBirthday[0] + '-' + splittedBirthday[2];
 }
 
-export function convertDateFormatToHHMM(date: any) {
+export function formatDateToHHMM(date: any) {
     if (date !== '' && date !== null) {
 
         try {
@@ -164,14 +169,13 @@ export function convertDateFormatToHHMM(date: any) {
 
 export function handleUserBirthday(birthday: any) {
     //this validation is needed cause if there's no birthdayon database, it brings todays date on userData.birthday:
-    return convertDateFormatToDDMMYYYY(birthday) != convertDateFormatToDDMMYYYY(new Date()) ?
-        convertDateFormatToDDMMYYYY(birthday) : null
+    return formatDateToDDMMYYYY(birthday) != formatDateToDDMMYYYY(new Date()) ?
+        formatDateToDDMMYYYY(birthday) : null;
 }
 
 export function setLimitCharactereSizeToString(str: string, limitSize: number) {
-
-    let finalStr = str.substring(0, limitSize);
-    finalStr = finalStr.length >= limitSize ? finalStr + '...' : finalStr;
+    let finalStr = str?.substring(0, limitSize);
+    finalStr = finalStr?.length >= limitSize ? finalStr + '...' : finalStr;
 
     return finalStr;
 }
@@ -185,7 +189,7 @@ export function getSearchingByDesc(searchingById: number) {
             index = i;
     }
 
-    return searchingByOptions[index].label;
+    return searchingByOptions[index]?.label;
 }
 
 export function getSchoolingDesc(schoolingId: number) {
@@ -197,19 +201,19 @@ export function getSchoolingDesc(schoolingId: number) {
             index = i;
     }
 
-    return schoolingOptions[index].label;
+    return schoolingOptions[index]?.label;
 }
 
 export function getGenderDesc(genderId: number) {
-    const genderOptions = Options.genderOptions();
+    const genderOptions = Options?.genderOptions();
 
     let index = 0;
-    for (let i = 0; i <= genderOptions.length - 1; i++) {
-        if (genderId === genderOptions[i].key)
+    for (let i = 0; i <= genderOptions?.length - 1; i++) {
+        if (genderId === genderOptions[i]?.key)
             index = i;
     }
 
-    return genderOptions[index].label;
+    return genderOptions[index]?.label;
 }
 
 export function checkIfSuperLikeIsAvailable(lastTimeSuperLikeWasUsed: any) {

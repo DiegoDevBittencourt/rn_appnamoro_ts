@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
 
 import logo from '@assets/logo.png';
 import appBackgroundOpaque from '@assets/appBackgroundOpaque.jpg';
 import LoginCard from './LoginCard';
 import { ImageBackgroundContainer, AppLogo, GenericScrollView } from '@components/index';
-import { useEffect } from 'react';
 import { cardContainerStyle } from './styles';
-import { useState } from 'react';
 
 export default function Login() {
 

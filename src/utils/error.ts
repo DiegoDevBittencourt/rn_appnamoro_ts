@@ -15,12 +15,12 @@ export async function captureException({
 
   const userId = await AsyncStorage.getItem('@userId');
 
-  if (__DEV__ && error?.response) {
-    console.warn(error.response);
+  if (__DEV__ && error) {
+    console.log('error: ', error, errorCode);
   }
 
   if (error?.response?.data) {
-    Sentry.setExtra('HTTP Response', error.response.data);
+    Sentry.setExtra('HTTP Response', error?.response?.data);
   }
 
   const errorMessage = error?.message ||

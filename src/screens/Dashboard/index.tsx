@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import DashboardTabNavigator from './DashboardTabNavigator';
+import useRealmSync from '~/hooks/useRealmSync';
 import { decodeJwtToken } from '~/utils/functions';
 import { GenericContainer } from '@components/index';
 import { updateUserDataOnRedux } from '~/store/users/reducer';
@@ -12,9 +13,11 @@ import { checkIfTokenHasExpired } from '~/store/auth/thunk';
 const Dashboard = () => {
 
     const dispatch = useDispatch<any>();
+    const { onRealmChange } = useRealmSync();
 
     useEffect(() => {
         dashboardInitialization();
+        onRealmChange();
     }, []);
 
     const dashboardInitialization = async () => {
