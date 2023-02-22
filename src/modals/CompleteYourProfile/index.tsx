@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
 
-import * as Options from '~/utils/options';
+import * as Options from '~/constants/options';
 import { dangerNotification } from '~/utils/notifications';
 import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY, phoneMask } from '~/utils/functions';
 import { MainContainer } from './styles';
@@ -67,9 +67,9 @@ const CompleteYourProfileContent = () => {
 
         const userData = ({
             birthday: convertDateStringFromDDMMYYYYtoMMDDYYYY(birthdayLocal),
-            gender: genderLocal.key,
-            searchingBy: searchingByLocal.key,
-            schooling: schoolingLocal.key,
+            gender: genderLocal?.key,
+            searchingBy: searchingByLocal?.key,
+            schooling: schoolingLocal?.key,
             phone: phoneLocal,
             company,
             position,

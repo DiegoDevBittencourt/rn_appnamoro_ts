@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { MainContainer } from './styles';
 
@@ -17,8 +17,12 @@ export default function MatchSearcherTab() {
     const { userData } = useSelector(useUsers);
     const { showMeOnApp } = userData;
 
+    useEffect(() => {
+        console.log('isGettingLocation', isGettingLocation);
+    }, [isGettingLocation])
+
     return <MainContainer>
-        {(isGettingLocation || isGettingProfileForTheMatchSearcher && availableProfilesToMatch.length <= 0) && <MatchSearcherPlaceholder
+        {(isGettingLocation || isGettingProfileForTheMatchSearcher && availableProfilesToMatch?.length <= 0) && <MatchSearcherPlaceholder
             bodyText={'Buscando perfis...'}
         />}
 
@@ -32,8 +36,8 @@ export default function MatchSearcherTab() {
             bodyText={turnOnLocation}
         />}
 
-        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && availableProfilesToMatch.length == 0) && <MatchSearcherPlaceholder
-            bodyText={'Oops, não encontramos ninguém próximo a você. Tente aumentar sua "Distância máxima" ou a\n"Faixa etária" no menu "Configurações".\nBoa sorte!'}
+        {(!isGettingLocation && !isGettingProfileForTheMatchSearcher && availableProfilesToMatch?.length == 0) && <MatchSearcherPlaceholder
+            bodyText={'Oops, não encontramos ninguém próximo a você. Tente aumentar sua "Distância máxima" ou a "Faixa etária" no menu "Configurações".\nBoa sorte!'}
         />}
 
         {availableProfilesToMatch?.length > 0 && <>

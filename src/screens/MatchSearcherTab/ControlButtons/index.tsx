@@ -46,7 +46,7 @@ export default function ControlButtons() {
             iconName={'times'}
             customIconStyle={{ ...customIconStyle, color: $red }}
             underlayColor={$lightGray}
-            onPress={() => handleIgnoreCurrentProfile()}
+            onPress={handleIgnoreCurrentProfile}
         />
 
         <RoundIconButton

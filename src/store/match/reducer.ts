@@ -30,10 +30,10 @@ const sliceMatch = createSlice({
             return { ...state, isGettingProfileForTheMatchSearcher: payload }
         },
         updateProfileIdsAlreadyDownloaded(state, { payload }: PayloadAction<any[]>) {
-            return { ...state, profileIdsAlreadyDownloaded: [...state.profileIdsAlreadyDownloaded, payload] }
+            return { ...state, profileIdsAlreadyDownloaded: [...state?.profileIdsAlreadyDownloaded, payload] }
         },
         addProfileIntoMatchSearcherArray(state, { payload }: PayloadAction<any[]>) {
-            return { ...state, availableProfilesToMatch: [...state.availableProfilesToMatch, payload] }
+            return { ...state, availableProfilesToMatch: [...state?.availableProfilesToMatch, payload] }
         },
         updateIsSuperLikeAvailable(state, { payload }: PayloadAction<boolean>) {
             return { ...state, isSuperLikeAvailable: payload }
@@ -45,7 +45,7 @@ const sliceMatch = createSlice({
             return {
                 ...state, availableProfilesToMatch:
                     payload.removeAll ? [] :
-                        state.availableProfilesToMatch.filter(item => item.id !== payload.profileId)
+                        state?.availableProfilesToMatch.filter(item => item.id !== payload.profileId)
             }
         },
         setCurrentMatchedProfile(state, { payload }: PayloadAction<UserDataType>) {
@@ -67,5 +67,5 @@ export const {
 } = sliceMatch.actions;
 
 export const useMatch = (state: any) => {
-    return state.match as MatchStoreType;
+    return state?.match as MatchStoreType;
 }

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
-import * as Options from '~/utils/options';
+import * as Options from '~/constants/options';
 import { theme } from '@constants/styledComponentsTheme';
 import { convertDateStringFromDDMMYYYYtoMMDDYYYY, phoneMask } from '~/utils/functions';
 import { dangerNotification } from '~/utils/notifications';
@@ -124,14 +124,14 @@ export default function SignUpFields() {
 
         <ModalSelector
             title={'Meu gênero'}
-            data={Options.genderOptions()}
+            data={Options?.genderOptions()}
             selectedItem={gender}
             handleChange={(selectedItem: any) => setGender(selectedItem)}
         />
 
         <ModalSelector
             title={'Procuro por'}
-            data={Options.searchingByOptions()}
+            data={Options?.searchingByOptions()}
             selectedItem={searchingBy}
             handleChange={(selectedItem: any) => setSearchingBy(selectedItem)}
         />

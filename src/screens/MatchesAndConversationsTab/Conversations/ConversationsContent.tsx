@@ -22,9 +22,11 @@ export default function ConversationsContent() {
     const updateConversationsArray = () => {
         //each conversation item should contain user name and last message sent
         const matchedProfileIds: any[] = [];
+        const chat = realTimeMongodbChat?.filter(item => userData?.id == item?.userId_sender || userData?.id == item?.userId_receiver).reverse();
 
-        const messages = realTimeMongodbChat?.filter(messageItem => {
-            const matchedProfileId = messageItem.userId_receiver == userData?.id ? messageItem.userId_receiver : messageItem.userId_receiver;
+        const messages = chat?.filter(messageItem => {
+
+            const matchedProfileId = messageItem.userId_receiver != userData?.id ? messageItem.userId_receiver : messageItem.userId_sender;
 
             if (!matchedProfileIds.includes(matchedProfileId)) {
                 matchedProfileIds.push(matchedProfileId);
@@ -32,14 +34,17 @@ export default function ConversationsContent() {
             }
         });
 
-        const conversationItems = messages?.map(messageItem => {
-            const matchedProfileId = messageItem.userId_receiver == userData?.id ? messageItem.userId_receiver : messageItem.userId_receiver;
-            console.log('234matchedProfiles', matchedProfiles)
-            const matchedProfile = matchedProfiles.filter(item => item.id == matchedProfileId)[0];
+        const conversationItems: any[] = [];
 
-            return { messageItem, matchedProfile };
+        messages?.map(messageItem => {
+            const matchedProfileId = messageItem?.userId_receiver == userData?.id ? messageItem?.userId_sender : messageItem?.userId_receiver;
+            const matchedProfile = matchedProfiles.filter(item => item?.id == matchedProfileId)[0];
+
+            if (matchedProfile != undefined) {
+                conversationItems.push({ messageItem, matchedProfile });
+            }
         });
-        console.log('conversationItems', conversationItems)
+
         setConversations(conversationItems);
     }
 

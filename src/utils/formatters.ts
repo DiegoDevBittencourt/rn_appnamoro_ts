@@ -1,13 +1,6 @@
-import { getSearchingByDesc, keepOnlyNumbers, titleCase } from "./functions";
+import { keepOnlyNumbers, titleCase } from "./functions";
 
 export const formatUserToApi = (user: any) => {
-
-    if (typeof user?.searchingBy == 'number') {
-        user.searchingBy = {
-            key: user?.searchingBy,
-            label: getSearchingByDesc(user?.searchingBy)
-        };
-    }
 
     if (user?.phone != undefined)
         user.phone = keepOnlyNumbers(user?.phone);

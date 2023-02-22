@@ -42,7 +42,6 @@ export default function useRealmSync() {
 
             if (partition_id) {
                 const mongodb_chat = await get({ schema: 'chat' });
-                console.log('mongodb_chat', mongodb_chat)
                 dispatch(updateRealTimeMongodbChat(mongodb_chat || []));
             }
         } catch (error) {

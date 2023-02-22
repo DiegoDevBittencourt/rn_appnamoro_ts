@@ -4,7 +4,7 @@ import AwesomeIcon from '../AwesomeIcon';
 import { Button, ButtonContainer, ButtonText, IconContainer } from './styles';
 
 const SocialButton = (props: any) => {
-    return <Button style={props.customButtonStyle} underlayColor={props.underlayColor} onPress={() => props.onPress()}>
+    return <Button style={props?.customButtonStyle} underlayColor={props?.underlayColor} onPress={() => props?.onPress()}>
         <ButtonContainer>
 
             <IconContainer>
@@ -13,11 +13,11 @@ const SocialButton = (props: any) => {
 
             <ButtonText>
                 {'Entrar com '}
-                <ButtonText style={{ fontWeight: 'bold' }}>{props.text}</ButtonText>
+                <ButtonText style={{ fontWeight: 'bold' }}>{props?.text}</ButtonText>
             </ButtonText>
 
         </ButtonContainer>
     </Button>
 }
 
-export default SocialButton
+export default SocialButton;

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import * as Options from '~/utils/options';
+import * as Options from '~/constants/options';
 import { handleUserBirthday, convertDateStringFromDDMMYYYYtoMMDDYYYY } from '~/utils/functions';
 import { useUsers } from '~/store/users/reducer';
 import {

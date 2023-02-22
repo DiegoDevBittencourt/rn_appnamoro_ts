@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-community/async-storage";
 import Realm from "realm";
 
 import { captureException } from "~/utils/error";
@@ -7,7 +6,7 @@ import { MONGO_DATABASE_PATH, MONGO_APP_ID } from '@env';
 
 export async function getRealmSync() {
 
-  const partition_id = await AsyncStorage.getItem('@userId');
+  // const partition_id = await AsyncStorage.getItem('@userId');
   const User = await anonymousLogin();
 
   const config = {
@@ -16,7 +15,7 @@ export async function getRealmSync() {
     schemaVersion: 3,
     sync: {
       user: User,
-      partitionValue: partition_id,
+      partitionValue: MONGO_DATABASE_PATH,
       newRealmFileBehavior: { type: 'downloadBeforeOpen', timeOutBehavior: 'throwException' },
       existingRealmFileBehavior: { type: 'openImmediately', timeOutBehavior: 'openLocalRealm' },
       flexible: false

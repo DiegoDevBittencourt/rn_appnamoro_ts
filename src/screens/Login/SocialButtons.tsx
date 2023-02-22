@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 // import * as authThunk from '@store/auth/thunk';
 import { SocialButton } from '@components/index';
+import { captureException } from '~/utils/error';
 
 // GoogleSignin.configure({
 //     webClientId: REACT_APP_GOOGLE_CLIENT_ID, //client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -43,15 +44,16 @@ export default function SocialButtons() {
         // } catch (error) {
 
         //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        //         console.log('user cancelled the login flow');
+        //         console.warn('user cancelled the login flow');
         //     } else if (error.code === statusCodes.IN_PROGRESS) {
-        //         console.log('operation (e.g. sign in) is in progress already');
+        //         console.warn('operation (e.g. sign in) is in progress already');
         //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        //         console.log('play services not available or outdated');
+        //         console.warn('play services not available or outdated');
         //     } else {
-        //         // some other error happened
-        //         console.log(error);
-        //         console.log('error code', error.code);
+        //         captureException({
+        //             error,
+        //             errorCode: 'DE24D5J0'
+        //         })
         //     }
         // }
     };

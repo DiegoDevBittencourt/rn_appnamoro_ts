@@ -1,3 +1,4 @@
+export const CHAT_SCHEMA = 'chat';
 export const maxBirthdayDate = new Date(
     new Date().getFullYear() - 18
     + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2)

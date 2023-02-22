@@ -19,10 +19,6 @@ export async function captureException({
     console.log('error: ', error, errorCode);
   }
 
-  if (error?.response?.data) {
-    Sentry.setExtra('HTTP Response', error?.response?.data);
-  }
-
   const errorMessage = error?.message ||
     error?.msg ||
     error?.data?.error?.message ||

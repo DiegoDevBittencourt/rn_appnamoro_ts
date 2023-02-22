@@ -2,7 +2,7 @@ import jwt from 'jwt-decode';
 import { captureException } from './error';
 
 import { dangerNotification } from './notifications';
-import * as Options from './options';
+import * as Options from '../constants/options';
 
 export function titleCase(str: string) {
     var splitStr = str?.toLowerCase()?.split(' ');
@@ -44,7 +44,6 @@ export function phoneMask(value: string | undefined) {
     return formattedValue;
 }
 
-
 export function keepOnlyNumbers(text: string) {
     return text?.replace(/\D+/g, '');
 }
@@ -52,7 +51,7 @@ export function keepOnlyNumbers(text: string) {
 export function handleError(error: any) {
     try {
         if (typeof error?.response?.data === "string") {
-            let helper = error?.response?.data.split(' ');
+            let helper = error?.response?.data?.split(' ');
 
             if (helper[0] !== '<!DOCTYPE' && error?.response?.status == 400)
                 dangerNotification(error?.response?.data);
@@ -180,7 +179,7 @@ export function setLimitCharactereSizeToString(str: string, limitSize: number) {
     return finalStr;
 }
 
-export function getSearchingByDesc(searchingById: number) {
+export function getSearchingDesc(searchingById: number) {
     const searchingByOptions = Options.searchingByOptions();
 
     let index = 0;

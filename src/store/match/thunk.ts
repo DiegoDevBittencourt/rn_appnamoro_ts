@@ -77,28 +77,28 @@ export function getNextProfileForTheMatchSearcher() {
                 dispatch(updateIsGettingProfileForTheMatchSearcher(true));
 
                 const res = await api.post('users/get_profile_to_the_match_searcher', {
-                    currentLongitude: userData.currentLongitude || currentLongitude,
-                    currentLatitude: userData.currentLatitude || currentLatitude,
-                    maxDistance: userData.maxDistance,
-                    userId: userData.id,
-                    searchingBy: userData.searchingBy.key,
+                    currentLongitude: userData?.currentLongitude || currentLongitude,
+                    currentLatitude: userData?.currentLatitude || currentLatitude,
+                    maxDistance: userData?.maxDistance,
+                    userId: userData?.id,
+                    searchingBy: userData?.searchingBy.key,
                     profileIdsAlreadyDownloaded: profileIdsAlreadyDownloaded,
-                    ageRange: userData.ageRange
+                    ageRange: userData?.ageRange
                 });
 
                 if (res?.data?.user) {
                     res.data.user.distance = parseInt(String(calculateDistanceFromLatLonInKm({
                         lat1: userData.currentLongitude,
                         lon1: userData.currentLatitude,
-                        lat2: res.data.user.lastLongitude,
-                        lon2: res.data.user.lastLatitude
+                        lat2: res?.data?.user?.lastLongitude,
+                        lon2: res?.data?.user?.lastLatitude
                     })));
 
-                    res.data.user.age = calculateAge(new Date(res.data.user.birthday));
+                    res.data.user.age = calculateAge(new Date(res?.data?.user.birthday));
 
-                    dispatch(addProfileIntoMatchSearcherArray(res.data.user));
+                    dispatch(addProfileIntoMatchSearcherArray(res?.data?.user));
 
-                    dispatch(updateProfileIdsAlreadyDownloaded(res.data.user.id));
+                    dispatch(updateProfileIdsAlreadyDownloaded(res?.data?.user.id));
 
                     dispatch(updateIsGettingProfileForTheMatchSearcher(false));
 

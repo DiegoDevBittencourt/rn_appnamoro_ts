@@ -5,7 +5,7 @@ import { getAddress } from '../utils/thunk';
 import { updateUserDataOnRedux, UserImage } from './reducer';
 import {
     calculateAge,
-    getSearchingByDesc,
+    getSearchingDesc,
     getSchoolingDesc,
     getGenderDesc,
 } from '~/utils/functions';
@@ -40,7 +40,7 @@ export function getUserData({
             userData.ageRange = ageRange.map((item: string) => parseInt(item));
             userData.schooling = { key: userData?.schooling || 0, label: getSchoolingDesc(userData?.schooling || 0) };
             userData.gender = { key: userData?.gender || 0, label: getGenderDesc(userData?.gender || 0) };
-            userData.searchingBy = { key: userData?.searchingBy || 1, label: getSearchingByDesc(userData?.searchingBy || 1) };
+            userData.searchingBy = { key: userData?.searchingBy || 1, label: getSearchingDesc(userData?.searchingBy || 1) };
             userData.birthday = new Date(userData?.birthday);//needed to work properly on datePicker
             userData.age = calculateAge(userData?.birthday);
             userData.showMeOnApp = userData?.showMeOnApp == 1;

@@ -17,7 +17,8 @@ const Body = ({ matchedProfile, profileImage }: any) => {
 
     useEffect(() => {
         const messages = realTimeMongodbChat?.filter(item =>
-            item?.userId_sender == matchedProfile?.id || item?.userId_receiver == matchedProfile?.id && item
+            (item?.userId_sender == matchedProfile?.id && item?.userId_receiver == userData?.id)
+            || (item?.userId_sender == userData?.id && item?.userId_receiver == matchedProfile?.id) && item
         );
         setChatMessages(messages?.reverse());
     }, [realTimeMongodbChat]);

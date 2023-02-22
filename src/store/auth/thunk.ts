@@ -13,17 +13,23 @@ import { handleThunkError } from '../error/thunk';
 import { updateMatchedProfilesArray } from '../match/reducer';
 import { cleanMatchSearcherArrayAndGetNextProfile } from '../match/thunk';
 import { formatUserToApi } from '~/utils/formatters';
+import { updateRealTimeMongodbChat } from '../mongodb/reducer';
 
 export function signInLocal(userData: any) {
     return async (dispatch: any) => {
         try {
 
+            dispatch(updateRealTimeMongodbChat([]));
             dispatch(showLoader(true));
 
             const res = await api.post('account/signin', userData);
 
+            const userId = decodeJwtToken(res?.data?.token)?.id;
+
             dispatch(setAccessTokenOnStorageAndRedux(res?.data?.token));
-            dispatch(updateUserDataOnRedux({ id: decodeJwtToken(res?.data?.token)?.id }));
+            dispatch(updateUserDataOnRedux({ id: userId }));
+
+            await AsyncStorage.setItem('@userId', userId);
 
             dispatch(showLoader(false));
 
@@ -86,7 +92,6 @@ export function setAccessTokenOnStorageAndRedux(accessToken: string) {
 export function signOut() {
     return async (dispatch: any) => {
         try {
-
             await AsyncStorage.setItem('@accessToken', '');
 
             dispatch(cleanMatchSearcherArrayAndGetNextProfile(false));

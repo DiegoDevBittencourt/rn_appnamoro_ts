@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { TextInput, GenericAppButton, RoundIconButton } from '@components/index';
@@ -7,14 +7,14 @@ import { theme } from '@constants/styledComponentsTheme';
 import { successNotification } from '~/utils/notifications';
 import { FooterContainer } from './styles';
 import { insert } from '~/database/transactions';
-import { CHAT_SCHEMA } from '~/constants/database';
+import { CHAT_SCHEMA } from '~/constants/generic';
 import { useUsers } from '~/store/users/reducer';
 import { captureException } from '~/utils/error';
+import { MONGO_DATABASE_PATH } from '@env';
 
 const Footer = ({ matchedProfile }: any) => {
 
-    const tiMessage = useRef();
-    const dispatch = useDispatch();
+    const tiMessage = useRef<any>();
 
     const { userData } = useSelector(useUsers);
 
@@ -26,6 +26,7 @@ const Footer = ({ matchedProfile }: any) => {
 
     useEffect(() => {
         setSendMessageButtonEnable(message != '');
+        tiMessage?.current?.focus();
     }, [message]);
 
     const sendMessage = async () => {
@@ -33,9 +34,9 @@ const Footer = ({ matchedProfile }: any) => {
             if (message != '' && !isSendingMessage) {
                 setIsSendingMessage(true);
 
-                const chatBody = {
+                const chatBody1 = {
                     _id: uuidv4(),
-                    _partition: userData?.id,
+                    _partition: MONGO_DATABASE_PATH,
                     message,
                     userId_sender: userData?.id,
                     userId_receiver: matchedProfile?.id,
@@ -44,7 +45,7 @@ const Footer = ({ matchedProfile }: any) => {
 
                 await insert({
                     schema: CHAT_SCHEMA,
-                    data: chatBody,
+                    data: chatBody1,
                 });
 
                 setIsSendingMessage(false);
@@ -56,9 +57,8 @@ const Footer = ({ matchedProfile }: any) => {
 
             captureException({
                 error,
-                errorCode: "QWE37592"
+                errorCode: "QDE37592"
             });
-
         }
     }
 
@@ -68,6 +68,7 @@ const Footer = ({ matchedProfile }: any) => {
 
     return <FooterContainer>
         <TextInput
+            autoFocus
             reference={tiMessage}
             customInputStyle={{ borderWidth: 0 }}
             placeholder={'Digite uma mensagem'}

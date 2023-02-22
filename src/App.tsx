@@ -12,7 +12,6 @@ if (__DEV__) { import('@config/ReactotronConfig').then(() => console.warn('React
 
 import store from '~/store';
 import Routes from '@routes/index';
-import useRealmSync from './hooks/useRealmSync';
 import { Loader } from '@components/index';
 import { theme } from '@constants/styledComponentsTheme';
 import { useUtils } from '~/store/utils/reducer';
@@ -22,14 +21,10 @@ EStyleSheet.build(theme);
 
 const App = () => {
 
-  // const { onRealmChange } = useRealmSync();
-
   useEffect(() => {
     Sentry.init({
       dsn: "https://2977d4f34b4545f99ec82747d6f1a08d@o4504367205842944.ingest.sentry.io/4504367208529920"
     });
-
-    // onRealmChange();
   }, []);
 
   const TheLoader = () => {

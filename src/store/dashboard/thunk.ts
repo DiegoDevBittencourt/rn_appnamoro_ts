@@ -10,7 +10,7 @@ import { updateUploadingImagesPreview } from './reducer';
 export function uploadImageToServer(imageData: any, selectedFile: any) {
     return async (dispatch: any, getState: any) => {
 
-        const { id: userId } = getState().users.userData;
+        const { id: userId } = getState().users?.userData;
 
         try {
             await api.post(`users/user_images/${userId}`, imageData, {

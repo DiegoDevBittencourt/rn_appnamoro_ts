@@ -15,8 +15,8 @@ export default function LoginCard() {
 
     const dispatch = useDispatch<any>();
 
-    const [email, setEmail] = useState('diego6d@gmail.com');
-    const [password, setPassword] = useState('123456789a');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
     const tiPassword = useRef<any>();
 

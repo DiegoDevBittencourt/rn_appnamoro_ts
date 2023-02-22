@@ -3,7 +3,7 @@ import DateTimePicker from "react-native-modal-datetime-picker"
 
 import P from '../P';
 import { formatDateToDDMMYYYY } from '~/utils/functions';
-import { maxBirthdayDate } from '@constants/genericConstants';
+import { maxBirthdayDate } from '~/constants/generic';
 import { theme } from '@constants/styledComponentsTheme';
 import { Button, MainContainer } from './styles';
 import { DatePickerButtonType } from './interface';
