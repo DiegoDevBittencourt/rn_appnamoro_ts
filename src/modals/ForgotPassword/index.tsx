@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 
 // import * as dashboardThunk from '@store/dashboard/thunk';
 import { dangerNotification } from '~/utils/notifications';

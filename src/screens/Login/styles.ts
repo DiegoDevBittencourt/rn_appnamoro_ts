@@ -25,6 +25,7 @@ export const ForgotPasswordContainer = styled.View`
 export const ForgotPasswordText = styled(P)`
     font-size: 14px;
     color: ${({ theme }) => theme.$green};
+    font-weight: 400;
 `;
 
 export const SignUpNowContainer = styled.View`
@@ -36,11 +37,13 @@ export const SignUpNowContainer = styled.View`
 
 export const SignUpNowText1 = styled(P)`
     font-size: 13px;
+    font-weight: 400;
 `;
 
 export const SignUpNowText2 = styled(P)`
     color: ${({ theme }) => theme.$green};
     font-size: 14px;
+    font-weight: 400;
 `;
 
 export const cardContainerStyle = EStyleSheet.create({

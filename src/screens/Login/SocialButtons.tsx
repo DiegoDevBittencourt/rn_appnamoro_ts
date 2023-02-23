@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 // import * as authThunk from '@store/auth/thunk';
 import { SocialButton } from '@components/index';
 import { captureException } from '~/utils/error';
+import { infoNotification } from '~/utils/notifications';
 
 // GoogleSignin.configure({
 //     webClientId: REACT_APP_GOOGLE_CLIENT_ID, //client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -29,6 +30,7 @@ export default function SocialButtons() {
     const dispatch = useDispatch<any>();
 
     const googleLogin = async () => {
+        infoNotification('Em manutenção!');
         // try {
 
         //     await GoogleSignin.hasPlayServices();
@@ -59,6 +61,7 @@ export default function SocialButtons() {
     };
 
     const facebookLogin = () => {
+        infoNotification('Em manutenção!');
         // return LoginManager.logInWithPermissions(["public_profile"]).then(
         //     function (result) {
 

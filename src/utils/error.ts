@@ -1,7 +1,7 @@
-import { showMessage } from 'react-native-flash-message';
 import * as Sentry from '@sentry/react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
+import { warningNotification } from './notifications';
 
 export async function captureException({
   error,
@@ -26,10 +26,7 @@ export async function captureException({
     error?.response?.data?.message;
 
   if (!hideFlashMessage) {
-    showMessage({
-      type: 'warning',
-      message: `${errorMessage} ${errorCode}`,
-    });
+    warningNotification(`${errorMessage} ${errorCode}`);
   }
 
   Sentry.captureException(error, {
