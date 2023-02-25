@@ -1,8 +1,9 @@
-PS: THIS REPO IT'S NOT FINISHED YET
-
 A Tinder like app made with React Native/NodeJS
 
 https://appnamoro.com
+
+You can download a demo app here:
+https://play.google.com/store/apps/details?id=com.rn_appnamoro_ts
 
 To be able to test it in your machine, follow this steps:
 
