@@ -25,10 +25,8 @@ You can check the backend part here: https://github.com/DiegoDevBittencourt/appn
 You'll find a betta version .apk of this app at the following link: https://www.mediafire.com/file/2hm0s2feabfybro/rnappnamorofront.apk/file
 
 <img width="231" height="500" src="https://play-lh.googleusercontent.com/JMVOc7nT0jIysZbUCgl4tFzbIEDMQQegxF8jATmpPoC5r6Q9UEeJDUYH6Kh3UvTJ4A8=w2560-h1440-rw" alt="windows-redemension" />
-
-![](https://play-lh.googleusercontent.com/JMVOc7nT0jIysZbUCgl4tFzbIEDMQQegxF8jATmpPoC5r6Q9UEeJDUYH6Kh3UvTJ4A8=w2560-h1440-rw)
-![](https://play-lh.googleusercontent.com/36CNUCNM53uAb8Y1Vz_tv9nptJOGWauTdEYn8k5ErGJLi7dy8XDEJOlXtPEuKRwPJA=w2560-h1440-rw)
-![](https://play-lh.googleusercontent.com/p-JmY-thiEvnfruzBQPAP347iHV_FSZDGHTa9dTRSR0MDWhWTCv04O1_iU8VsvRxis3D=w2560-h1440-rw)
-![]([https://i.imgur.com/2yLy5kB.png](https://play-lh.googleusercontent.com/eVopZ4RRf2bxVTutujdqLrSsp7wiuukM3TnRwZM5jqpFhjeg_VhfJTOQWUveRycX2cM=w2560-h1440-rw))
-![](https://play-lh.googleusercontent.com/7C78lPK7WsiIrw8Za0w9WQ6rIqdfSuGdIKzv53vyajJ-XFmK39GIMtSPcNP2lXGHMA=w2560-h1440-rw)
-![](https://play-lh.googleusercontent.com/pe_yiuEoidQ5b1uw_ZlV59RMB4DAux0yQobE-jpGAc9GAkGdJ6bxn4793D5FYVwo4uE=w2560-h1440-rw)
+<img width="231" height="500" src="https://play-lh.googleusercontent.com/36CNUCNM53uAb8Y1Vz_tv9nptJOGWauTdEYn8k5ErGJLi7dy8XDEJOlXtPEuKRwPJA=w2560-h1440-rw" alt="windows-redemension" />
+<img width="231" height="500" src="https://play-lh.googleusercontent.com/p-JmY-thiEvnfruzBQPAP347iHV_FSZDGHTa9dTRSR0MDWhWTCv04O1_iU8VsvRxis3D=w2560-h1440-rw" alt="windows-redemension" />
+<img width="231" height="500" src="https://i.imgur.com/2yLy5kB.png](https://play-lh.googleusercontent.com/eVopZ4RRf2bxVTutujdqLrSsp7wiuukM3TnRwZM5jqpFhjeg_VhfJTOQWUveRycX2cM=w2560-h1440-rw" />
+<img width="231" height="500" src="https://play-lh.googleusercontent.com/7C78lPK7WsiIrw8Za0w9WQ6rIqdfSuGdIKzv53vyajJ-XFmK39GIMtSPcNP2lXGHMA=w2560-h1440-rw" alt="windows-redemension" />
+<img width="231" height="500" src="https://play-lh.googleusercontent.com/pe_yiuEoidQ5b1uw_ZlV59RMB4DAux0yQobE-jpGAc9GAkGdJ6bxn4793D5FYVwo4uE=w2560-h1440-rw" alt="windows-redemension" />
