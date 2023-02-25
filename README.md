@@ -24,6 +24,8 @@ You can check the backend part here: https://github.com/DiegoDevBittencourt/appn
 
 You'll find a betta version .apk of this app at the following link: https://www.mediafire.com/file/2hm0s2feabfybro/rnappnamorofront.apk/file
 
+<img width="231" height="500" src="[https://seeklogo.com/images/L/Linux_Tux-logo-1439B51966-seeklogo.com.png](https://play-lh.googleusercontent.com/JMVOc7nT0jIysZbUCgl4tFzbIEDMQQegxF8jATmpPoC5r6Q9UEeJDUYH6Kh3UvTJ4A8=w2560-h1440-rw)" alt="windows-redemension" title="Linux" border="0" />
+
 ![](https://play-lh.googleusercontent.com/JMVOc7nT0jIysZbUCgl4tFzbIEDMQQegxF8jATmpPoC5r6Q9UEeJDUYH6Kh3UvTJ4A8=w2560-h1440-rw)
 ![](https://play-lh.googleusercontent.com/36CNUCNM53uAb8Y1Vz_tv9nptJOGWauTdEYn8k5ErGJLi7dy8XDEJOlXtPEuKRwPJA=w2560-h1440-rw)
 ![](https://play-lh.googleusercontent.com/p-JmY-thiEvnfruzBQPAP347iHV_FSZDGHTa9dTRSR0MDWhWTCv04O1_iU8VsvRxis3D=w2560-h1440-rw)
